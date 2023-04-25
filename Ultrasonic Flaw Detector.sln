@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33530.505
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Ultrasonic Flaw Detector", "Ultrasonic Flaw Detector.vcxproj", "{E84BE0F0-94A4-4D36-9E47-42B172E1D75F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E84BE0F0-94A4-4D36-9E47-42B172E1D75F}.Debug|x64.ActiveCfg = Debug|x64
+		{E84BE0F0-94A4-4D36-9E47-42B172E1D75F}.Debug|x64.Build.0 = Debug|x64
+		{E84BE0F0-94A4-4D36-9E47-42B172E1D75F}.Release|x64.ActiveCfg = Release|x64
+		{E84BE0F0-94A4-4D36-9E47-42B172E1D75F}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {947E28ED-9D68-4AD7-99E2-73FBEBBF721E}
+	EndGlobalSection
+EndGlobal
