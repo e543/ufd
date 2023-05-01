@@ -1,13 +1,13 @@
 /********************************************************************************
-** Form generated from reading UI file 'MainWindowNuvUuI.ui'
+** Form generated from reading UI file 'MainWindowcsjTuc.ui'
 **
 ** Created by: Qt User Interface Compiler version 5.15.2
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
 
-#ifndef MAINWINDOWNUVUUI_H
-#define MAINWINDOWNUVUUI_H
+#ifndef MAINWINDOWCSJTUC_H
+#define MAINWINDOWCSJTUC_H
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
@@ -22,7 +22,6 @@
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSpacerItem>
-#include <QtWidgets/QSpinBox>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
@@ -143,7 +142,6 @@ public:
     QLabel *label_58;
     QLineEdit *lineEdit_35;
     QLabel *label_59;
-    QSpinBox *spinBox;
 
     void setupUi(QMainWindow *MainWindow)
     {
@@ -903,10 +901,6 @@ public:
         label_59 = new QLabel(groupBox_4);
         label_59->setObjectName(QString::fromUtf8("label_59"));
         label_59->setGeometry(QRect(60, 10, 16, 21));
-        spinBox = new QSpinBox(frame);
-        spinBox->setObjectName(QString::fromUtf8("spinBox"));
-        spinBox->setGeometry(QRect(40, 430, 42, 22));
-        spinBox->setValue(0);
 
         verticalLayout_3->addWidget(frame);
 
@@ -999,4 +993,4 @@ namespace Ui {
 
 QT_END_NAMESPACE
 
-#endif // MAINWINDOWNUVUUI_H
+#endif // MAINWINDOWCSJTUC_H
