@@ -102,6 +102,7 @@
     <QtMoc Include="MainWindow.h" />
   </ItemGroup>
   <ItemGroup>
+    <QtUic Include="ColorScheme.ui" />
     <QtUic Include="MainWindow.ui" />
     <QtUic Include="UnitSettings.ui" />
   </ItemGroup>

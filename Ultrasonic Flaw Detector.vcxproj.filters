@@ -80,5 +80,8 @@
     <QtUic Include="UnitSettings.ui">
       <Filter>Form Files</Filter>
     </QtUic>
+    <QtUic Include="ColorScheme.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
   </ItemGroup>
 </Project>
