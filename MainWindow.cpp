@@ -1,7 +1,7 @@
 #include "MainWindow.h"
 
 
-MainWindow::MainWindow(QWidget* parent) : context(new Context) , settings(new Settings)
+MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), context(new Context) , settings(new Settings)
 {
     initMainWindow();
     initColorSchemeWidget();
@@ -22,20 +22,14 @@ MainWindow::~MainWindow()
 
 void MainWindow::initMainWindow()
 {
+    ui.setupUi(this);
+
     settings->availableSize = QDesktopWidget().availableGeometry(this).size();
     updateSettings();
 
-    auto const size = settings->availableSize;
-    if (objectName().isEmpty())
-        setObjectName(QString::fromUtf8("Ultrasonic Flaw Detector"));
-    resize(size*settings->percentage);
-
-    centralWidget = new QWidget(this);
-    centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
-
-    initGraphicsView(); 
+    /*initGraphicsView(); 
     initSecondaryView();
-    initMultiChannelScanning();
+    initMultiChannelScanning();*/
 
     QMetaObject::connectSlotsByName(this);
 }

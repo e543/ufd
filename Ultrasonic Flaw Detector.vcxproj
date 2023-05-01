@@ -96,8 +96,12 @@
     <ClInclude Include="ApplicationController.h" />
     <ClInclude Include="ColorSchemeWidget.h" />
     <ClInclude Include="ConnectionManager.h" />
+    <ClInclude Include="ui_MainWindow.h" />
     <ClInclude Include="UnitSettingsWidget.h" />
     <QtMoc Include="MainWindow.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtUic Include="MainWindow.ui" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

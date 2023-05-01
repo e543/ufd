@@ -66,5 +66,13 @@
     <ClInclude Include="UnitSettingsWidget.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ui_MainWindow.h">
+      <Filter>Form Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <QtUic Include="MainWindow.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
   </ItemGroup>
 </Project>

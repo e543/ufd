@@ -1,9 +1,9 @@
 #pragma once
 #include <QtWidgets>
-#include <QtWidgets/QMainWindow>
 #include <QtCharts>
 #include <QChartView>
 #include "ApplicationController.h"
+#include "ui_MainWindow.h"
 
 struct Settings
 {
@@ -25,8 +25,8 @@ class MainWindow : public QMainWindow
     Settings* settings;
     Context* context;
 
-    ColorSchemeWidget* colorScheme;
-    UnitSettingsWidget* unitSettings;
+    ColorSchemeWidget* colorScheme = nullptr;
+    UnitSettingsWidget* unitSettings = nullptr;
 
     QWidget* centralWidget = nullptr;
     QWidget* MultiChannelScanningWidget = nullptr;
@@ -51,6 +51,8 @@ class MainWindow : public QMainWindow
     Settings* getSettings();
 
     void resizeEvent(QResizeEvent* event) override;
+
+    Ui::MainWindow ui;
 public:
     MainWindow(QWidget* parent = nullptr);
     ~MainWindow();
