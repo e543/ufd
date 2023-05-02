@@ -96,8 +96,6 @@
     <ClInclude Include="ApplicationController.h" />
     <ClInclude Include="ColorSchemeWidget.h" />
     <ClInclude Include="ConnectionManager.h" />
-    <ClInclude Include="ui_MainWindow.h" />
-    <ClInclude Include="ui_UnitSettings.h" />
     <ClInclude Include="UnitSettingsWidget.h" />
     <QtMoc Include="MainWindow.h" />
   </ItemGroup>

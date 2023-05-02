@@ -2004,17 +2004,11 @@
                   </disabled>
                  </palette>
                 </property>
-                <property name="layoutDirection">
-                 <enum>Qt::LeftToRight</enum>
-                </property>
                 <property name="autoFillBackground">
                  <bool>true</bool>
                 </property>
                 <property name="text">
                  <string/>
-                </property>
-                <property name="alignment">
-                 <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
                 </property>
                </widget>
               </item>

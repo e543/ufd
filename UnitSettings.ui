@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>700</width>
-    <height>467</height>
+    <width>691</width>
+    <height>399</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -29,7 +29,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Параметры</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
@@ -1331,7 +1331,7 @@
           </font>
          </property>
          <property name="text">
-          <string>Cancel</string>
+          <string>Отмена</string>
          </property>
         </widget>
        </item>

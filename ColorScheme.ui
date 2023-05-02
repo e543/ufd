@@ -7,23 +7,23 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>822</height>
+    <height>700</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
     <width>400</width>
-    <height>600</height>
+    <height>700</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
     <width>500</width>
-    <height>1000</height>
+    <height>800</height>
    </size>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Цветовая схема</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_4">
    <item>
@@ -35,6 +35,12 @@
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
+       </property>
+       <property name="font">
+        <font>
+         <family>Arial</family>
+         <pointsize>9</pointsize>
+        </font>
        </property>
        <property name="text">
         <string>Сетка</string>
@@ -50,6 +56,12 @@
         <layout class="QHBoxLayout" name="horizontalLayout_3">
          <item>
           <widget class="QLabel" name="label">
+           <property name="font">
+            <font>
+             <family>Arial</family>
+             <pointsize>9</pointsize>
+            </font>
+           </property>
            <property name="text">
             <string>x</string>
            </property>
@@ -62,6 +74,12 @@
           <layout class="QHBoxLayout" name="horizontalLayout_4">
            <item>
             <widget class="QLabel" name="label_2">
+             <property name="font">
+              <font>
+               <family>Arial</family>
+               <pointsize>9</pointsize>
+              </font>
+             </property>
              <property name="text">
               <string>y</string>
              </property>
@@ -78,11 +96,11 @@
      </item>
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout_5">
+       <property name="spacing">
+        <number>2</number>
+       </property>
        <item>
         <layout class="QVBoxLayout" name="verticalLayout_2">
-         <property name="sizeConstraint">
-          <enum>QLayout::SetMinAndMaxSize</enum>
-         </property>
          <item>
           <widget class="QLabel" name="label_4">
            <property name="sizePolicy">
@@ -96,6 +114,12 @@
              <width>0</width>
              <height>20</height>
             </size>
+           </property>
+           <property name="font">
+            <font>
+             <family>Arial</family>
+             <pointsize>9</pointsize>
+            </font>
            </property>
            <property name="text">
             <string>Толщина осцилл.</string>
@@ -152,6 +176,12 @@
              <height>20</height>
             </size>
            </property>
+           <property name="font">
+            <font>
+             <family>Arial</family>
+             <pointsize>9</pointsize>
+            </font>
+           </property>
            <property name="text">
             <string>Толщина осцилл.</string>
            </property>
@@ -181,6 +211,12 @@
       <layout class="QHBoxLayout" name="horizontalLayout_7">
        <item>
         <widget class="QLabel" name="label_7">
+         <property name="font">
+          <font>
+           <family>Arial</family>
+           <pointsize>9</pointsize>
+          </font>
+         </property>
          <property name="text">
           <string>Фон</string>
          </property>
@@ -188,70 +224,6 @@
        </item>
        <item>
         <widget class="QPushButton" name="pushButton_2">
-         <property name="palette">
-          <palette>
-           <active>
-            <colorrole role="Base">
-             <brush brushstyle="SolidPattern">
-              <color alpha="255">
-               <red>255</red>
-               <green>255</green>
-               <blue>255</blue>
-              </color>
-             </brush>
-            </colorrole>
-            <colorrole role="Window">
-             <brush brushstyle="SolidPattern">
-              <color alpha="255">
-               <red>254</red>
-               <green>254</green>
-               <blue>254</blue>
-              </color>
-             </brush>
-            </colorrole>
-           </active>
-           <inactive>
-            <colorrole role="Base">
-             <brush brushstyle="SolidPattern">
-              <color alpha="255">
-               <red>255</red>
-               <green>255</green>
-               <blue>255</blue>
-              </color>
-             </brush>
-            </colorrole>
-            <colorrole role="Window">
-             <brush brushstyle="SolidPattern">
-              <color alpha="255">
-               <red>254</red>
-               <green>254</green>
-               <blue>254</blue>
-              </color>
-             </brush>
-            </colorrole>
-           </inactive>
-           <disabled>
-            <colorrole role="Base">
-             <brush brushstyle="SolidPattern">
-              <color alpha="255">
-               <red>254</red>
-               <green>254</green>
-               <blue>254</blue>
-              </color>
-             </brush>
-            </colorrole>
-            <colorrole role="Window">
-             <brush brushstyle="SolidPattern">
-              <color alpha="255">
-               <red>254</red>
-               <green>254</green>
-               <blue>254</blue>
-              </color>
-             </brush>
-            </colorrole>
-           </disabled>
-          </palette>
-         </property>
          <property name="autoFillBackground">
           <bool>true</bool>
          </property>
@@ -266,16 +238,19 @@
       <layout class="QHBoxLayout" name="horizontalLayout_6">
        <item>
         <widget class="QLabel" name="label_6">
+         <property name="font">
+          <font>
+           <family>Arial</family>
+           <pointsize>9</pointsize>
+          </font>
+         </property>
          <property name="text">
-          <string>Фон</string>
+          <string>Осциллограмма</string>
          </property>
         </widget>
        </item>
        <item>
         <widget class="QPushButton" name="pushButton">
-         <property name="autoFillBackground">
-          <bool>true</bool>
-         </property>
          <property name="text">
           <string/>
          </property>
@@ -287,16 +262,19 @@
       <layout class="QHBoxLayout" name="horizontalLayout_8">
        <item>
         <widget class="QLabel" name="label_8">
+         <property name="font">
+          <font>
+           <family>Arial</family>
+           <pointsize>9</pointsize>
+          </font>
+         </property>
          <property name="text">
-          <string>Фон</string>
+          <string>Сетка</string>
          </property>
         </widget>
        </item>
        <item>
         <widget class="QPushButton" name="pushButton_3">
-         <property name="autoFillBackground">
-          <bool>true</bool>
-         </property>
          <property name="text">
           <string/>
          </property>
@@ -308,16 +286,19 @@
       <layout class="QHBoxLayout" name="horizontalLayout_9">
        <item>
         <widget class="QLabel" name="label_9">
+         <property name="font">
+          <font>
+           <family>Arial</family>
+           <pointsize>9</pointsize>
+          </font>
+         </property>
          <property name="text">
-          <string>Фон</string>
+          <string>Текст</string>
          </property>
         </widget>
        </item>
        <item>
         <widget class="QPushButton" name="pushButton_4">
-         <property name="autoFillBackground">
-          <bool>true</bool>
-         </property>
          <property name="text">
           <string/>
          </property>
@@ -329,16 +310,19 @@
       <layout class="QHBoxLayout" name="horizontalLayout_10">
        <item>
         <widget class="QLabel" name="label_10">
+         <property name="font">
+          <font>
+           <family>Arial</family>
+           <pointsize>9</pointsize>
+          </font>
+         </property>
          <property name="text">
-          <string>Фон</string>
+          <string>Строб 1 — АК</string>
          </property>
         </widget>
        </item>
        <item>
         <widget class="QPushButton" name="pushButton_5">
-         <property name="autoFillBackground">
-          <bool>true</bool>
-         </property>
          <property name="text">
           <string/>
          </property>
@@ -350,16 +334,19 @@
       <layout class="QHBoxLayout" name="horizontalLayout_11">
        <item>
         <widget class="QLabel" name="label_11">
+         <property name="font">
+          <font>
+           <family>Arial</family>
+           <pointsize>9</pointsize>
+          </font>
+         </property>
          <property name="text">
-          <string>Фон</string>
+          <string>Строб 2 — Деффект-внутренний</string>
          </property>
         </widget>
        </item>
        <item>
         <widget class="QPushButton" name="pushButton_6">
-         <property name="autoFillBackground">
-          <bool>true</bool>
-         </property>
          <property name="text">
           <string/>
          </property>
@@ -371,16 +358,19 @@
       <layout class="QHBoxLayout" name="horizontalLayout_12">
        <item>
         <widget class="QLabel" name="label_12">
+         <property name="font">
+          <font>
+           <family>Arial</family>
+           <pointsize>9</pointsize>
+          </font>
+         </property>
          <property name="text">
-          <string>Фон</string>
+          <string>Строб 3 — Деффект-наружний</string>
          </property>
         </widget>
        </item>
        <item>
         <widget class="QPushButton" name="pushButton_7">
-         <property name="autoFillBackground">
-          <bool>true</bool>
-         </property>
          <property name="text">
           <string/>
          </property>
@@ -392,16 +382,19 @@
       <layout class="QHBoxLayout" name="horizontalLayout_14">
        <item>
         <widget class="QLabel" name="label_14">
+         <property name="font">
+          <font>
+           <family>Arial</family>
+           <pointsize>9</pointsize>
+          </font>
+         </property>
          <property name="text">
-          <string>Фон</string>
+          <string>Разделитель</string>
          </property>
         </widget>
        </item>
        <item>
         <widget class="QPushButton" name="pushButton_9">
-         <property name="autoFillBackground">
-          <bool>true</bool>
-         </property>
          <property name="text">
           <string/>
          </property>
@@ -413,16 +406,19 @@
       <layout class="QHBoxLayout" name="horizontalLayout_13">
        <item>
         <widget class="QLabel" name="label_13">
+         <property name="font">
+          <font>
+           <family>Arial</family>
+           <pointsize>9</pointsize>
+          </font>
+         </property>
          <property name="text">
-          <string>Фон</string>
+          <string>Курсор</string>
          </property>
         </widget>
        </item>
        <item>
         <widget class="QPushButton" name="pushButton_8">
-         <property name="autoFillBackground">
-          <bool>true</bool>
-         </property>
          <property name="text">
           <string/>
          </property>
@@ -434,16 +430,19 @@
       <layout class="QHBoxLayout" name="horizontalLayout_15">
        <item>
         <widget class="QLabel" name="label_15">
+         <property name="font">
+          <font>
+           <family>Arial</family>
+           <pointsize>9</pointsize>
+          </font>
+         </property>
          <property name="text">
-          <string>Фон</string>
+          <string>Дефект</string>
          </property>
         </widget>
        </item>
        <item>
         <widget class="QPushButton" name="pushButton_10">
-         <property name="autoFillBackground">
-          <bool>true</bool>
-         </property>
          <property name="text">
           <string/>
          </property>
@@ -455,16 +454,19 @@
       <layout class="QHBoxLayout" name="horizontalLayout_16">
        <item>
         <widget class="QLabel" name="label_16">
+         <property name="font">
+          <font>
+           <family>Arial</family>
+           <pointsize>9</pointsize>
+          </font>
+         </property>
          <property name="text">
-          <string>Фон</string>
+          <string>Дефект продольный</string>
          </property>
         </widget>
        </item>
        <item>
         <widget class="QPushButton" name="pushButton_11">
-         <property name="autoFillBackground">
-          <bool>true</bool>
-         </property>
          <property name="text">
           <string/>
          </property>
@@ -476,16 +478,19 @@
       <layout class="QHBoxLayout" name="horizontalLayout_17">
        <item>
         <widget class="QLabel" name="label_17">
+         <property name="font">
+          <font>
+           <family>Arial</family>
+           <pointsize>9</pointsize>
+          </font>
+         </property>
          <property name="text">
-          <string>Фон</string>
+          <string>Дефект поперечный</string>
          </property>
         </widget>
        </item>
        <item>
         <widget class="QPushButton" name="pushButton_12">
-         <property name="autoFillBackground">
-          <bool>true</bool>
-         </property>
          <property name="text">
           <string/>
          </property>
@@ -497,16 +502,19 @@
       <layout class="QHBoxLayout" name="horizontalLayout_18">
        <item>
         <widget class="QLabel" name="label_18">
+         <property name="font">
+          <font>
+           <family>Arial</family>
+           <pointsize>9</pointsize>
+          </font>
+         </property>
          <property name="text">
-          <string>Фон</string>
+          <string>Расслоение</string>
          </property>
         </widget>
        </item>
        <item>
         <widget class="QPushButton" name="pushButton_13">
-         <property name="autoFillBackground">
-          <bool>true</bool>
-         </property>
          <property name="text">
           <string/>
          </property>
@@ -518,16 +526,19 @@
       <layout class="QHBoxLayout" name="horizontalLayout_19">
        <item>
         <widget class="QLabel" name="label_19">
+         <property name="font">
+          <font>
+           <family>Arial</family>
+           <pointsize>9</pointsize>
+          </font>
+         </property>
          <property name="text">
-          <string>Фон</string>
+          <string>Нет данных</string>
          </property>
         </widget>
        </item>
        <item>
         <widget class="QPushButton" name="pushButton_14">
-         <property name="autoFillBackground">
-          <bool>true</bool>
-         </property>
          <property name="text">
           <string/>
          </property>
@@ -539,16 +550,19 @@
       <layout class="QHBoxLayout" name="horizontalLayout_20">
        <item>
         <widget class="QLabel" name="label_20">
+         <property name="font">
+          <font>
+           <family>Arial</family>
+           <pointsize>9</pointsize>
+          </font>
+         </property>
          <property name="text">
-          <string>Фон</string>
+          <string>Ошибка: нет КС или стробов</string>
          </property>
         </widget>
        </item>
        <item>
         <widget class="QPushButton" name="pushButton_15">
-         <property name="autoFillBackground">
-          <bool>true</bool>
-         </property>
          <property name="text">
           <string/>
          </property>
@@ -560,16 +574,19 @@
       <layout class="QHBoxLayout" name="horizontalLayout_21">
        <item>
         <widget class="QLabel" name="label_21">
+         <property name="font">
+          <font>
+           <family>Arial</family>
+           <pointsize>9</pointsize>
+          </font>
+         </property>
          <property name="text">
-          <string>Фон</string>
+          <string>Нарушение АК</string>
          </property>
         </widget>
        </item>
        <item>
         <widget class="QPushButton" name="pushButton_16">
-         <property name="autoFillBackground">
-          <bool>true</bool>
-         </property>
          <property name="text">
           <string/>
          </property>
@@ -581,16 +598,19 @@
       <layout class="QHBoxLayout" name="horizontalLayout_22">
        <item>
         <widget class="QLabel" name="label_22">
+         <property name="font">
+          <font>
+           <family>Arial</family>
+           <pointsize>9</pointsize>
+          </font>
+         </property>
          <property name="text">
-          <string>Фон</string>
+          <string>Норма</string>
          </property>
         </widget>
        </item>
        <item>
         <widget class="QPushButton" name="pushButton_17">
-         <property name="autoFillBackground">
-          <bool>true</bool>
-         </property>
          <property name="text">
           <string/>
          </property>
@@ -630,6 +650,12 @@
        </property>
        <item>
         <widget class="QPushButton" name="okButton">
+         <property name="font">
+          <font>
+           <family>Arial</family>
+           <pointsize>9</pointsize>
+          </font>
+         </property>
          <property name="text">
           <string>Применить</string>
          </property>
@@ -637,8 +663,14 @@
        </item>
        <item>
         <widget class="QPushButton" name="cancelButton">
+         <property name="font">
+          <font>
+           <family>Arial</family>
+           <pointsize>9</pointsize>
+          </font>
+         </property>
          <property name="text">
-          <string>Cancel</string>
+          <string>Отмена</string>
          </property>
         </widget>
        </item>
