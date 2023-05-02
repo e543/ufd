@@ -3,7 +3,6 @@
 #include <QtCharts>
 #include <QChartView>
 #include "ApplicationController.h"
-#include "ui_MainWindow.h"
 
 struct Settings
 {
@@ -25,23 +24,12 @@ class MainWindow : public QMainWindow
     Settings* settings;
     Context* context;
 
-    ColorSchemeWidget* colorScheme = nullptr;
-    UnitSettingsWidget* unitSettings = nullptr;
-
-    QWidget* centralWidget = nullptr;
-    QWidget* MultiChannelScanningWidget = nullptr;
-    QMap<QString, QChartView*> channels;
-
-    QChartView* graphicsView = nullptr;
-    QChartView* secondaryView = nullptr;
-    QVBoxLayout* MultiChannelVerticalLayout = nullptr;
-    QHBoxLayout* MultiChannelHorizontalLayout = nullptr;
-
-    
+    ColorSchemeDialog* colorScheme = nullptr;
+    UnitSettingsDialog* unitSettings = nullptr;
 
     void initMainWindow();
-    void initColorSchemeWidget();
-    void initUnitSettingsWidget();
+    void initColorSchemeDialog();
+    void initUnitSettingsDialog();
     void initGraphicsView();
     void initSecondaryView();
     void initMultiChannelScanning();
@@ -52,7 +40,7 @@ class MainWindow : public QMainWindow
 
     void resizeEvent(QResizeEvent* event) override;
 
-    Ui::MainWindow ui;
+    Ui::MainWindow ui_MainWindow;
 public:
     MainWindow(QWidget* parent = nullptr);
     ~MainWindow();

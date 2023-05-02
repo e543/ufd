@@ -1,24 +1,17 @@
 #pragma once
-#include <QtWidgets>
-#include <QtCharts>
-#include <QChartView>
-
 #include "ConnectionManager.h"
-#include "ColorSchemeWidget.h"
-#include "UnitSettingsWidget.h"
+#include "ColorSchemeDialog.h"
+#include "UnitSettingsDialog.h"
+
+#include "ui_MainWindow.h"
+#include "UnitSettingsDialog.h"
+#include "ColorSchemeDialog.h"
 
 struct Context
 {
-    QWidget* centralWidget = nullptr;
-    ColorSchemeWidget* coloreScheme = nullptr;
-    UnitSettingsWidget* unitSettings = nullptr;
-    QWidget* MultiChannelScanningWidget = nullptr;
-    QMap<QString, QChartView*> channels;
-
-    QChartView* graphicsView = nullptr;
-    QChartView* secondaryView = nullptr;
-    QVBoxLayout* MultiChannelVerticalLayout = nullptr;
-    QHBoxLayout* MultiChannelHorizontalLayout = nullptr;
+    Ui::MainWindow ui_MainWindow;
+    Ui::UnitSettings ui_UnitSettings;
+    Ui::ColorScheme ui_ColorScheme;
 };
 
 class ApplicationController

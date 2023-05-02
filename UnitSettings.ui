@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Dialog</class>
- <widget class="QDialog" name="Dialog">
+ <class>UnitSettings</class>
+ <widget class="QDialog" name="UnitSettings">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -1359,7 +1359,7 @@
   <connection>
    <sender>okButton</sender>
    <signal>clicked()</signal>
-   <receiver>Dialog</receiver>
+   <receiver>UnitSettings</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -1375,7 +1375,7 @@
   <connection>
    <sender>cancelButton</sender>
    <signal>clicked()</signal>
-   <receiver>Dialog</receiver>
+   <receiver>UnitSettings</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">

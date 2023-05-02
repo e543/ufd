@@ -85,18 +85,18 @@
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="ApplicationController.cpp" />
-    <ClCompile Include="ColorSchemeWidget.cpp" />
+    <ClCompile Include="ColorSchemeDialog.cpp" />
     <ClCompile Include="ConnectionManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainWindow.cpp" />
-    <ClCompile Include="UnitSettingsWidget.cpp" />
+    <ClCompile Include="UnitSettingsDialog.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />
     <ClInclude Include="ApplicationController.h" />
-    <ClInclude Include="ColorSchemeWidget.h" />
+    <ClInclude Include="ColorSchemeDialog.h" />
     <ClInclude Include="ConnectionManager.h" />
-    <ClInclude Include="UnitSettingsWidget.h" />
+    <ClInclude Include="UnitSettingsDialog.h" />
     <QtMoc Include="MainWindow.h" />
   </ItemGroup>
   <ItemGroup>
