@@ -1,15 +1,19 @@
 #pragma once
 #include <QtWidgets>
 #include "ui_UnitSettings.h"
+#include "ColorSchemeDialog.h"
 
 class UnitSettingsDialog : public QDialog
 {
-	Ui::UnitSettings ui_UnitSettings;
+	Q_OBJECT
+	Ui::UnitSettings* ui;
+	ColorSchemeDialog* colorScheme = nullptr;
+private slots:
+	void on_ColorSchemeClicked();
 public:
-	UnitSettingsDialog(QWidget* parent = nullptr) : QDialog(parent) 
-	{
-		ui_UnitSettings.setupUi(this);
-	};
-	Ui::UnitSettings& getUi();
+	UnitSettingsDialog(QWidget* parent);
+	~UnitSettingsDialog();
+	Ui::UnitSettings* getUi();
+	ColorSchemeDialog* getColorSchemeDialog();
 };
 

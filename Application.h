@@ -1,7 +1,6 @@
 #pragma once
 #include <QtWidgets/QApplication>
 
-#include "ApplicationController.h"
 #include "MainWindow.h"
 
 class Application : public QApplication

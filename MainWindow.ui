@@ -1005,7 +1005,7 @@
               <rect>
                <x>0</x>
                <y>20</y>
-               <width>221</width>
+               <width>227</width>
                <height>32</height>
               </rect>
              </property>
@@ -1174,7 +1174,7 @@
                </widget>
               </item>
               <item>
-               <widget class="QPushButton" name="pushButton_3">
+               <widget class="QPushButton" name="SettingsButton">
                 <property name="minimumSize">
                  <size>
                   <width>0</width>

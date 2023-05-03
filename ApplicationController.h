@@ -9,9 +9,9 @@
 
 struct Context
 {
-    Ui::MainWindow ui_MainWindow;
-    Ui::UnitSettings ui_UnitSettings;
-    Ui::ColorScheme ui_ColorScheme;
+    Ui::MainWindow* ui_MainWindow;
+    Ui::UnitSettings* ui_UnitSettings;
+    Ui::ColorScheme* ui_ColorScheme;
 };
 
 class ApplicationController

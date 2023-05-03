@@ -4,13 +4,11 @@
 
 class ColorSchemeDialog : public QDialog
 {
-	Ui::ColorScheme ui_ColorScheme;
+	Q_OBJECT
+	Ui::ColorScheme *ui;
 public:
-	ColorSchemeDialog(QWidget* parent = nullptr) : QDialog(parent) 
-	{
-		ui_ColorScheme.setupUi(this);
-	};
-
-	Ui::ColorScheme& getUi();
+	ColorSchemeDialog(QWidget* parent);
+	~ColorSchemeDialog();
+	Ui::ColorScheme* getUi();
 };
 

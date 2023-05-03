@@ -24,15 +24,12 @@ class MainWindow : public QMainWindow
     Settings* settings;
     Context* context;
 
-    ColorSchemeDialog* colorScheme = nullptr;
     UnitSettingsDialog* unitSettings = nullptr;
 
     void initMainWindow();
-    void initColorSchemeDialog();
     void initUnitSettingsDialog();
     void initGraphicsView();
     void initSecondaryView();
-    void initMultiChannelScanning();
     void updateSettings();
     void bindContext();
     Context* getContext();
@@ -40,7 +37,13 @@ class MainWindow : public QMainWindow
 
     void resizeEvent(QResizeEvent* event) override;
 
-    Ui::MainWindow ui_MainWindow;
+    Ui::MainWindow* ui;
+private slots:
+    void on_SettingsClicked();
+
+protected:
+    void closeEvent(QCloseEvent* event);
+    bool eventFilter(QObject* obj, QEvent* e);
 public:
     MainWindow(QWidget* parent = nullptr);
     ~MainWindow();

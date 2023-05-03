@@ -1,6 +1,19 @@
 #include "ColorSchemeDialog.h"
 
-Ui::ColorScheme& ColorSchemeDialog::getUi()
+ColorSchemeDialog::ColorSchemeDialog(QWidget* parent = nullptr) : QDialog(parent), ui(new Ui::ColorScheme)
 {
-	return ui_ColorScheme;
+	this->setWindowFlags(this->windowFlags() & ~Qt::WindowContextHelpButtonHint);
+
+	ui->setupUi(this);
+
+};
+
+ColorSchemeDialog::~ColorSchemeDialog()
+{
+	delete ui;
+}
+
+Ui::ColorScheme* ColorSchemeDialog::getUi()
+{
+	return ui;
 }

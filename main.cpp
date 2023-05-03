@@ -7,6 +7,9 @@ int main(int argc, char* argv[])
     auto& w = app.getMainWindow();
     w.show();
 
+    app.setAttribute(Qt::AA_DisableWindowContextHelpButton);
+    QObject::connect(&app, SIGNAL(messageReceived(QString)), &w, SLOT(handleMessage(QString)));
+
     try
     {
         return app.exec();

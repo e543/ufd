@@ -94,9 +94,9 @@
   <ItemGroup>
     <ClInclude Include="Application.h" />
     <ClInclude Include="ApplicationController.h" />
-    <ClInclude Include="ColorSchemeDialog.h" />
+    <QtMoc Include="ColorSchemeDialog.h" />
     <ClInclude Include="ConnectionManager.h" />
-    <ClInclude Include="UnitSettingsDialog.h" />
+    <QtMoc Include="UnitSettingsDialog.h" />
     <QtMoc Include="MainWindow.h" />
   </ItemGroup>
   <ItemGroup>

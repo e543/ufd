@@ -1,7 +1,16 @@
 #include "MainWindow.h"
 
 
-MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), context(new Context) , settings(new Settings)
+void MainWindow::closeEvent(QCloseEvent* event)
+{
+}
+
+bool MainWindow::eventFilter(QObject* obj, QEvent* e)
+{
+    return false;
+}
+
+MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWindow), context(new Context) , settings(new Settings)
 {
     initMainWindow();
     initUnitSettingsDialog();
@@ -10,28 +19,25 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), context(new Conte
 
 MainWindow::~MainWindow()
 {
-    if (colorScheme) delete colorScheme;
     if (unitSettings) delete unitSettings;
+    delete ui;
 }
 
 void MainWindow::initMainWindow()
 {
-    ui_MainWindow.setupUi(this);
+    ui->setupUi(this);
 
     settings->availableSize = QDesktopWidget().availableGeometry(this).size();
     updateSettings();
 }
 
-void MainWindow::initColorSchemeDialog()
-{
-    if (unitSettings)
-        colorScheme = new ColorSchemeDialog(unitSettings);
-}
-
 void MainWindow::initUnitSettingsDialog()
 {
+    if (unitSettings)
+        return;
+
     unitSettings = new UnitSettingsDialog(this);
-    initColorSchemeDialog();
+    connect(ui->SettingsButton, SIGNAL(clicked()), this, SLOT(on_SettingsClicked()));
 }
 
 void MainWindow::updateSettings()
@@ -41,9 +47,9 @@ void MainWindow::updateSettings()
 
 void MainWindow::bindContext()
 {
-    context->ui_MainWindow = ui_MainWindow;
+    context->ui_MainWindow = ui;
     context->ui_UnitSettings = unitSettings->getUi();
-    context->ui_ColorScheme = colorScheme->getUi();
+    //context->ui_ColorScheme = unitSettings->getColorSchemeDialog()->getUi();
 }
 
 void MainWindow::initGraphicsView()
@@ -69,4 +75,10 @@ Context* MainWindow::getContext()
 Settings* MainWindow::getSettings()
 {
 	return settings;
+}
+
+void MainWindow::on_SettingsClicked()
+{
+    if (unitSettings) 
+        unitSettings->exec();
 }
