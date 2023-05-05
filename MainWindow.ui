@@ -102,7 +102,7 @@
               <property name="sizeHint" stdset="0">
                <size>
                 <width>300</width>
-                <height>20</height>
+                <height>30</height>
                </size>
               </property>
              </spacer>
@@ -117,30 +117,19 @@
            </widget>
           </item>
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_22">
-            <property name="spacing">
-             <number>0</number>
-            </property>
+           <layout class="QHBoxLayout" name="horizontalLayout_sum">
             <item>
-             <widget class="QLabel" name="label_15">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                <horstretch>60</horstretch>
-                <verstretch>20</verstretch>
-               </sizepolicy>
-              </property>
+             <widget class="QLabel" name="label_8">
               <property name="minimumSize">
                <size>
                 <width>60</width>
-                <height>20</height>
+                <height>30</height>
                </size>
               </property>
               <property name="font">
                <font>
                 <family>Times New Roman</family>
                 <pointsize>26</pointsize>
-                <weight>50</weight>
-                <bold>false</bold>
                </font>
               </property>
               <property name="text">
@@ -148,22 +137,6 @@
               </property>
               <property name="alignment">
                <set>Qt::AlignCenter</set>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QGraphicsView" name="graphicsView_4">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="MinimumExpanding" vsizetype="Expanding">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>3000</width>
-                <height>3000</height>
-               </size>
               </property>
              </widget>
             </item>
@@ -177,15 +150,15 @@
            </widget>
           </item>
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_21">
+           <layout class="QHBoxLayout" name="horizontalLayout_1prv">
             <property name="spacing">
              <number>0</number>
             </property>
             <item>
-             <widget class="QLabel" name="label_16">
+             <widget class="QLabel" name="label_1prv">
               <property name="sizePolicy">
-               <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                <horstretch>0</horstretch>
+               <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+                <horstretch>60</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
               </property>
@@ -195,27 +168,17 @@
                 <height>40</height>
                </size>
               </property>
+              <property name="maximumSize">
+               <size>
+                <width>60</width>
+                <height>16777215</height>
+               </size>
+              </property>
               <property name="text">
                <string>1-ПР.В</string>
               </property>
               <property name="alignment">
                <set>Qt::AlignCenter</set>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QGraphicsView" name="graphicsView_2">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="MinimumExpanding" vsizetype="Expanding">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>3000</width>
-                <height>3000</height>
-               </size>
               </property>
              </widget>
             </item>
@@ -229,15 +192,15 @@
            </widget>
           </item>
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_19">
+           <layout class="QHBoxLayout" name="horizontalLayout_1prn">
             <property name="spacing">
              <number>0</number>
             </property>
             <item>
-             <widget class="QLabel" name="label_8">
+             <widget class="QLabel" name="label_1prn">
               <property name="sizePolicy">
-               <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                <horstretch>0</horstretch>
+               <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+                <horstretch>60</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
               </property>
@@ -247,6 +210,12 @@
                 <height>40</height>
                </size>
               </property>
+              <property name="maximumSize">
+               <size>
+                <width>60</width>
+                <height>16777215</height>
+               </size>
+              </property>
               <property name="text">
                <string>1-ПР.НАР</string>
               </property>
@@ -254,9 +223,6 @@
                <set>Qt::AlignCenter</set>
               </property>
              </widget>
-            </item>
-            <item>
-             <widget class="QGraphicsView" name="graphicsView_5"/>
             </item>
            </layout>
           </item>
@@ -268,15 +234,15 @@
            </widget>
           </item>
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_18">
+           <layout class="QHBoxLayout" name="horizontalLayout_2prv">
             <property name="spacing">
              <number>0</number>
             </property>
             <item>
-             <widget class="QLabel" name="label_9">
+             <widget class="QLabel" name="label_2prv">
               <property name="sizePolicy">
-               <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                <horstretch>0</horstretch>
+               <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+                <horstretch>60</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
               </property>
@@ -286,6 +252,12 @@
                 <height>40</height>
                </size>
               </property>
+              <property name="maximumSize">
+               <size>
+                <width>60</width>
+                <height>16777215</height>
+               </size>
+              </property>
               <property name="text">
                <string>2-ПР.ВН</string>
               </property>
@@ -293,9 +265,6 @@
                <set>Qt::AlignCenter</set>
               </property>
              </widget>
-            </item>
-            <item>
-             <widget class="QGraphicsView" name="graphicsView_6"/>
             </item>
            </layout>
           </item>
@@ -307,21 +276,15 @@
            </widget>
           </item>
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_17">
+           <layout class="QHBoxLayout" name="horizontalLayout_2prn">
             <property name="spacing">
              <number>0</number>
             </property>
-            <property name="leftMargin">
-             <number>0</number>
-            </property>
-            <property name="rightMargin">
-             <number>0</number>
-            </property>
             <item>
-             <widget class="QLabel" name="label_10">
+             <widget class="QLabel" name="label_2prn">
               <property name="sizePolicy">
-               <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                <horstretch>0</horstretch>
+               <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+                <horstretch>60</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
               </property>
@@ -331,6 +294,12 @@
                 <height>40</height>
                </size>
               </property>
+              <property name="maximumSize">
+               <size>
+                <width>60</width>
+                <height>16777215</height>
+               </size>
+              </property>
               <property name="text">
                <string>2-ПР.НАР</string>
               </property>
@@ -338,9 +307,6 @@
                <set>Qt::AlignCenter</set>
               </property>
              </widget>
-            </item>
-            <item>
-             <widget class="QGraphicsView" name="graphicsView_7"/>
             </item>
            </layout>
           </item>
@@ -352,15 +318,15 @@
            </widget>
           </item>
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_16">
+           <layout class="QHBoxLayout" name="horizontalLayout_3pov">
             <property name="spacing">
              <number>0</number>
             </property>
             <item>
-             <widget class="QLabel" name="label_11">
+             <widget class="QLabel" name="label_3pov">
               <property name="sizePolicy">
-               <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                <horstretch>0</horstretch>
+               <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+                <horstretch>60</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
               </property>
@@ -370,6 +336,12 @@
                 <height>40</height>
                </size>
               </property>
+              <property name="maximumSize">
+               <size>
+                <width>60</width>
+                <height>16777215</height>
+               </size>
+              </property>
               <property name="text">
                <string>3-ПО.ВН</string>
               </property>
@@ -377,9 +349,6 @@
                <set>Qt::AlignCenter</set>
               </property>
              </widget>
-            </item>
-            <item>
-             <widget class="QGraphicsView" name="graphicsView_8"/>
             </item>
            </layout>
           </item>
@@ -391,15 +360,15 @@
            </widget>
           </item>
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_13">
+           <layout class="QHBoxLayout" name="horizontalLayout_3pon">
             <property name="spacing">
              <number>0</number>
             </property>
             <item>
-             <widget class="QLabel" name="label_12">
+             <widget class="QLabel" name="label_3pon">
               <property name="sizePolicy">
-               <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                <horstretch>0</horstretch>
+               <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+                <horstretch>60</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
               </property>
@@ -409,6 +378,12 @@
                 <height>40</height>
                </size>
               </property>
+              <property name="maximumSize">
+               <size>
+                <width>60</width>
+                <height>16777215</height>
+               </size>
+              </property>
               <property name="text">
                <string>3-ПО.НАР</string>
               </property>
@@ -416,9 +391,6 @@
                <set>Qt::AlignCenter</set>
               </property>
              </widget>
-            </item>
-            <item>
-             <widget class="QGraphicsView" name="graphicsView_9"/>
             </item>
            </layout>
           </item>
@@ -430,15 +402,15 @@
            </widget>
           </item>
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_11">
+           <layout class="QHBoxLayout" name="horizontalLayout_4pov">
             <property name="spacing">
              <number>0</number>
             </property>
             <item>
-             <widget class="QLabel" name="label_13">
+             <widget class="QLabel" name="label_4pov">
               <property name="sizePolicy">
-               <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                <horstretch>0</horstretch>
+               <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+                <horstretch>60</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
               </property>
@@ -448,6 +420,12 @@
                 <height>40</height>
                </size>
               </property>
+              <property name="maximumSize">
+               <size>
+                <width>60</width>
+                <height>16777215</height>
+               </size>
+              </property>
               <property name="text">
                <string>4-ПО.ВН</string>
               </property>
@@ -455,9 +433,6 @@
                <set>Qt::AlignCenter</set>
               </property>
              </widget>
-            </item>
-            <item>
-             <widget class="QGraphicsView" name="graphicsView_10"/>
             </item>
            </layout>
           </item>
@@ -469,15 +444,15 @@
            </widget>
           </item>
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_8">
+           <layout class="QHBoxLayout" name="horizontalLayout_4pon">
             <property name="spacing">
              <number>0</number>
             </property>
             <item>
-             <widget class="QLabel" name="label_14">
+             <widget class="QLabel" name="label_4pon">
               <property name="sizePolicy">
-               <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                <horstretch>0</horstretch>
+               <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+                <horstretch>60</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
               </property>
@@ -487,6 +462,12 @@
                 <height>40</height>
                </size>
               </property>
+              <property name="maximumSize">
+               <size>
+                <width>60</width>
+                <height>16777215</height>
+               </size>
+              </property>
               <property name="text">
                <string>4-ПО.НАР</string>
               </property>
@@ -494,9 +475,6 @@
                <set>Qt::AlignCenter</set>
               </property>
              </widget>
-            </item>
-            <item>
-             <widget class="QGraphicsView" name="graphicsView_11"/>
             </item>
            </layout>
           </item>
@@ -508,15 +486,15 @@
            </widget>
           </item>
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_9">
+           <layout class="QHBoxLayout" name="horizontalLayout_5rl">
             <property name="spacing">
              <number>0</number>
             </property>
             <item>
-             <widget class="QLabel" name="label_17">
+             <widget class="QLabel" name="label_5rl">
               <property name="sizePolicy">
-               <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                <horstretch>0</horstretch>
+               <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+                <horstretch>60</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
               </property>
@@ -526,6 +504,12 @@
                 <height>40</height>
                </size>
               </property>
+              <property name="maximumSize">
+               <size>
+                <width>60</width>
+                <height>16777215</height>
+               </size>
+              </property>
               <property name="text">
                <string>5-РЛ</string>
               </property>
@@ -533,9 +517,6 @@
                <set>Qt::AlignCenter</set>
               </property>
              </widget>
-            </item>
-            <item>
-             <widget class="QGraphicsView" name="graphicsView_12"/>
             </item>
            </layout>
           </item>
@@ -547,15 +528,15 @@
            </widget>
           </item>
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_10">
+           <layout class="QHBoxLayout" name="horizontalLayout_6rl">
             <property name="spacing">
              <number>0</number>
             </property>
             <item>
-             <widget class="QLabel" name="label_18">
+             <widget class="QLabel" name="label_6rl">
               <property name="sizePolicy">
-               <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                <horstretch>0</horstretch>
+               <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+                <horstretch>60</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
               </property>
@@ -565,6 +546,12 @@
                 <height>40</height>
                </size>
               </property>
+              <property name="maximumSize">
+               <size>
+                <width>60</width>
+                <height>16777215</height>
+               </size>
+              </property>
               <property name="text">
                <string>6-РЛ</string>
               </property>
@@ -572,9 +559,6 @@
                <set>Qt::AlignCenter</set>
               </property>
              </widget>
-            </item>
-            <item>
-             <widget class="QGraphicsView" name="graphicsView_13"/>
             </item>
            </layout>
           </item>
@@ -881,28 +865,7 @@
           <item>
            <layout class="QHBoxLayout" name="horizontalLayout_12">
             <item>
-             <layout class="QVBoxLayout" name="verticalLayout_2">
-              <item>
-               <widget class="QGraphicsView" name="graphicsView">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QGraphicsView" name="graphicsView_3">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-               </widget>
-              </item>
-             </layout>
+             <layout class="QVBoxLayout" name="verticalLayout_main"/>
             </item>
            </layout>
           </item>

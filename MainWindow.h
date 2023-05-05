@@ -1,8 +1,7 @@
 #pragma once
 #include <QtWidgets>
-#include <QtCharts>
-#include <QChartView>
 #include "ApplicationController.h"
+#include <QtCharts>
 
 struct Settings
 {
@@ -23,13 +22,16 @@ class MainWindow : public QMainWindow
 
     Settings* settings;
     Context* context;
+    QMap<QString,QChart*> charts;
+    QVector<QChartView*> chartViews;
 
     UnitSettingsDialog* unitSettings = nullptr;
 
+    void initMainChartViews();
     void initMainWindow();
     void initUnitSettingsDialog();
-    void initGraphicsView();
-    void initSecondaryView();
+    void initChartViews();
+    void addChartView(QBoxLayout* layout, QString name);
     void updateSettings();
     void bindContext();
     Context* getContext();

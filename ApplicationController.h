@@ -2,10 +2,7 @@
 #include "ConnectionManager.h"
 #include "ColorSchemeDialog.h"
 #include "UnitSettingsDialog.h"
-
 #include "ui_MainWindow.h"
-#include "UnitSettingsDialog.h"
-#include "ColorSchemeDialog.h"
 
 struct Context
 {
