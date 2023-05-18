@@ -3,12 +3,14 @@
 #include "ColorSchemeDialog.h"
 #include "UnitSettingsDialog.h"
 #include "ui_MainWindow.h"
+#include "ChartWidget.h"
 
 struct Context
 {
     Ui::MainWindow* ui_MainWindow;
     Ui::UnitSettings* ui_UnitSettings;
     Ui::ColorScheme* ui_ColorScheme;
+    ChartWidget* firstWidget;
 };
 
 class ApplicationController
@@ -18,7 +20,6 @@ class ApplicationController
 public:
     ApplicationController(Context* context) : context(context) 
     {
-        RenderContext();
     }
     void RenderContext();
 };

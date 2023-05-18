@@ -9,3 +9,8 @@ MainWindow& Application::getMainWindow()
 {
 	return mainWind;
 }
+
+ApplicationController* Application::getController()
+{
+	return appController;
+}

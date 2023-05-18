@@ -44,6 +44,12 @@
     <ClCompile Include="UnitSettingsDialog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ChartWidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="InteractiveStrobe.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="MainWindow.h">
@@ -53,6 +59,9 @@
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="UnitSettingsDialog.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="ChartWidget.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
@@ -66,6 +75,9 @@
     <ClInclude Include="ConnectionManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="InteractiveStrobe.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="MainWindow.ui">
@@ -77,5 +89,8 @@
     <QtUic Include="ColorScheme.ui">
       <Filter>Form Files</Filter>
     </QtUic>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="cpp.hint" />
   </ItemGroup>
 </Project>

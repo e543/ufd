@@ -1,6 +1,24 @@
 #include "MainWindow.h"
 
 
+
+
+void MainWindow::showEvent(QShowEvent* e)
+{
+    QMainWindow::showEvent(e);
+    static bool firstStart = true;
+    if (firstStart)
+    {
+        emit start();
+        firstStart = false;
+    }
+}
+
+void MainWindow::start()
+{
+    firstWidget->addStrobe({ 110,110 });
+}
+
 void MainWindow::closeEvent(QCloseEvent* event)
 {
 }
@@ -21,8 +39,7 @@ MainWindow::~MainWindow()
 {
     
     if (unitSettings) delete unitSettings;
-    for (auto* chart : charts) delete chart;
-    for (auto* chartView : chartViews) delete chartView;
+    for (auto* view : chartViews) delete view;
     delete ui;
 }
 
@@ -34,7 +51,7 @@ void MainWindow::initMainWindow()
     updateSettings();
 
     initMainChartViews();
-    initChartViews();
+    initChartViews(); 
 }
 
 void MainWindow::initUnitSettingsDialog()
@@ -56,6 +73,7 @@ void MainWindow::bindContext()
     context->ui_MainWindow = ui;
     context->ui_UnitSettings = unitSettings->getUi();
     context->ui_ColorScheme = unitSettings->getColorSchemeDialog()->getUi();
+    context->firstWidget = firstWidget;
 }
 
 void MainWindow::initChartViews()
@@ -67,7 +85,7 @@ void MainWindow::initChartViews()
     addChartView(ui->horizontalLayout_2prn, "2prn");
     addChartView(ui->horizontalLayout_3pov, "3pov");
     addChartView(ui->horizontalLayout_3pon, "3pon");
-    addChartView(ui->horizontalLayout_4pov, "_4pov");
+    addChartView(ui->horizontalLayout_4pov, "4pov");
     addChartView(ui->horizontalLayout_4pon, "4pon");
     addChartView(ui->horizontalLayout_5rl, "5rl");
     addChartView(ui->horizontalLayout_6rl, "6rl");
@@ -77,36 +95,32 @@ void MainWindow::initChartViews()
 
 void MainWindow::initMainChartViews()
 {
-    addChartView(ui->verticalLayout_main, "first");
+    firstWidget = new ChartWidget(ui->centralwidget);
+    auto* firstChart = firstWidget->getChart(); 
+    ui->verticalLayout_main->addWidget(firstWidget);
+    firstWidget->setObjectName("chartView_first");
+
+
+
     addChartView(ui->verticalLayout_main, "second");
+    auto* second = chartViews["second"];
+    auto* secondChart = second->chart();
 
-    auto* first = charts["first"];
-    auto* second = charts["second"];
-
-    QValueAxis* firstAxisX = new QValueAxis;
-    firstAxisX->setRange(0, 10);
-    QValueAxis* firstAxisY = new QValueAxis;
-    firstAxisY->setRange(0, 255);
-
-    first->addAxis(firstAxisX, Qt::AlignBottom);
-    first->addAxis(firstAxisY, Qt::AlignLeft);
-    first->legend()->hide();
-
-    QValueAxis* secondAxisX = new QValueAxis(firstAxisX);
+    QValueAxis* secondAxisX = new QValueAxis;
     secondAxisX->setRange(0, 10);
-    QValueAxis* secondAxisY = new QValueAxis(firstAxisY);
+    QValueAxis* secondAxisY = new QValueAxis;
     secondAxisY->setRange(0, 255);
-    second->addAxis(secondAxisX, Qt::AlignBottom);
-    second->addAxis(secondAxisY, Qt::AlignLeft);
-    second->legend()->hide();
+    secondChart->addAxis(secondAxisX, Qt::AlignBottom);
+    secondChart->addAxis(secondAxisY, Qt::AlignLeft);
+    secondChart->legend()->hide();
+
 }
 
 void MainWindow::addChartView(QBoxLayout* layout, QString name)
 {
-    QChart* chart = new QChart();
-    QChartView* chartView = new QChartView(ui->centralwidget);
-    charts[name] = chart;
-    chartViews.append(chartView);
+    auto* chart = new QChart();
+    auto* chartView = new QChartView(ui->centralwidget);
+    chartViews[name] = chartView;
     layout->addWidget(chartView);
 
     chartView->setObjectName("chartView_" + name);
@@ -122,7 +136,6 @@ void MainWindow::addChartView(QBoxLayout* layout, QString name)
     chart->layout()->setContentsMargins(0, 0, 0, 0);
     chart->setBackgroundRoundness(0);
     chart->setMargins(QMargins{ 0 , 0 ,0 , 0 });
-
 }
 
 void MainWindow::resizeEvent(QResizeEvent* event)
@@ -130,6 +143,7 @@ void MainWindow::resizeEvent(QResizeEvent* event)
     QMainWindow::resizeEvent(event);
     updateSettings();
 }
+
 Context* MainWindow::getContext()
 {
 	return context;

@@ -1,7 +1,6 @@
 #pragma once
 #include <QtWidgets>
 #include "ApplicationController.h"
-#include <QtCharts>
 
 struct Settings
 {
@@ -22,8 +21,8 @@ class MainWindow : public QMainWindow
 
     Settings* settings;
     Context* context;
-    QMap<QString,QChart*> charts;
-    QVector<QChartView*> chartViews;
+    QHash<QString, QChartView*> chartViews;
+    ChartWidget* firstWidget;
 
     UnitSettingsDialog* unitSettings = nullptr;
 
@@ -42,9 +41,10 @@ class MainWindow : public QMainWindow
     Ui::MainWindow* ui;
 private slots:
     void on_SettingsClicked();
-
+    void start();
 protected:
     void closeEvent(QCloseEvent* event);
+    void showEvent(QShowEvent* event);
     bool eventFilter(QObject* obj, QEvent* e);
 public:
     MainWindow(QWidget* parent = nullptr);

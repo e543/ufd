@@ -19,4 +19,5 @@ public:
 	};
 	const Context* getContext();
 	MainWindow& getMainWindow();
+	ApplicationController* getController();
 };
