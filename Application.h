@@ -15,7 +15,7 @@ public:
 	{
 		appController = new ApplicationController(mainWind.getContext());
 
-		appController->RenderContext();
+		appController->connectDataSeries();
 	};
 	const Context* getContext();
 	MainWindow& getMainWindow();

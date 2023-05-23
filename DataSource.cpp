@@ -26,12 +26,23 @@ void DataSource::startUpdates(QXYSeries* series)
     series->clear();
     m_series = series;
 
-    m_dataUpdater->setInterval(0);
+    m_dataUpdater->setInterval(20);
     m_dataUpdater->setSingleShot(true);
     QObject::connect(m_dataUpdater, &QTimer::timeout,
         this, &DataSource::update);
 
     update();
+}
+
+void DataSource::stopUpdates(QXYSeries* series = 0)
+{
+    if (!series)
+        series = m_series;
+
+    series->clear();
+
+    QObject::disconnect(m_dataUpdater, &QTimer::timeout,
+        this, &DataSource::update);
 }
 
 void DataSource::generateData(int rowCount, int colCount)
@@ -46,7 +57,7 @@ void DataSource::generateData(int rowCount, int colCount)
           qreal x(0);
           qreal y(0);
 
-          y = 6.0 * (j % 40) + 3* QRandomGenerator::global()->generateDouble();
+          y = 6.0 * (j % 40) + 10* QRandomGenerator::global()->generateDouble();
           x = j * (qreal(80.6) / colCount);
 
           points.append(QPointF(x, y));

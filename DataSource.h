@@ -10,7 +10,8 @@ class DataSource : public QObject
 public:
     explicit DataSource(QTimer* timer = 0);
     
-    void startUpdates(QXYSeries* seriesList);
+    void startUpdates(QXYSeries* series);
+    void stopUpdates(QXYSeries* series);
 
 public slots:
     void generateData(int rowCount, int colCount);

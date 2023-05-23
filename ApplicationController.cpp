@@ -1,8 +1,18 @@
 #include "ApplicationController.h"
 
-void ApplicationController::RenderContext()
+void ApplicationController::connectDataSeries()
 {
 	auto* chart= context->firstWidget->getChart();
 	auto* series = context->firstWidget->getSeries();
-	connectManager->setConnection(chart, series);
+	connectManager->setConnection(chart, series);	
+}
+
+void ApplicationController::startUpdateSecondSeries()
+{
+
+}
+
+void ApplicationController::updateSecondSeries()
+{
+	
 }
