@@ -2,6 +2,10 @@
 
 ChartWidget::ChartWidget(QWidget* parent, QChart* chart) : QChartView(chart, parent) , chart(chart)
 {
+	setDragMode(QGraphicsView::NoDrag);
+	setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+	setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+
 	if (!chart) {
 		chart = new QChart();
 		this->chart = chart;
@@ -13,13 +17,11 @@ ChartWidget::ChartWidget(QWidget* parent, QChart* chart) : QChartView(chart, par
 	chart->setMargins(QMargins{ 0 , 0 ,0 , 0 });
 
 	QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
-	sizePolicy.setHorizontalStretch(0);
-	sizePolicy.setVerticalStretch(0);
 	sizePolicy.setHeightForWidth(this->sizePolicy().hasHeightForWidth());
 	setSizePolicy(sizePolicy);
+	setMinimumSize(QSize(200, 300));
 	setMaximumSize(QSize(3000, 3000));
 	setRenderHint(QPainter::Antialiasing);
-
 
 	QValueAxis* axisX = new QValueAxis;
 	QValueAxis* axisY = new QValueAxis;
@@ -28,14 +30,18 @@ ChartWidget::ChartWidget(QWidget* parent, QChart* chart) : QChartView(chart, par
 	chart->addAxis(axisY, Qt::AlignLeft);
 	chart->legend()->hide();
 
-	axisX->setRange(0, 10);
+	axisX->setRange(0, 80.6);
 	axisY->setRange(0, 255);
 
-	QLineSeries* series = new QLineSeries;
+	series = new QLineSeries;
 	chart->addSeries(series);
 	series->attachAxis(axisX);
 	series->attachAxis(axisY);
-	series->setUseOpenGL(true);
+	QPen pen;
+	pen.setColor("green");
+	pen.setWidth(2);
+	series->setPen(pen);
+	//series->setUseOpenGL(true);
 };
 
 
@@ -53,6 +59,11 @@ void ChartWidget::addStrobe(QPointF initPos)
 QChart* ChartWidget::getChart()
 {
 	return chart;
+}
+
+QXYSeries* ChartWidget::getSeries()
+{
+	return series;
 }
 
 void ChartWidget::mousePressEvent(QMouseEvent* event)

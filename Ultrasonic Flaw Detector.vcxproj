@@ -88,6 +88,7 @@
     <ClCompile Include="ChartWidget.cpp" />
     <ClCompile Include="ColorSchemeDialog.cpp" />
     <ClCompile Include="ConnectionManager.cpp" />
+    <ClCompile Include="DataSource.cpp" />
     <ClCompile Include="InteractiveStrobe.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainWindow.cpp" />
@@ -96,6 +97,7 @@
   <ItemGroup>
     <ClInclude Include="Application.h" />
     <ClInclude Include="ApplicationController.h" />
+    <QtMoc Include="DataSource.h" />
     <ClInclude Include="InteractiveStrobe.h" />
     <QtMoc Include="ColorSchemeDialog.h" />
     <QtMoc Include="ChartWidget.h" />

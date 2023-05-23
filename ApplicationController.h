@@ -11,15 +11,20 @@ struct Context
     Ui::UnitSettings* ui_UnitSettings;
     Ui::ColorScheme* ui_ColorScheme;
     ChartWidget* firstWidget;
+    bool isAskanVisible;
+    bool isRazvVisible;
+    QTimer* timer;
 };
 
 class ApplicationController
 {
     Context* context;
-	ConnectionManager connectManager;
+	ConnectionManager* connectManager;
 public:
     ApplicationController(Context* context) : context(context) 
     {
+        context->timer = new QTimer();
+        connectManager = new ConnectionManager(context->timer);
     }
     void RenderContext();
 };

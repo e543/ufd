@@ -1,21 +1,25 @@
 #include "InteractiveStrobe.h"
 #include <QDebug>
 
-InteractiveStrobe::InteractiveStrobe(QChart* chart,const QPointF& initPos) : QGraphicsItem(chart), chart(chart)
+InteractiveStrobe::InteractiveStrobe(QChart* chart,const QPointF& pos) : QGraphicsItem(chart), chart(chart)
 {
     auto rect = chart->plotArea();
-    setPos(initPos.x(), initPos.y());
+    initPos = pos;
+    setPos(initPos);
 
-    m_rect = QRectF(0, 0, 100, 5);
+    initWidth = 100;
+    m_rect = QRectF(0, 0, initWidth, 5);
     chartPos = chart->mapToValue(initPos);
+    limit = chart->mapToValue(chart->plotArea().topRight()).x();
+
+    color = Qt::red;
 
 
-    setZValue(10);
+    setZValue(11);
     setFlags(QGraphicsItem::ItemIsMovable
         | QGraphicsItem::ItemIsSelectable
         | QGraphicsItem::ItemSendsScenePositionChanges);
     setAcceptHoverEvents(true);
-
 }
 
 InteractiveStrobe::~InteractiveStrobe()
@@ -39,7 +43,7 @@ void InteractiveStrobe::paint(QPainter* painter, const QStyleOptionGraphicsItem*
     painter->setRenderHint(QPainter::Antialiasing);
     QPen pen(Qt::black, 1);
     painter->setPen(pen);
-    painter->fillPath(path, Qt::red);
+    painter->fillPath(path, color);
     painter->drawPath(path);
 }
 
@@ -197,6 +201,7 @@ QRectF InteractiveStrobe::itemRect()
 
 void InteractiveStrobe::updateGeometry()
 {
-    setPos(chart->mapToPosition(chartPos));
     prepareGeometryChange();
+    m_rect.setWidth(initWidth);
+    setPos(chart->mapToPosition(chartPos));
 }

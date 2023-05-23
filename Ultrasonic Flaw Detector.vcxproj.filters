@@ -50,11 +50,11 @@
     <ClCompile Include="InteractiveStrobe.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="DataSource.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="MainWindow.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
     <QtMoc Include="ColorSchemeDialog.h">
       <Filter>Header Files</Filter>
     </QtMoc>
@@ -62,6 +62,12 @@
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="ChartWidget.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="MainWindow.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="DataSource.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
@@ -72,10 +78,10 @@
     <ClInclude Include="ApplicationController.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ConnectionManager.h">
+    <ClInclude Include="InteractiveStrobe.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="InteractiveStrobe.h">
+    <ClInclude Include="ConnectionManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

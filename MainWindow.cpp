@@ -61,6 +61,7 @@ void MainWindow::initUnitSettingsDialog()
 
     unitSettings = new UnitSettingsDialog(this);
     connect(ui->SettingsButton, SIGNAL(clicked()), this, SLOT(on_SettingsClicked()));
+    connect(ui->ASkanRazvComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(readASkanRazvTables(int)));
 }
 
 void MainWindow::updateSettings()
@@ -101,18 +102,18 @@ void MainWindow::initMainChartViews()
     firstWidget->setObjectName("chartView_first");
 
 
-
     addChartView(ui->verticalLayout_main, "second");
     auto* second = chartViews["second"];
     auto* secondChart = second->chart();
 
     QValueAxis* secondAxisX = new QValueAxis;
-    secondAxisX->setRange(0, 10);
+    secondAxisX->setRange(0, 255);
+    secondAxisX->setTickCount(7);
     QValueAxis* secondAxisY = new QValueAxis;
     secondAxisY->setRange(0, 255);
-    secondChart->addAxis(secondAxisX, Qt::AlignBottom);
-    secondChart->addAxis(secondAxisY, Qt::AlignLeft);
-    secondChart->legend()->hide();
+    secondAxisY->setTickCount(7);
+    secondChart->addAxis(secondAxisX, Qt::AlignLeft);
+    secondChart->addAxis(secondAxisY, Qt::AlignRight);
 
 }
 
@@ -125,8 +126,6 @@ void MainWindow::addChartView(QBoxLayout* layout, QString name)
 
     chartView->setObjectName("chartView_" + name);
     QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
-    sizePolicy.setHorizontalStretch(0);
-    sizePolicy.setVerticalStretch(0);
     sizePolicy.setHeightForWidth(chartView->sizePolicy().hasHeightForWidth());
     chartView->setSizePolicy(sizePolicy);
     chartView->setMaximumSize(QSize(3000, 3000));
@@ -158,4 +157,28 @@ void MainWindow::on_SettingsClicked()
 {
     if (unitSettings) 
         unitSettings->exec();
+}
+
+
+void MainWindow::readASkanRazvTables(int i)
+{
+    switch (i)
+    {
+    default:
+    case 0:
+        firstWidget->setVisible(true);
+        chartViews["second"]->setVisible(true);
+        break;
+    case 1:
+        firstWidget->setVisible(true);
+        chartViews["second"]->setVisible(false);
+        break;
+    case 2:
+        firstWidget->setVisible(false);
+        chartViews["second"]->setVisible(true);
+        break;
+    }
+
+    context->isAskanVisible = firstWidget->isVisible();
+    context->isRazvVisible = chartViews["second"]->isVisible();
 }

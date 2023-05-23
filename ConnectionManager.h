@@ -1,5 +1,6 @@
 #pragma once
 
+#include "DataSource.h"
 #include <QUdpSocket>
 
 #define NUM_RESULT_STRBS    5
@@ -28,12 +29,17 @@ struct amp_struct_t
 };
 
 
+
+
 class ConnectionManager
 {
 	quint8 osc[256];
     amp_struct_t data;
     QUdpSocket* udpSocket;
+    DataSource* dataSource;
+    QTimer* timer;
 public:
-    void setConnection();
+    ConnectionManager(QTimer* timer);
+    void setConnection(QChart* chart, QXYSeries* series);
 };
 

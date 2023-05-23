@@ -41,6 +41,7 @@ class MainWindow : public QMainWindow
     Ui::MainWindow* ui;
 private slots:
     void on_SettingsClicked();
+    void readASkanRazvTables(int i);
     void start();
 protected:
     void closeEvent(QCloseEvent* event);

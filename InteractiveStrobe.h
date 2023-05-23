@@ -10,6 +10,11 @@ class InteractiveStrobe : public QGraphicsItem
 	const qreal percent = 0.1f;
 	qreal shift;
 	QPointF chartPos;
+	QPointF initPos;
+	qreal initWidth;
+	qreal limit;
+	qreal dragStartWidth;
+	QColor color = Qt::red;
 
 
 	enum DragMode {
@@ -19,7 +24,6 @@ class InteractiveStrobe : public QGraphicsItem
 		StretchRight
 	};
 	DragMode dragMode = DragMode::None;
-	qreal dragStartWidth;
 public:
 	InteractiveStrobe(QChart* chart,const QPointF& initPos);
 	~InteractiveStrobe();

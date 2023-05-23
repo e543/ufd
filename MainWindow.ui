@@ -936,7 +936,7 @@
              </property>
              <layout class="QHBoxLayout" name="horizontalLayout_6">
               <item>
-               <widget class="QComboBox" name="comboBox">
+               <widget class="QComboBox" name="ASkanRazvComboBox">
                 <property name="autoFillBackground">
                  <bool>true</bool>
                 </property>
@@ -1070,6 +1070,9 @@
               </item>
               <item>
                <widget class="QPushButton" name="pushButton_2">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
                 <property name="minimumSize">
                  <size>
                   <width>0</width>
@@ -1231,6 +1234,9 @@
              </layout>
             </widget>
             <widget class="QPushButton" name="pushButton_4">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
              <property name="geometry">
               <rect>
                <x>10</x>
@@ -1244,6 +1250,9 @@
              </property>
             </widget>
             <widget class="QCheckBox" name="checkBox">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
              <property name="geometry">
               <rect>
                <x>120</x>
@@ -1263,6 +1272,9 @@
              </property>
             </widget>
             <widget class="QCheckBox" name="checkBox_2">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
              <property name="geometry">
               <rect>
                <x>100</x>
@@ -1282,6 +1294,9 @@
              </property>
             </widget>
             <widget class="QLineEdit" name="lineEdit">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
              <property name="geometry">
               <rect>
                <x>56</x>
@@ -1298,6 +1313,9 @@
              </property>
             </widget>
             <widget class="QLabel" name="label_19">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
              <property name="geometry">
               <rect>
                <x>20</x>
@@ -1311,6 +1329,9 @@
              </property>
             </widget>
             <widget class="QGroupBox" name="groupBox">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
              <property name="geometry">
               <rect>
                <x>10</x>
@@ -1662,6 +1683,9 @@
              </widget>
             </widget>
             <widget class="QGroupBox" name="groupBox_4">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
              <property name="geometry">
               <rect>
                <x>10</x>
