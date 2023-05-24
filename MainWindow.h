@@ -37,12 +37,14 @@ class MainWindow : public QMainWindow
     Settings* getSettings();
 
     void resizeEvent(QResizeEvent* event) override;
+    void keyPressEvent(QKeyEvent* event) override;
 
     Ui::MainWindow* ui;
 private slots:
     void on_SettingsClicked();
     void readASkanRazvTables(int i);
     void start();
+    void startStopButton();
 protected:
     void closeEvent(QCloseEvent* event);
     void showEvent(QShowEvent* event);

@@ -1064,7 +1064,7 @@
                  <bool>true</bool>
                 </property>
                 <property name="text">
-                 <string>Стоп F3</string>
+                 <string>Стaрт F3</string>
                 </property>
                </widget>
               </item>

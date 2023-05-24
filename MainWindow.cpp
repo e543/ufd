@@ -25,7 +25,16 @@ void MainWindow::closeEvent(QCloseEvent* event)
 
 bool MainWindow::eventFilter(QObject* obj, QEvent* e)
 {
+    int i = 0;
     return false;
+}
+
+void MainWindow::keyPressEvent(QKeyEvent* event)
+{
+    if (event->key() == Qt::Key_F3)
+    {
+        emit startStopButton(); 
+    }
 }
 
 MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWindow), context(new Context) , settings(new Settings)
@@ -62,6 +71,8 @@ void MainWindow::initUnitSettingsDialog()
     unitSettings = new UnitSettingsDialog(this);
     connect(ui->SettingsButton, SIGNAL(clicked()), this, SLOT(on_SettingsClicked()));
     connect(ui->ASkanRazvComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(readASkanRazvTables(int)));
+    connect(ui->StopButton, SIGNAL(clicked()), this, SLOT(startStopButton()));
+    connect(this, SIGNAL(key_f3_pressed_event), this, SLOT(startStopButton()));
 }
 
 void MainWindow::updateSettings()
@@ -181,4 +192,21 @@ void MainWindow::readASkanRazvTables(int i)
 
     context->isAskanVisible = firstWidget->isVisible();
     context->isRazvVisible = chartViews["second"]->isVisible();
+}
+
+void MainWindow::startStopButton()
+{
+    auto* timer = context->timer;
+    if (!timer) {
+        return;
+    }
+
+    if (timer->isActive()) {
+        timer->stop();
+        ui->StopButton->setText(QString::fromUtf16(u"Старт F3"));
+    }
+    else {
+        timer->start();
+        ui->StopButton->setText(QString::fromUtf16(u"Стоп F3"));
+    }
 }

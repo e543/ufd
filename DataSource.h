@@ -16,7 +16,6 @@ public:
 public slots:
     void generateData(int rowCount, int colCount);
     void update();
-    void handleSceneChanged();
 
 private:
     quint32 rowCount;

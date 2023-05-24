@@ -16,18 +16,13 @@ void DataSource::update()
     }
 }
 
-void DataSource::handleSceneChanged()
-{
-    m_dataUpdater->start();
-}
-
 void DataSource::startUpdates(QXYSeries* series)
 {
     series->clear();
     m_series = series;
 
     m_dataUpdater->setInterval(20);
-    m_dataUpdater->setSingleShot(true);
+    //m_dataUpdater->setSingleShot(true);
     QObject::connect(m_dataUpdater, &QTimer::timeout,
         this, &DataSource::update);
 
