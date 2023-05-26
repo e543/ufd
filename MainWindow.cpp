@@ -59,6 +59,10 @@ void MainWindow::initMainWindow()
     settings->availableSize = QDesktopWidget().availableGeometry(this).size();
     updateSettings();
 
+    ui->splitter->setStretchFactor(0, 1);
+    ui->splitter->setStretchFactor(1, 2);
+    ui->splitter->setMinimumSize(QSize(300, 300));
+
     initMainChartViews();
     initChartViews(); 
 }
@@ -107,15 +111,26 @@ void MainWindow::initChartViews()
 
 void MainWindow::initMainChartViews()
 {
+    QSplitter* splitter = new QSplitter(Qt::Vertical, ui->frame_3);
+
+    ui->verticalLayout_main->addWidget(splitter);
+
     firstWidget = new ChartWidget(ui->centralwidget);
     auto* firstChart = firstWidget->getChart(); 
-    ui->verticalLayout_main->addWidget(firstWidget);
     firstWidget->setObjectName("chartView_first");
 
+    splitter->addWidget(firstWidget);
 
     addChartView(ui->verticalLayout_main, "second");
-    auto* second = chartViews["second"];
-    auto* secondChart = second->chart();
+    auto* secondView = chartViews["second"];
+    auto* secondChart = secondView->chart();
+    secondView->setMinimumWidth(300);
+    secondView->setMinimumHeight(250);
+
+    splitter->addWidget(secondView);
+    splitter->setStretchFactor(0, 1);
+    splitter->setStretchFactor(1, 1);
+    splitter->setChildrenCollapsible(false);
 
     QValueAxis* secondAxisX = new QValueAxis;
     secondAxisX->setRange(0, 255);
@@ -136,7 +151,7 @@ void MainWindow::addChartView(QBoxLayout* layout, QString name)
     layout->addWidget(chartView);
 
     chartView->setObjectName("chartView_" + name);
-    QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+    QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     sizePolicy.setHeightForWidth(chartView->sizePolicy().hasHeightForWidth());
     chartView->setSizePolicy(sizePolicy);
     chartView->setMaximumSize(QSize(3000, 3000));
