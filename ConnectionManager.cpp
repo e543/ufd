@@ -1,13 +1,11 @@
 #include "ConnectionManager.h"
 
-ConnectionManager::ConnectionManager(QTimer* timer) : timer(timer)
+ConnectionManager::ConnectionManager(Context* context) : context(context), receiver(new Receiver())
 {
-	dataSource = new DataSource(timer);
+
 }
 
-void ConnectionManager::setConnection(QChart* chart, QXYSeries* series)
+void ConnectionManager::setConnection(QString ip, QChart* chart, QXYSeries* series)
 {
-	dataSource->generateData(20, 200);
 
-	dataSource->startUpdates(series);
 }

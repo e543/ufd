@@ -88,17 +88,19 @@
     <ClCompile Include="ChartWidget.cpp" />
     <ClCompile Include="ColorSchemeDialog.cpp" />
     <ClCompile Include="ConnectionManager.cpp" />
-    <ClCompile Include="DataSource.cpp" />
     <ClCompile Include="InteractiveStrobe.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainWindow.cpp" />
+    <ClCompile Include="Receiver.cpp" />
+    <ClCompile Include="Server.cpp" />
     <ClCompile Include="UnitSettingsDialog.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />
     <ClInclude Include="ApplicationController.h" />
-    <QtMoc Include="DataSource.h" />
     <ClInclude Include="InteractiveStrobe.h" />
+    <QtMoc Include="Server.h" />
+    <QtMoc Include="Receiver.h" />
     <QtMoc Include="ColorSchemeDialog.h" />
     <QtMoc Include="ChartWidget.h" />
     <ClInclude Include="ConnectionManager.h" />

@@ -1,7 +1,11 @@
 #pragma once
 
-#include "DataSource.h"
-#include <QUdpSocket>
+#include "Receiver.h"
+#include "Server.h"
+#include "ColorSchemeDialog.h"
+#include "UnitSettingsDialog.h"
+#include "ChartWidget.h"
+#include <ui_MainWindow.h>
 
 #define NUM_RESULT_STRBS    5
 #define NUM_USS             2
@@ -28,18 +32,26 @@ struct amp_struct_t
     amp_tact_struct_t ampl_tact[NUM_TACTS];
 };
 
-
+struct Context
+{
+    Ui::MainWindow* ui_MainWindow;
+    Ui::UnitSettings* ui_UnitSettings;
+    Ui::ColorScheme* ui_ColorScheme;
+    ChartWidget* firstWidget;
+    bool isAskanVisible;
+    bool isRazvVisible;
+    QTimer* timer;
+};
 
 
 class ConnectionManager
 {
 	quint8 osc[256];
     amp_struct_t data;
-    QUdpSocket* udpSocket;
-    DataSource* dataSource;
-    QTimer* timer;
+    Receiver* receiver = nullptr;
+    Context* context;
 public:
-    ConnectionManager(QTimer* timer);
-    void setConnection(QChart* chart, QXYSeries* series);
+    ConnectionManager(Context* context);
+    void setConnection(QString ip, QChart* chart, QXYSeries* series);
 };
 

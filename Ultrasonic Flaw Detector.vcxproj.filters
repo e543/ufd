@@ -50,7 +50,10 @@
     <ClCompile Include="InteractiveStrobe.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="DataSource.cpp">
+    <ClCompile Include="Receiver.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Server.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -67,7 +70,10 @@
     <QtMoc Include="MainWindow.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="DataSource.h">
+    <QtMoc Include="Receiver.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="Server.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>

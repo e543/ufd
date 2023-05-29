@@ -19,7 +19,7 @@ ChartWidget::ChartWidget(QWidget* parent, QChart* chart) : QChartView(chart, par
 	QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
 	sizePolicy.setHeightForWidth(this->sizePolicy().hasHeightForWidth());
 	setSizePolicy(sizePolicy);
-	setMinimumSize(QSize(300, 300));
+	setMinimumSize(QSize(300, 200));
 	setMaximumSize(QSize(3000, 3000));
 	setRenderHint(QPainter::Antialiasing);
 
