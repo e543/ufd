@@ -22,7 +22,9 @@ class MainWindow : public QMainWindow
     Settings* settings;
     Context* context;
     QHash<QString, QChartView*> chartViews;
+    QHash<QString, QLabel*> channelLabels;
     ChartWidget* firstWidget;
+    Server* server = nullptr;
 
     UnitSettingsDialog* unitSettings = nullptr;
 
@@ -31,6 +33,7 @@ class MainWindow : public QMainWindow
     void initUnitSettingsDialog();
     void initChartViews();
     void addChartView(QBoxLayout* layout, QString name);
+    void bindChannelLabels();
     void updateSettings();
     void bindContext();
     Context* getContext();
@@ -45,6 +48,7 @@ private slots:
     void readASkanRazvTables(int i);
     void start();
     void startStopButton();
+    void initServer();
 protected:
     void closeEvent(QCloseEvent* event);
     void showEvent(QShowEvent* event);

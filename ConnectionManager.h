@@ -41,17 +41,20 @@ struct Context
     bool isAskanVisible;
     bool isRazvVisible;
     QTimer* timer;
+    bool connectionActive;
 };
 
 
-class ConnectionManager
+class ConnectionManager : public QObject
 {
+    Q_OBJECT
 	quint8 osc[256];
     amp_struct_t data;
     Receiver* receiver = nullptr;
     Context* context;
+private slots:
+    void toggleConnection();
 public:
     ConnectionManager(Context* context);
-    void setConnection(QString ip, QChart* chart, QXYSeries* series);
 };
 

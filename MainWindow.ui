@@ -205,12 +205,12 @@
                </widget>
               </item>
               <item>
-               <layout class="QHBoxLayout" name="horizontalLayout_1prv">
+               <layout class="QHBoxLayout" name="horizontalLayout_11">
                 <property name="spacing">
                  <number>0</number>
                 </property>
                 <item>
-                 <widget class="QLabel" name="label_1prv">
+                 <widget class="ClickedLabel" name="label_11">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
                     <horstretch>0</horstretch>
@@ -230,7 +230,7 @@
                    </size>
                   </property>
                   <property name="text">
-                   <string>1-ПР.В</string>
+                   <string>1(1)</string>
                   </property>
                   <property name="alignment">
                    <set>Qt::AlignCenter</set>
@@ -247,12 +247,12 @@
                </widget>
               </item>
               <item>
-               <layout class="QHBoxLayout" name="horizontalLayout_1prn">
+               <layout class="QHBoxLayout" name="horizontalLayout_12">
                 <property name="spacing">
                  <number>0</number>
                 </property>
                 <item>
-                 <widget class="QLabel" name="label_1prn">
+                 <widget class="ClickedLabel" name="label_12">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
                     <horstretch>0</horstretch>
@@ -272,7 +272,7 @@
                    </size>
                   </property>
                   <property name="text">
-                   <string>1-ПР.НАР</string>
+                   <string>1(2)</string>
                   </property>
                   <property name="alignment">
                    <set>Qt::AlignCenter</set>
@@ -289,12 +289,12 @@
                </widget>
               </item>
               <item>
-               <layout class="QHBoxLayout" name="horizontalLayout_2prv">
+               <layout class="QHBoxLayout" name="horizontalLayout_21">
                 <property name="spacing">
                  <number>0</number>
                 </property>
                 <item>
-                 <widget class="QLabel" name="label_2prv">
+                 <widget class="ClickedLabel" name="label_21">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
                     <horstretch>0</horstretch>
@@ -314,7 +314,7 @@
                    </size>
                   </property>
                   <property name="text">
-                   <string>2-ПР.ВН</string>
+                   <string>2(1)</string>
                   </property>
                   <property name="alignment">
                    <set>Qt::AlignCenter</set>
@@ -331,12 +331,12 @@
                </widget>
               </item>
               <item>
-               <layout class="QHBoxLayout" name="horizontalLayout_2prn">
+               <layout class="QHBoxLayout" name="horizontalLayout_22">
                 <property name="spacing">
                  <number>0</number>
                 </property>
                 <item>
-                 <widget class="QLabel" name="label_2prn">
+                 <widget class="ClickedLabel" name="label_22">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
                     <horstretch>0</horstretch>
@@ -356,7 +356,7 @@
                    </size>
                   </property>
                   <property name="text">
-                   <string>2-ПР.НАР</string>
+                   <string>2(2)</string>
                   </property>
                   <property name="alignment">
                    <set>Qt::AlignCenter</set>
@@ -373,12 +373,12 @@
                </widget>
               </item>
               <item>
-               <layout class="QHBoxLayout" name="horizontalLayout_3pov">
+               <layout class="QHBoxLayout" name="horizontalLayout_31">
                 <property name="spacing">
                  <number>0</number>
                 </property>
                 <item>
-                 <widget class="QLabel" name="label_3pov">
+                 <widget class="ClickedLabel" name="label_31">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
                     <horstretch>0</horstretch>
@@ -398,7 +398,7 @@
                    </size>
                   </property>
                   <property name="text">
-                   <string>3-ПО.ВН</string>
+                   <string>3(1)</string>
                   </property>
                   <property name="alignment">
                    <set>Qt::AlignCenter</set>
@@ -415,12 +415,12 @@
                </widget>
               </item>
               <item>
-               <layout class="QHBoxLayout" name="horizontalLayout_3pon">
+               <layout class="QHBoxLayout" name="horizontalLayout_32">
                 <property name="spacing">
                  <number>0</number>
                 </property>
                 <item>
-                 <widget class="QLabel" name="label_3pon">
+                 <widget class="ClickedLabel" name="label_32">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
                     <horstretch>0</horstretch>
@@ -440,7 +440,7 @@
                    </size>
                   </property>
                   <property name="text">
-                   <string>3-ПО.НАР</string>
+                   <string>3(2)</string>
                   </property>
                   <property name="alignment">
                    <set>Qt::AlignCenter</set>
@@ -457,12 +457,12 @@
                </widget>
               </item>
               <item>
-               <layout class="QHBoxLayout" name="horizontalLayout_4pov">
+               <layout class="QHBoxLayout" name="horizontalLayout_41">
                 <property name="spacing">
                  <number>0</number>
                 </property>
                 <item>
-                 <widget class="QLabel" name="label_4pov">
+                 <widget class="ClickedLabel" name="label_41">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
                     <horstretch>0</horstretch>
@@ -482,7 +482,7 @@
                    </size>
                   </property>
                   <property name="text">
-                   <string>4-ПО.ВН</string>
+                   <string>4(1)</string>
                   </property>
                   <property name="alignment">
                    <set>Qt::AlignCenter</set>
@@ -499,12 +499,12 @@
                </widget>
               </item>
               <item>
-               <layout class="QHBoxLayout" name="horizontalLayout_4pon">
+               <layout class="QHBoxLayout" name="horizontalLayout_42">
                 <property name="spacing">
                  <number>0</number>
                 </property>
                 <item>
-                 <widget class="QLabel" name="label_4pon">
+                 <widget class="ClickedLabel" name="label_42">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
                     <horstretch>0</horstretch>
@@ -524,91 +524,7 @@
                    </size>
                   </property>
                   <property name="text">
-                   <string>4-ПО.НАР</string>
-                  </property>
-                  <property name="alignment">
-                   <set>Qt::AlignCenter</set>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
-              </item>
-              <item>
-               <widget class="Line" name="line_10">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <layout class="QHBoxLayout" name="horizontalLayout_5rl">
-                <property name="spacing">
-                 <number>0</number>
-                </property>
-                <item>
-                 <widget class="QLabel" name="label_5rl">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="minimumSize">
-                   <size>
-                    <width>60</width>
-                    <height>40</height>
-                   </size>
-                  </property>
-                  <property name="maximumSize">
-                   <size>
-                    <width>60</width>
-                    <height>16777215</height>
-                   </size>
-                  </property>
-                  <property name="text">
-                   <string>5-РЛ</string>
-                  </property>
-                  <property name="alignment">
-                   <set>Qt::AlignCenter</set>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
-              </item>
-              <item>
-               <widget class="Line" name="line_11">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <layout class="QHBoxLayout" name="horizontalLayout_6rl">
-                <property name="spacing">
-                 <number>0</number>
-                </property>
-                <item>
-                 <widget class="QLabel" name="label_6rl">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="minimumSize">
-                   <size>
-                    <width>60</width>
-                    <height>40</height>
-                   </size>
-                  </property>
-                  <property name="maximumSize">
-                   <size>
-                    <width>60</width>
-                    <height>16777215</height>
-                   </size>
-                  </property>
-                  <property name="text">
-                   <string>6-РЛ</string>
+                   <string>4(2)</string>
                   </property>
                   <property name="alignment">
                    <set>Qt::AlignCenter</set>
@@ -2088,6 +2004,26 @@
             </widget>
            </widget>
           </item>
+          <item>
+           <spacer name="verticalSpacer">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QPushButton" name="ServerButton">
+            <property name="text">
+             <string>Server</string>
+            </property>
+           </widget>
+          </item>
          </layout>
         </item>
        </layout>
@@ -2097,6 +2033,16 @@
    </layout>
   </widget>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>ClickedLabel</class>
+   <extends>QLabel</extends>
+   <header>ClickedLabel.h</header>
+   <slots>
+    <signal>clicked()</signal>
+   </slots>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

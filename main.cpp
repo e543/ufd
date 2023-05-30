@@ -6,8 +6,6 @@ int main(int argc, char* argv[])
     Application app(argc, argv);
     auto& w = app.getMainWindow();
     w.show();
-    Server server;
-    server.show();
 
     app.setAttribute(Qt::AA_DisableWindowContextHelpButton);
 

@@ -121,6 +121,9 @@
          </property>
          <item>
           <widget class="QCheckBox" name="checkBox">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
            <property name="font">
             <font>
              <family>Arial</family>
@@ -137,6 +140,9 @@
          </item>
          <item>
           <widget class="QCheckBox" name="checkBox_2">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
            <property name="font">
             <font>
              <family>Arial</family>
@@ -192,6 +198,9 @@
           </property>
          </widget>
          <widget class="QLineEdit" name="lineEdit_2">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="geometry">
            <rect>
             <x>130</x>
@@ -232,6 +241,9 @@
      </item>
      <item>
       <spacer name="verticalSpacer">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="orientation">
         <enum>Qt::Vertical</enum>
        </property>
@@ -502,6 +514,9 @@
           <layout class="QHBoxLayout" name="horizontalLayout_5">
            <item>
             <widget class="QLineEdit" name="lineEdit_3">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
              <property name="font">
               <font>
                <pointsize>9</pointsize>
@@ -517,6 +532,9 @@
            </item>
            <item>
             <widget class="QLineEdit" name="lineEdit_4">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
              <property name="font">
               <font>
                <pointsize>9</pointsize>
@@ -532,6 +550,9 @@
            </item>
            <item>
             <widget class="QLineEdit" name="lineEdit_5">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
              <property name="font">
               <font>
                <pointsize>9</pointsize>
@@ -547,6 +568,9 @@
            </item>
            <item>
             <widget class="QLineEdit" name="lineEdit_6">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
              <property name="font">
               <font>
                <pointsize>9</pointsize>
@@ -562,6 +586,9 @@
            </item>
            <item>
             <widget class="QLineEdit" name="lineEdit_7">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
              <property name="font">
               <font>
                <pointsize>9</pointsize>
@@ -577,6 +604,9 @@
            </item>
            <item>
             <widget class="QLineEdit" name="lineEdit_8">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
              <property name="font">
               <font>
                <pointsize>9</pointsize>
@@ -592,6 +622,9 @@
            </item>
            <item>
             <widget class="QLineEdit" name="lineEdit_9">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
              <property name="font">
               <font>
                <pointsize>9</pointsize>
@@ -607,6 +640,9 @@
            </item>
            <item>
             <widget class="QLineEdit" name="lineEdit_10">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
              <property name="font">
               <font>
                <pointsize>9</pointsize>
@@ -626,6 +662,9 @@
           <layout class="QHBoxLayout" name="horizontalLayout_6">
            <item>
             <widget class="QLineEdit" name="lineEdit_11">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
              <property name="font">
               <font>
                <pointsize>9</pointsize>
@@ -641,6 +680,9 @@
            </item>
            <item>
             <widget class="QLineEdit" name="lineEdit_12">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
              <property name="font">
               <font>
                <pointsize>9</pointsize>
@@ -656,6 +698,9 @@
            </item>
            <item>
             <widget class="QLineEdit" name="lineEdit_13">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
              <property name="font">
               <font>
                <pointsize>9</pointsize>
@@ -671,6 +716,9 @@
            </item>
            <item>
             <widget class="QLineEdit" name="lineEdit_14">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
              <property name="font">
               <font>
                <pointsize>9</pointsize>
@@ -686,6 +734,9 @@
            </item>
            <item>
             <widget class="QLineEdit" name="lineEdit_15">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
              <property name="font">
               <font>
                <pointsize>9</pointsize>
@@ -701,6 +752,9 @@
            </item>
            <item>
             <widget class="QLineEdit" name="lineEdit_16">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
              <property name="font">
               <font>
                <pointsize>9</pointsize>
@@ -716,6 +770,9 @@
            </item>
            <item>
             <widget class="QLineEdit" name="lineEdit_17">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
              <property name="font">
               <font>
                <pointsize>9</pointsize>
@@ -731,6 +788,9 @@
            </item>
            <item>
             <widget class="QLineEdit" name="lineEdit_18">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
              <property name="font">
               <font>
                <pointsize>9</pointsize>
@@ -750,6 +810,9 @@
           <layout class="QHBoxLayout" name="horizontalLayout_7">
            <item>
             <widget class="QLineEdit" name="lineEdit_19">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
              <property name="font">
               <font>
                <pointsize>9</pointsize>
@@ -765,6 +828,9 @@
            </item>
            <item>
             <widget class="QLineEdit" name="lineEdit_20">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
              <property name="font">
               <font>
                <pointsize>9</pointsize>
@@ -780,6 +846,9 @@
            </item>
            <item>
             <widget class="QLineEdit" name="lineEdit_21">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
              <property name="font">
               <font>
                <pointsize>9</pointsize>
@@ -795,6 +864,9 @@
            </item>
            <item>
             <widget class="QLineEdit" name="lineEdit_22">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
              <property name="font">
               <font>
                <pointsize>9</pointsize>
@@ -810,6 +882,9 @@
            </item>
            <item>
             <widget class="QLineEdit" name="lineEdit_23">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
              <property name="font">
               <font>
                <pointsize>9</pointsize>
@@ -825,6 +900,9 @@
            </item>
            <item>
             <widget class="QLineEdit" name="lineEdit_24">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
              <property name="font">
               <font>
                <pointsize>9</pointsize>
@@ -840,6 +918,9 @@
            </item>
            <item>
             <widget class="QLineEdit" name="lineEdit_25">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
              <property name="font">
               <font>
                <pointsize>9</pointsize>
@@ -855,6 +936,9 @@
            </item>
            <item>
             <widget class="QLineEdit" name="lineEdit_26">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
              <property name="font">
               <font>
                <pointsize>9</pointsize>
@@ -874,6 +958,9 @@
           <layout class="QHBoxLayout" name="horizontalLayout_8">
            <item>
             <widget class="QLineEdit" name="lineEdit_27">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
              <property name="font">
               <font>
                <pointsize>9</pointsize>
@@ -889,6 +976,9 @@
            </item>
            <item>
             <widget class="QLineEdit" name="lineEdit_28">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
              <property name="font">
               <font>
                <pointsize>9</pointsize>
@@ -904,6 +994,9 @@
            </item>
            <item>
             <widget class="QLineEdit" name="lineEdit_29">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
              <property name="font">
               <font>
                <pointsize>9</pointsize>
@@ -919,6 +1012,9 @@
            </item>
            <item>
             <widget class="QLineEdit" name="lineEdit_30">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
              <property name="font">
               <font>
                <pointsize>9</pointsize>
@@ -934,6 +1030,9 @@
            </item>
            <item>
             <widget class="QLineEdit" name="lineEdit_31">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
              <property name="font">
               <font>
                <pointsize>9</pointsize>
@@ -949,6 +1048,9 @@
            </item>
            <item>
             <widget class="QLineEdit" name="lineEdit_32">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
              <property name="font">
               <font>
                <pointsize>9</pointsize>
@@ -964,6 +1066,9 @@
            </item>
            <item>
             <widget class="QLineEdit" name="lineEdit_33">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
              <property name="font">
               <font>
                <pointsize>9</pointsize>
@@ -979,6 +1084,9 @@
            </item>
            <item>
             <widget class="QLineEdit" name="lineEdit_34">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
              <property name="font">
               <font>
                <pointsize>9</pointsize>
@@ -998,6 +1106,9 @@
           <layout class="QHBoxLayout" name="horizontalLayout_9">
            <item>
             <widget class="QComboBox" name="comboBox_16">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
              <property name="font">
               <font>
                <pointsize>9</pointsize>
@@ -1025,6 +1136,9 @@
            </item>
            <item>
             <widget class="QComboBox" name="comboBox_17">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
              <property name="font">
               <font>
                <pointsize>9</pointsize>
@@ -1052,6 +1166,9 @@
            </item>
            <item>
             <widget class="QComboBox" name="comboBox_9">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
              <property name="font">
               <font>
                <pointsize>9</pointsize>
@@ -1079,6 +1196,9 @@
            </item>
            <item>
             <widget class="QComboBox" name="comboBox_10">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
              <property name="font">
               <font>
                <pointsize>9</pointsize>
@@ -1106,6 +1226,9 @@
            </item>
            <item>
             <widget class="QComboBox" name="comboBox_11">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
              <property name="font">
               <font>
                <pointsize>9</pointsize>
@@ -1133,6 +1256,9 @@
            </item>
            <item>
             <widget class="QComboBox" name="comboBox_12">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
              <property name="font">
               <font>
                <pointsize>9</pointsize>
@@ -1160,6 +1286,9 @@
            </item>
            <item>
             <widget class="QComboBox" name="comboBox_13">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
              <property name="font">
               <font>
                <pointsize>9</pointsize>
@@ -1187,6 +1316,9 @@
            </item>
            <item>
             <widget class="QComboBox" name="comboBox_14">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
              <property name="font">
               <font>
                <pointsize>9</pointsize>
@@ -1236,6 +1368,9 @@
      </item>
      <item>
       <spacer name="horizontalSpacer_3">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="orientation">
         <enum>Qt::Vertical</enum>
        </property>

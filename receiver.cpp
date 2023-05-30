@@ -4,11 +4,8 @@
 #include <QtCore>
 
 
-Receiver::Receiver() : udpSocket(new QUdpSocket(this))
+Receiver::Receiver()
 {
-    udpSocket->bind(45454, QUdpSocket::ShareAddress);
-    connect(udpSocket, &QUdpSocket::readyRead,
-        this, &Receiver::processPendingDatagrams);
 }
 Receiver::~Receiver()
 {
@@ -16,17 +13,44 @@ Receiver::~Receiver()
     delete udpSocket;
 }
 
-void Receiver::setConnection(const QHostAddress& address, quint16 port = 45454)
+void Receiver::setConnection(const QHostAddress& address, quint16 port)
 {
-    udpSocket->bind(address, port, QUdpSocket::ShareAddress);
+    udpSocket = new QUdpSocket(this);
+
+    if (!udpSocket->bind(address, port))
+    {
+        qDebug() << udpSocket->errorString();
+        return;
+    }
     connect(udpSocket, &QUdpSocket::readyRead,
         this, &Receiver::processPendingDatagrams);
+    
+    /*QList<QHostAddress> broadcastAddresses;
+    QList<QHostAddress> ipAddresses; 
+    broadcastAddresses.clear();
+    ipAddresses.clear();
+    const QList<QNetworkInterface> interfaces = QNetworkInterface::allInterfaces();
+    for (const QNetworkInterface& interface : interfaces) {
+        const QList<QNetworkAddressEntry> entries = interface.addressEntries();
+        for (const QNetworkAddressEntry& entry : entries) {
+            QHostAddress broadcastAddress = entry.broadcast();
+            if (broadcastAddress != QHostAddress::Null && entry.ip() != QHostAddress::LocalHost) {
+                broadcastAddresses << broadcastAddress;
+                ipAddresses << entry.ip();
+            }
+        }
+    }
+
+    for (auto ip : ipAddresses) {
+        qDebug() << ip.toString();
+    }*/
 }
 
 void Receiver::disconnect()
 {
     QObject::disconnect(udpSocket, &QUdpSocket::readyRead,
         this, &Receiver::processPendingDatagrams);
+    delete udpSocket;
 }
 
 void Receiver::processPendingDatagrams()
@@ -45,9 +69,17 @@ void Receiver::processPendingDatagrams()
         else return;
         if (in.device()->size() - sizeof(qint64) < size) return;
 
-        qint8 type = 0;
-        in >> type;
+        qint8 signal1 = 0;
+        qint8 signal2 = 0;
+        qint8 signal3 = 0;
+        qint8 signal4 = 0; 
+        qint8 signal5 = 0;
+        qint8 signal6 = 0;
+        qint8 signal7 = 0;
+        qint8 signal8 = 0;
 
-        qDebug() << type;
+        in >> signal1 >> signal2 >> signal3 >> signal4 >> signal5 >> signal6 >> signal7 >> signal8;
+
+        qDebug() << signal1 << signal2 << signal3 << signal4 << signal5 << signal6 << signal7 << signal8;
     }
 }

@@ -25,5 +25,7 @@ private:
     QUdpSocket* udpSocket = nullptr;
     QTimer timer;
     int messageNo = 1;
+private:
+    void disconnect();
 };
 

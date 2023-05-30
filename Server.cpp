@@ -16,12 +16,10 @@ Server::Server(QWidget* parent)
     buttonBox->addButton(startButton, QDialogButtonBox::ActionRole);
     buttonBox->addButton(quitButton, QDialogButtonBox::RejectRole);
 
-    //! [0]
     udpSocket = new QUdpSocket(this);
-    //! [0]
 
     connect(startButton, &QPushButton::clicked, this, &Server::startBroadcasting);
-    connect(quitButton, &QPushButton::clicked, this, &Server::close);
+    connect(quitButton, &QPushButton::clicked, this, &Server::disconnect);
     connect(&timer, &QTimer::timeout, this, &Server::broadcastDatagram);
 
     auto mainLayout = new QVBoxLayout;
@@ -41,16 +39,24 @@ void Server::startBroadcasting()
 void Server::broadcastDatagram()
 {
     statusLabel->setText(tr("Now broadcasting datagram %1").arg(messageNo));
-    //! [1]
+
     //QByteArray datagram = "Broadcast message " + QByteArray::number(messageNo);
 
     QByteArray data;
     QDataStream out(&data, QIODevice::WriteOnly);
     out << qint64(0);
-    out << qint8(messageNo);
+    out << qint8(messageNo) << qint8(messageNo) << qint8(messageNo) << qint8(messageNo) 
+        << qint8(messageNo) << qint8(messageNo) << qint8(messageNo) << qint8(messageNo);
     out.device()->seek(qint64(0));
     out << qint64(data.size() - sizeof(qint64));
-    udpSocket->writeDatagram(data, QHostAddress::Broadcast, 45454);
-    //! [1]
+
+    udpSocket->writeDatagram(data, QHostAddress("192.168.1.64"), 8080);
     ++messageNo;
+}
+
+void Server::disconnect()
+{
+    QObject::disconnect(&timer, &QTimer::timeout, this, &Server::broadcastDatagram);
+    udpSocket->close();
+    Server::close();
 }

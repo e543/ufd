@@ -63,8 +63,23 @@ void MainWindow::initMainWindow()
     ui->splitter->setStretchFactor(1, 2);
     ui->splitter->setMinimumSize(QSize(300, 300));
 
+    bindChannelLabels();
     initMainChartViews();
     initChartViews(); 
+
+    context->connectionActive = false;
+    connect(ui->ASkanRazvComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(readASkanRazvTables(int)));
+    connect(ui->StopButton, SIGNAL(clicked()), this, SLOT(startStopButton()));
+    connect(ui->ServerButton, SIGNAL(clicked()), this, SLOT(initServer()));
+
+    connect(channelLabels["11"], SIGNAL(clicked()), this, SLOT(initServer()));
+    connect(channelLabels["12"], SIGNAL(clicked()), this, SLOT(initServer()));
+    connect(channelLabels["21"], SIGNAL(clicked()), this, SLOT(initServer()));
+    connect(channelLabels["22"], SIGNAL(clicked()), this, SLOT(initServer()));
+    connect(channelLabels["31"], SIGNAL(clicked()), this, SLOT(initServer()));
+    connect(channelLabels["32"], SIGNAL(clicked()), this, SLOT(initServer()));
+    connect(channelLabels["41"], SIGNAL(clicked()), this, SLOT(initServer()));
+    connect(channelLabels["42"], SIGNAL(clicked()), this, SLOT(initServer()));
 }
 
 void MainWindow::initUnitSettingsDialog()
@@ -74,9 +89,6 @@ void MainWindow::initUnitSettingsDialog()
 
     unitSettings = new UnitSettingsDialog(this);
     connect(ui->SettingsButton, SIGNAL(clicked()), this, SLOT(on_SettingsClicked()));
-    connect(ui->ASkanRazvComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(readASkanRazvTables(int)));
-    connect(ui->StopButton, SIGNAL(clicked()), this, SLOT(startStopButton()));
-    connect(this, SIGNAL(key_f3_pressed_event), this, SLOT(startStopButton()));
 }
 
 void MainWindow::updateSettings()
@@ -95,16 +107,26 @@ void MainWindow::bindContext()
 void MainWindow::initChartViews()
 {
     addChartView(ui->horizontalLayout_sum, "sum");
-    addChartView(ui->horizontalLayout_1prv, "1prv");
-    addChartView(ui->horizontalLayout_1prn, "1prn");
-    addChartView(ui->horizontalLayout_2prv, "2prv");
-    addChartView(ui->horizontalLayout_2prn, "2prn");
-    addChartView(ui->horizontalLayout_3pov, "3pov");
-    addChartView(ui->horizontalLayout_3pon, "3pon");
-    addChartView(ui->horizontalLayout_4pov, "4pov");
-    addChartView(ui->horizontalLayout_4pon, "4pon");
-    addChartView(ui->horizontalLayout_5rl, "5rl");
-    addChartView(ui->horizontalLayout_6rl, "6rl");
+    addChartView(ui->horizontalLayout_11, "11");
+    addChartView(ui->horizontalLayout_12, "12");
+    addChartView(ui->horizontalLayout_21, "21");
+    addChartView(ui->horizontalLayout_22, "22");
+    addChartView(ui->horizontalLayout_31, "31");
+    addChartView(ui->horizontalLayout_32, "32");
+    addChartView(ui->horizontalLayout_41, "41");
+    addChartView(ui->horizontalLayout_42, "42");
+}
+
+void MainWindow::bindChannelLabels()
+{
+    channelLabels["11"] = ui->label_11;
+    channelLabels["12"] = ui->label_12;
+    channelLabels["21"] = ui->label_21;
+    channelLabels["22"] = ui->label_22;
+    channelLabels["31"] = ui->label_31;
+    channelLabels["32"] = ui->label_32;
+    channelLabels["41"] = ui->label_41;
+    channelLabels["42"] = ui->label_42;
 }
 
 
@@ -211,17 +233,28 @@ void MainWindow::readASkanRazvTables(int i)
 
 void MainWindow::startStopButton()
 {
-    auto* timer = context->timer;
+    /*auto* timer = context->timer;
     if (!timer) {
         return;
-    }
+    }*/
 
-    if (timer->isActive()) {
-        timer->stop();
+    if (context->connectionActive) {
         ui->StopButton->setText(QString::fromUtf16(u"Старт F3"));
+        context->connectionActive = false;
     }
     else {
-        timer->start();
         ui->StopButton->setText(QString::fromUtf16(u"Стоп F3"));
+        context->connectionActive = true;
     }
+}
+
+void MainWindow::initServer()
+{
+    if (server)
+    {
+        delete server;
+    }
+
+    server = new Server;
+    server->show();
 }
