@@ -72,14 +72,14 @@ void MainWindow::initMainWindow()
     connect(ui->StopButton, SIGNAL(clicked()), this, SLOT(startStopButton()));
     connect(ui->ServerButton, SIGNAL(clicked()), this, SLOT(initServer()));
 
-    connect(channelLabels["11"], SIGNAL(clicked()), this, SLOT(initServer()));
-    connect(channelLabels["12"], SIGNAL(clicked()), this, SLOT(initServer()));
-    connect(channelLabels["21"], SIGNAL(clicked()), this, SLOT(initServer()));
-    connect(channelLabels["22"], SIGNAL(clicked()), this, SLOT(initServer()));
-    connect(channelLabels["31"], SIGNAL(clicked()), this, SLOT(initServer()));
-    connect(channelLabels["32"], SIGNAL(clicked()), this, SLOT(initServer()));
-    connect(channelLabels["41"], SIGNAL(clicked()), this, SLOT(initServer()));
-    connect(channelLabels["42"], SIGNAL(clicked()), this, SLOT(initServer()));
+    connect(channelLabels["11"], SIGNAL(clicked()), this, SLOT(channelClicked()));
+    connect(channelLabels["12"], SIGNAL(clicked()), this, SLOT(channelClicked()));
+    connect(channelLabels["21"], SIGNAL(clicked()), this, SLOT(channelClicked()));
+    connect(channelLabels["22"], SIGNAL(clicked()), this, SLOT(channelClicked()));
+    connect(channelLabels["31"], SIGNAL(clicked()), this, SLOT(channelClicked()));
+    connect(channelLabels["32"], SIGNAL(clicked()), this, SLOT(channelClicked()));
+    connect(channelLabels["41"], SIGNAL(clicked()), this, SLOT(channelClicked()));
+    connect(channelLabels["42"], SIGNAL(clicked()), this, SLOT(channelClicked()));
 }
 
 void MainWindow::initUnitSettingsDialog()
@@ -257,4 +257,15 @@ void MainWindow::initServer()
 
     server = new Server;
     server->show();
+}
+
+void MainWindow::channelClicked()
+{
+    auto* label = qobject_cast<ClickedLabel*>(sender());
+    if (!label->isClicked()){
+        label->setStyleSheet("");
+    }
+    else {
+        label->setStyleSheet("border:  3px dashed blue;");
+    }
 }

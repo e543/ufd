@@ -49,6 +49,7 @@ private slots:
     void start();
     void startStopButton();
     void initServer();
+    void channelClicked();
 protected:
     void closeEvent(QCloseEvent* event);
     void showEvent(QShowEvent* event);
