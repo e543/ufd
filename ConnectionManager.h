@@ -17,19 +17,24 @@ struct Context
     bool isRazvVisible;
     QTimer* timer;
     bool connectionActive;
+    bool channelSelected;
+    bool channelChanged;
+    amp_struct_t data;
+    ClickedLabel* currentLabel;
+    quint8 selectedChannel;
+    QVector<QXYSeries*> channelSeries;
 };
-
 
 class ConnectionManager : public QObject
 {
     Q_OBJECT
 	quint8 osc[256];
-    amp_struct_t data;
     Receiver* receiver = nullptr;
     Context* context;
     qreal delta;
     qreal x;
     qreal width;
+    void resetChart();
 private slots:
     void handleData();
     void toggleConnection();

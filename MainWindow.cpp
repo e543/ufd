@@ -21,11 +21,12 @@ void MainWindow::start()
 
 void MainWindow::closeEvent(QCloseEvent* event)
 {
+    if (server) delete server;
+    server = nullptr;
 }
 
 bool MainWindow::eventFilter(QObject* obj, QEvent* e)
 {
-    int i = 0;
     return false;
 }
 
@@ -33,11 +34,11 @@ void MainWindow::keyPressEvent(QKeyEvent* event)
 {
     if (event->key() == Qt::Key_F3)
     {
-        emit startStopButton(); 
+        emit ui->StopButton->clicked(); 
     }
 }
 
-MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWindow), context(new Context) , settings(new Settings), channelCount(0)
+MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWindow), context(new Context) , settings(new Settings)
 {
     initMainWindow();
     initUnitSettingsDialog();
@@ -49,6 +50,7 @@ MainWindow::~MainWindow()
     
     if (unitSettings) delete unitSettings;
     for (auto* view : chartViews) delete view;
+    if (server) delete server;
     delete ui;
 }
 
@@ -65,7 +67,8 @@ void MainWindow::initMainWindow()
 
     bindChannelLabels();
     initMainChartViews();
-    initChartViews(); 
+    initChartViews();
+    indexLabels();
 
     context->connectionActive = false;
     connect(ui->ASkanRazvComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(readASkanRazvTables(int)));
@@ -102,6 +105,9 @@ void MainWindow::bindContext()
     context->ui_UnitSettings = unitSettings->getUi();
     context->ui_ColorScheme = unitSettings->getColorSchemeDialog()->getUi();
     context->firstWidget = firstWidget;
+    context->currentLabel = nullptr;
+    context->channelSelected = false;
+    context->channelChanged = false;
 }
 
 void MainWindow::initChartViews()
@@ -115,6 +121,11 @@ void MainWindow::initChartViews()
     addChartView(ui->horizontalLayout_32, "32");
     addChartView(ui->horizontalLayout_41, "41");
     addChartView(ui->horizontalLayout_42, "42");
+}
+
+void MainWindow::initSeries()
+{
+
 }
 
 void MainWindow::bindChannelLabels()
@@ -241,10 +252,12 @@ void MainWindow::startStopButton()
     if (context->connectionActive) {
         ui->StopButton->setText(QString::fromUtf16(u"Старт F3"));
         context->connectionActive = false;
+        ui->label_7->setStyleSheet("QLabel { background-color : red; }");
     }
     else {
         ui->StopButton->setText(QString::fromUtf16(u"Стоп F3"));
         context->connectionActive = true;
+        ui->label_7->setStyleSheet("QLabel { background-color : green; }");
     }
 }
 
@@ -259,18 +272,41 @@ void MainWindow::initServer()
     server->show();
 }
 
+void MainWindow::indexLabels()
+{
+    channelLabels["11"]->setIndex(0);
+    channelLabels["12"]->setIndex(1);
+    channelLabels["21"]->setIndex(2);
+    channelLabels["22"]->setIndex(3);
+    channelLabels["31"]->setIndex(4);
+    channelLabels["32"]->setIndex(5);
+    channelLabels["41"]->setIndex(6);
+    channelLabels["42"]->setIndex(7);
+}
+
 void MainWindow::channelClicked()
 {
     auto* label = qobject_cast<ClickedLabel*>(sender());
-    if (!label->isClicked()){
+
+    if (label->isClicked()){
+        label->setNotClicked();
         label->setStyleSheet("");
-        --channelCount;
-        if (!channelCount)
-            firstWidget->setStyleSheet("");
+        firstWidget->setStyleSheet("");
+        context->currentLabel = nullptr;
+        context->channelSelected = false;
     }
     else {
-        ++channelCount;
+        label->setClicked();
         label->setStyleSheet("border:  3px dashed blue;");
         firstWidget->setStyleSheet("border:  3px dashed blue;");
+        context->selectedChannel = label->getIndex();
+        context->channelSelected = true;
+
+        if (context->currentLabel) {
+            context->currentLabel->setNotClicked();
+            context->currentLabel->setStyleSheet("");
+        }
+        context->currentLabel = label;
+        context->channelChanged = true;
     }
 }

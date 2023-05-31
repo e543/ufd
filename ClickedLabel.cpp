@@ -10,8 +10,24 @@ bool ClickedLabel::isClicked()
 {
     return click;
 }
-void ClickedLabel::mouseReleaseEvent(QMouseEvent* ev)
+void ClickedLabel::setClicked()
 {
-    click = !click;
+    click = true;
+}
+void ClickedLabel::setNotClicked()
+{
+    click = false;
+}
+void ClickedLabel::mouseReleaseEvent(QMouseEvent* event)
+{
+    Q_UNUSED(event);
     emit clicked();
+}
+void ClickedLabel::setIndex(quint8 i)
+{
+    index = i;
+}
+quint8 ClickedLabel::getIndex()
+{
+    return index;
 }

@@ -11,7 +11,6 @@ struct Settings
     QRect secondaryRect;
 
     const float percentage = 0.7;
-    const unsigned int channelsCount = 10;
 };
 
 class MainWindow : public QMainWindow
@@ -22,8 +21,7 @@ class MainWindow : public QMainWindow
     Settings* settings;
     Context* context;
     QHash<QString, QChartView*> chartViews;
-    QHash<QString, QLabel*> channelLabels;
-    quint8 channelCount;
+    QHash<QString, ClickedLabel*> channelLabels;
     ChartWidget* firstWidget;
     Server* server = nullptr;
 
@@ -33,6 +31,8 @@ class MainWindow : public QMainWindow
     void initMainWindow();
     void initUnitSettingsDialog();
     void initChartViews();
+    void initSeries();
+    void indexLabels();
     void addChartView(QBoxLayout* layout, QString name);
     void bindChannelLabels();
     void updateSettings();
@@ -52,9 +52,9 @@ private slots:
     void initServer();
     void channelClicked();
 protected:
-    void closeEvent(QCloseEvent* event);
-    void showEvent(QShowEvent* event);
-    bool eventFilter(QObject* obj, QEvent* e);
+    void closeEvent(QCloseEvent* event) override;
+    void showEvent(QShowEvent* event) override;
+    bool eventFilter(QObject* obj, QEvent* e) override;
 public:
     MainWindow(QWidget* parent = nullptr);
     ~MainWindow();

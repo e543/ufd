@@ -1892,6 +1892,9 @@
              <layout class="QHBoxLayout" name="horizontalLayout">
               <item>
                <widget class="QLabel" name="label_6">
+                <property name="enabled">
+                 <bool>true</bool>
+                </property>
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
                   <horstretch>0</horstretch>
@@ -1910,6 +1913,9 @@
               </item>
               <item>
                <widget class="QLabel" name="label_7">
+                <property name="enabled">
+                 <bool>true</bool>
+                </property>
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                   <horstretch>0</horstretch>
@@ -1943,8 +1949,8 @@
                    <colorrole role="Window">
                     <brush brushstyle="SolidPattern">
                      <color alpha="255">
-                      <red>0</red>
-                      <green>170</green>
+                      <red>255</red>
+                      <green>0</green>
                       <blue>0</blue>
                      </color>
                     </brush>
@@ -1963,8 +1969,8 @@
                    <colorrole role="Window">
                     <brush brushstyle="SolidPattern">
                      <color alpha="255">
-                      <red>0</red>
-                      <green>170</green>
+                      <red>255</red>
+                      <green>0</green>
                       <blue>0</blue>
                      </color>
                     </brush>
@@ -1974,8 +1980,8 @@
                    <colorrole role="Base">
                     <brush brushstyle="SolidPattern">
                      <color alpha="255">
-                      <red>0</red>
-                      <green>170</green>
+                      <red>255</red>
+                      <green>0</green>
                       <blue>0</blue>
                      </color>
                     </brush>
@@ -1983,8 +1989,8 @@
                    <colorrole role="Window">
                     <brush brushstyle="SolidPattern">
                      <color alpha="255">
-                      <red>0</red>
-                      <green>170</green>
+                      <red>255</red>
+                      <green>0</green>
                       <blue>0</blue>
                      </color>
                     </brush>
@@ -2019,6 +2025,13 @@
           </item>
           <item>
            <widget class="QPushButton" name="ServerButton">
+            <property name="font">
+             <font>
+              <pointsize>10</pointsize>
+              <weight>50</weight>
+              <bold>false</bold>
+             </font>
+            </property>
             <property name="text">
              <string>Server</string>
             </property>

@@ -24,26 +24,6 @@ void Receiver::setConnection(const QHostAddress& address, quint16 port)
     }
     connect(udpSocket, &QUdpSocket::readyRead,
         this, &Receiver::processPendingDatagrams);
-    
-    /*QList<QHostAddress> broadcastAddresses;
-    QList<QHostAddress> ipAddresses; 
-    broadcastAddresses.clear();
-    ipAddresses.clear();
-    const QList<QNetworkInterface> interfaces = QNetworkInterface::allInterfaces();
-    for (const QNetworkInterface& interface : interfaces) {
-        const QList<QNetworkAddressEntry> entries = interface.addressEntries();
-        for (const QNetworkAddressEntry& entry : entries) {
-            QHostAddress broadcastAddress = entry.broadcast();
-            if (broadcastAddress != QHostAddress::Null && entry.ip() != QHostAddress::LocalHost) {
-                broadcastAddresses << broadcastAddress;
-                ipAddresses << entry.ip();
-            }
-        }
-    }
-
-    for (auto ip : ipAddresses) {
-        qDebug() << ip.toString();
-    }*/
 }
 
 void Receiver::disconnect()

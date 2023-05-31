@@ -66,6 +66,12 @@ QXYSeries* ChartWidget::getSeries()
 	return series;
 }
 
+void ChartWidget::setSeries(QLineSeries* series)
+{
+	chart->series().clear();
+	this->series = series;
+}
+
 void ChartWidget::mousePressEvent(QMouseEvent* event)
 {
 	QChartView::mousePressEvent(event);

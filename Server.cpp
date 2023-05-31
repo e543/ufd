@@ -33,7 +33,7 @@ void Server::startBroadcasting()
 {
     udpSocket = new QUdpSocket(this);
     startButton->setEnabled(false);
-    timer.start(1);
+    timer.start();
 }
 
 void Server::broadcastDatagram()
@@ -45,7 +45,7 @@ void Server::broadcastDatagram()
     QByteArray data;
     QDataStream out(&data, QIODevice::WriteOnly);
     out << qint64(0);
-    out << qint8(messageNo) << qint8(messageNo) << qint8(messageNo) << qint8(messageNo) 
+    out << qint8(messageNo) << qint8(255 - messageNo) << qint8(messageNo) << qint8(messageNo)
         << qint8(messageNo) << qint8(messageNo) << qint8(messageNo) << qint8(messageNo);
     out.device()->seek(qint64(0));
     out << qint64(data.size() - sizeof(qint64));
