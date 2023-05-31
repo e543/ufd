@@ -23,6 +23,7 @@ class MainWindow : public QMainWindow
     Context* context;
     QHash<QString, QChartView*> chartViews;
     QHash<QString, QLabel*> channelLabels;
+    quint8 channelCount;
     ChartWidget* firstWidget;
     Server* server = nullptr;
 

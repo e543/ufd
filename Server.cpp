@@ -6,7 +6,7 @@
 Server::Server(QWidget* parent)
     : QWidget(parent)
 {
-    statusLabel = new QLabel(tr("Ready to broadcast datagrams on port 45454"));
+    statusLabel = new QLabel(tr("Ready to broadcast datagrams"));
     statusLabel->setWordWrap(true);
 
     startButton = new QPushButton(tr("&Start"));
@@ -16,7 +16,6 @@ Server::Server(QWidget* parent)
     buttonBox->addButton(startButton, QDialogButtonBox::ActionRole);
     buttonBox->addButton(quitButton, QDialogButtonBox::RejectRole);
 
-    udpSocket = new QUdpSocket(this);
 
     connect(startButton, &QPushButton::clicked, this, &Server::startBroadcasting);
     connect(quitButton, &QPushButton::clicked, this, &Server::disconnect);
@@ -32,8 +31,9 @@ Server::Server(QWidget* parent)
 
 void Server::startBroadcasting()
 {
+    udpSocket = new QUdpSocket(this);
     startButton->setEnabled(false);
-    timer.start(1000);
+    timer.start(1);
 }
 
 void Server::broadcastDatagram()
@@ -51,12 +51,13 @@ void Server::broadcastDatagram()
     out << qint64(data.size() - sizeof(qint64));
 
     udpSocket->writeDatagram(data, QHostAddress("192.168.1.64"), 8080);
-    ++messageNo;
+    messageNo = ++messageNo % 256;
 }
 
 void Server::disconnect()
 {
     QObject::disconnect(&timer, &QTimer::timeout, this, &Server::broadcastDatagram);
-    udpSocket->close();
+    if (udpSocket) 
+        delete udpSocket;
     Server::close();
 }

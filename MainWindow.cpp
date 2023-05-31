@@ -37,7 +37,7 @@ void MainWindow::keyPressEvent(QKeyEvent* event)
     }
 }
 
-MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWindow), context(new Context) , settings(new Settings)
+MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWindow), context(new Context) , settings(new Settings), channelCount(0)
 {
     initMainWindow();
     initUnitSettingsDialog();
@@ -264,8 +264,13 @@ void MainWindow::channelClicked()
     auto* label = qobject_cast<ClickedLabel*>(sender());
     if (!label->isClicked()){
         label->setStyleSheet("");
+        --channelCount;
+        if (!channelCount)
+            firstWidget->setStyleSheet("");
     }
     else {
+        ++channelCount;
         label->setStyleSheet("border:  3px dashed blue;");
+        firstWidget->setStyleSheet("border:  3px dashed blue;");
     }
 }

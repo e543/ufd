@@ -7,31 +7,6 @@
 #include "ChartWidget.h"
 #include <ui_MainWindow.h>
 
-#define NUM_RESULT_STRBS    5
-#define NUM_USS             2
-#define NUM_TACTS            4
-
-struct amp_strob_struct_t
-{
-    quint16 time;
-    quint8 ampl;
-};
-
-struct amp_us_struct_t
-{
-    amp_strob_struct_t ampl[NUM_RESULT_STRBS];
-};
-
-struct amp_tact_struct_t
-{
-    amp_us_struct_t ampl_us[NUM_USS];
-};
-
-struct amp_struct_t
-{
-    amp_tact_struct_t ampl_tact[NUM_TACTS];
-};
-
 struct Context
 {
     Ui::MainWindow* ui_MainWindow;
@@ -52,7 +27,11 @@ class ConnectionManager : public QObject
     amp_struct_t data;
     Receiver* receiver = nullptr;
     Context* context;
+    qreal delta;
+    qreal x;
+    qreal width;
 private slots:
+    void handleData();
     void toggleConnection();
 public:
     ConnectionManager(Context* context);

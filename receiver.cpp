@@ -53,6 +53,11 @@ void Receiver::disconnect()
     delete udpSocket;
 }
 
+amp_struct_t Receiver::fetchData()
+{
+    return data;
+}
+
 void Receiver::processPendingDatagrams()
 {
     QByteArray datagram;
@@ -69,17 +74,15 @@ void Receiver::processPendingDatagrams()
         else return;
         if (in.device()->size() - sizeof(qint64) < size) return;
 
-        qint8 signal1 = 0;
-        qint8 signal2 = 0;
-        qint8 signal3 = 0;
-        qint8 signal4 = 0; 
-        qint8 signal5 = 0;
-        qint8 signal6 = 0;
-        qint8 signal7 = 0;
-        qint8 signal8 = 0;
+        in >> data.ampl_tact[0].ampl_us[0].ampl[0].ampl 
+            >> data.ampl_tact[0].ampl_us[1].ampl[0].ampl
+            >> data.ampl_tact[1].ampl_us[0].ampl[0].ampl
+            >> data.ampl_tact[1].ampl_us[1].ampl[0].ampl
+            >> data.ampl_tact[2].ampl_us[0].ampl[0].ampl
+            >> data.ampl_tact[2].ampl_us[1].ampl[0].ampl
+            >> data.ampl_tact[3].ampl_us[0].ampl[0].ampl
+            >> data.ampl_tact[3].ampl_us[1].ampl[0].ampl;
 
-        in >> signal1 >> signal2 >> signal3 >> signal4 >> signal5 >> signal6 >> signal7 >> signal8;
-
-        qDebug() << signal1 << signal2 << signal3 << signal4 << signal5 << signal6 << signal7 << signal8;
+        emit dataReceived();
     }
 }

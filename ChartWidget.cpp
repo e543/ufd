@@ -14,7 +14,7 @@ ChartWidget::ChartWidget(QWidget* parent, QChart* chart) : QChartView(chart, par
 
 	chart->layout()->setContentsMargins(0, 0, 0, 0);
 	chart->setBackgroundRoundness(0);
-	chart->setMargins(QMargins{ 0 , 0 ,0 , 0 });
+	chart->setMargins(QMargins{ 2 , 2 ,10 , 10 });
 
 	QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
 	sizePolicy.setHeightForWidth(this->sizePolicy().hasHeightForWidth());
