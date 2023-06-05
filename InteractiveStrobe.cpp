@@ -22,6 +22,12 @@ InteractiveStrobe::InteractiveStrobe(QChart* chart,const QPointF& pos) : QGraphi
     setAcceptHoverEvents(true);
 }
 
+InteractiveStrobe::InteractiveStrobe(QChart* chart, QColor color, const QPointF& initPos)
+{
+    InteractiveStrobe(chart, initPos);
+    setColor(color);
+}
+
 InteractiveStrobe::~InteractiveStrobe()
 {
 }
@@ -135,6 +141,11 @@ QPointF InteractiveStrobe::getLPoint()
 QPointF InteractiveStrobe::getRPoint()
 {
     return chart->mapToValue(itemRect().topRight());
+}
+
+void InteractiveStrobe::setColor(QColor color)
+{
+    this->color = color;
 }
 
 void InteractiveStrobe::hoverEnterEvent(QGraphicsSceneHoverEvent* event)

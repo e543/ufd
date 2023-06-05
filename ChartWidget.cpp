@@ -56,6 +56,13 @@ void ChartWidget::addStrobe(QPointF initPos)
 	strobes.append(strobe);
 }
 
+void ChartWidget::addStrobe(QColor color, QPointF initPos)
+{
+	auto* strobe = new InteractiveStrobe(chart, initPos);
+	strobe->setColor(color);
+	strobes.append(strobe);
+}
+
 QChart* ChartWidget::getChart()
 {
 	return chart;
@@ -64,6 +71,11 @@ QChart* ChartWidget::getChart()
 QXYSeries* ChartWidget::getSeries()
 {
 	return series;
+}
+
+QVector<InteractiveStrobe*> ChartWidget::getStrobes()
+{
+	return strobes;
 }
 
 void ChartWidget::setSeries(QLineSeries* series)

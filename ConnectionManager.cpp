@@ -69,7 +69,7 @@ void ConnectionManager::dataTimer()
 		points[i].setY(y);
 	}
 
-	resetChart();
+	//resetChart();
 	if (context->channelSelected) {
 		series->replace(points);
 	}

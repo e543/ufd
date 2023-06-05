@@ -14,9 +14,11 @@ public:
     ChartWidget(QWidget* parent = 0, QChart* chart = 0);
     ~ChartWidget();
     QChart* getChart();
-    QXYSeries* getSeries(); 
+    QXYSeries* getSeries();
+    QVector<InteractiveStrobe*> getStrobes();
     void setSeries(QLineSeries* series);
     void addStrobe(QPointF initPos);
+    void addStrobe(QColor color, QPointF initPos);
     void resizeEvent(QResizeEvent* event) override;
     void mousePressEvent(QMouseEvent* event) override;
     void mouseMoveEvent(QMouseEvent* event) override;

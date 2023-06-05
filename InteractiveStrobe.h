@@ -26,12 +26,14 @@ class InteractiveStrobe : public QGraphicsItem
 	DragMode dragMode = DragMode::None;
 public:
 	InteractiveStrobe(QChart* chart,const QPointF& initPos);
+	InteractiveStrobe(QChart* chart, QColor color, const QPointF& initPos);
 	~InteractiveStrobe();
 	void updateGeometry();
 	QRectF itemRect();
 	void drag(QPointF start, QPointF current);
 	QPointF getLPoint();
 	QPointF getRPoint();
+	void setColor(QColor color);
 protected:
 	QRectF boundingRect() const override;
 	void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget) override;

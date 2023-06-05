@@ -16,7 +16,11 @@ void MainWindow::showEvent(QShowEvent* e)
 
 void MainWindow::start()
 {
-    firstWidget->addStrobe({ 110,110 });
+    firstWidget->addStrobe(QColor(Qt::red), { 110,110 });
+    firstWidget->addStrobe(QColor(Qt::yellow), { 120,120 });
+    firstWidget->addStrobe(QColor(Qt::blue), { 130,130 });
+    firstWidget->addStrobe(QColor(Qt::cyan), { 140,140 });
+    firstWidget->addStrobe(QColor(Qt::magenta), { 150,150 });
 }
 
 void MainWindow::closeEvent(QCloseEvent* event)
