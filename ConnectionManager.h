@@ -19,7 +19,7 @@ struct Context
     bool connectionActive;
     bool channelSelected;
     bool channelChanged;
-    amp_struct_t data;
+    quint8* osc;
     ClickedLabel* currentLabel;
     quint8 selectedChannel;
     QVector<QXYSeries*> channelSeries;
@@ -28,7 +28,8 @@ struct Context
 class ConnectionManager : public QObject
 {
     Q_OBJECT
-	quint8 osc[256];
+	quint8* osc;
+    int i = 0;
     Receiver* receiver = nullptr;
     Context* context;
     qreal delta;

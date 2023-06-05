@@ -24,6 +24,7 @@ private:
     QPushButton* startButton = nullptr;
     QUdpSocket* udpSocket = nullptr;
     QTimer timer;
+    quint8 osc[258];
     int messageNo = 1;
 private:
     void disconnect();

@@ -26,6 +26,10 @@ Server::Server(QWidget* parent)
     mainLayout->addWidget(buttonBox);
     setLayout(mainLayout);
 
+    for (int i = 0; i < 256; ++i) {
+        osc[i] = i;
+    }
+
     setWindowTitle(tr("Broadcast Sender"));
 }
 
@@ -38,20 +42,23 @@ void Server::startBroadcasting()
 
 void Server::broadcastDatagram()
 {
-    statusLabel->setText(tr("Now broadcasting datagram %1").arg(messageNo));
+    
 
     //QByteArray datagram = "Broadcast message " + QByteArray::number(messageNo);
 
     QByteArray data;
     QDataStream out(&data, QIODevice::WriteOnly);
-    out << qint64(0);
-    out << qint8(messageNo) << qint8(255 - messageNo) << qint8(messageNo) << qint8(messageNo)
-        << qint8(messageNo) << qint8(messageNo) << qint8(messageNo) << qint8(messageNo);
+    for (int i = 0; i < 256; ++i) {
+        out << osc[i];
+    }
     out.device()->seek(qint64(0));
     out << qint64(data.size() - sizeof(qint64));
 
-    udpSocket->writeDatagram(data, QHostAddress("192.168.1.64"), 8080);
-    messageNo = ++messageNo % 256;
+    udpSocket->writeDatagram(data, QHostAddress::LocalHost, 8080);
+    for (int i = 0; i < 256; ++i) {
+        osc[i] += 1; 
+        statusLabel->setText(tr("Now broadcasting datagram %1").arg(osc[i]));
+    }
 }
 
 void Server::disconnect()

@@ -41,7 +41,7 @@ ChartWidget::ChartWidget(QWidget* parent, QChart* chart) : QChartView(chart, par
 	pen.setColor("green");
 	pen.setWidth(3);
 	series->setPen(pen);
-	//series->setUseOpenGL(true);
+	series->setUseOpenGL(true);
 };
 
 

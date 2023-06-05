@@ -15,6 +15,7 @@ ConnectionManager::ConnectionManager(Context* context) : context(context), recei
 
 void ConnectionManager::resetChart()
 {
+	i = 0;
 	x = 0;
 	context->firstWidget->getSeries()->clear();
 }
@@ -22,11 +23,9 @@ void ConnectionManager::resetChart()
 void ConnectionManager::handleData()
 {
 	auto* series = context->firstWidget->getSeries();
-	context->data = receiver->fetchData();
-	auto data = context->data;
-	qreal y = 0;
+	osc = receiver->fetchData();
 
-	if (x > qreal(width)) {
+	/*if (x > qreal(width)) {
 		context->channelChanged = false;
 		resetChart();
 	}
@@ -34,53 +33,12 @@ void ConnectionManager::handleData()
 	if (context->channelChanged) {
 		context->channelChanged = false;
 		resetChart();
+	}*/
+	resetChart();
+	if (context->channelSelected){
+		for (int i = 0; i < 256, x < width; ++i, x += delta)
+			series->append(QPointF{ x, qreal(osc[i]) });
 	}
-
-	if (context->channelSelected) {
-		switch (context->selectedChannel)
-		{
-		default:
-			y = 0;
-			break;
-		case 0:
-			y = data.ampl_tact[0].ampl_us[0].ampl[0].ampl;
-			break;
-		case 1:
-			y = data.ampl_tact[0].ampl_us[1].ampl[0].ampl;
-			break;
-		case 2:
-			y = data.ampl_tact[1].ampl_us[0].ampl[0].ampl;
-			break;
-		case 3:
-			y = data.ampl_tact[1].ampl_us[1].ampl[0].ampl;
-			break;
-		case 4:
-			y = data.ampl_tact[2].ampl_us[0].ampl[0].ampl;
-			break;
-		case 5:
-			y = data.ampl_tact[2].ampl_us[1].ampl[0].ampl;
-			break;
-		case 6:
-			y = data.ampl_tact[3].ampl_us[0].ampl[0].ampl;
-			break;
-		case 7:
-			y = data.ampl_tact[3].ampl_us[1].ampl[0].ampl;
-			break;
-		}
-		auto newPoint = QPointF{ x , y };
-		*series << QPointF{ x , y };
-		x += delta;
-	}
-
-
-	qDebug() << data.ampl_tact[0].ampl_us[0].ampl[0].ampl
-		<< data.ampl_tact[0].ampl_us[1].ampl[0].ampl
-		<< data.ampl_tact[1].ampl_us[0].ampl[0].ampl
-		<< data.ampl_tact[1].ampl_us[1].ampl[0].ampl
-		<< data.ampl_tact[2].ampl_us[0].ampl[0].ampl
-		<< data.ampl_tact[2].ampl_us[1].ampl[0].ampl
-		<< data.ampl_tact[3].ampl_us[0].ampl[0].ampl
-		<< data.ampl_tact[3].ampl_us[1].ampl[0].ampl;
 }
 
 void ConnectionManager::toggleConnection()

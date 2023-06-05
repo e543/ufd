@@ -32,14 +32,14 @@ struct amp_struct_t
 class Receiver : public QObject
 {
     Q_OBJECT
-    quint8 osc[256];
+    quint8* osc;
     amp_struct_t data;
 public:
     Receiver();
     ~Receiver();
     void setConnection(const QHostAddress& address, quint16 port);
     void disconnect();
-    amp_struct_t fetchData();
+    quint8* fetchData();
 signals:
     void dataReceived();
 private slots:

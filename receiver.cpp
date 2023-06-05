@@ -6,6 +6,7 @@
 
 Receiver::Receiver()
 {
+    osc = new quint8[256];
 }
 Receiver::~Receiver()
 {
@@ -17,7 +18,7 @@ void Receiver::setConnection(const QHostAddress& address, quint16 port)
 {
     udpSocket = new QUdpSocket(this);
 
-    if (!udpSocket->bind(address, port))
+    if (!udpSocket->bind(QHostAddress::LocalHost, port))
     {
         qDebug() << udpSocket->errorString();
         return;
@@ -33,9 +34,9 @@ void Receiver::disconnect()
     delete udpSocket;
 }
 
-amp_struct_t Receiver::fetchData()
+quint8* Receiver::fetchData()
 {
-    return data;
+    return osc;
 }
 
 void Receiver::processPendingDatagrams()
@@ -54,15 +55,9 @@ void Receiver::processPendingDatagrams()
         else return;
         if (in.device()->size() - sizeof(qint64) < size) return;
 
-        in >> data.ampl_tact[0].ampl_us[0].ampl[0].ampl 
-            >> data.ampl_tact[0].ampl_us[1].ampl[0].ampl
-            >> data.ampl_tact[1].ampl_us[0].ampl[0].ampl
-            >> data.ampl_tact[1].ampl_us[1].ampl[0].ampl
-            >> data.ampl_tact[2].ampl_us[0].ampl[0].ampl
-            >> data.ampl_tact[2].ampl_us[1].ampl[0].ampl
-            >> data.ampl_tact[3].ampl_us[0].ampl[0].ampl
-            >> data.ampl_tact[3].ampl_us[1].ampl[0].ampl;
-
+        for (int i = 0; i < 256; ++i) {
+            in >> osc[i];
+        }
         emit dataReceived();
     }
 }
