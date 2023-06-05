@@ -6,7 +6,7 @@
 
 Receiver::Receiver()
 {
-    osc = new quint8[256];
+    osc.resize(256);
 }
 Receiver::~Receiver()
 {
@@ -34,7 +34,7 @@ void Receiver::disconnect()
     delete udpSocket;
 }
 
-quint8* Receiver::fetchData()
+QVector<quint8> Receiver::fetchData()
 {
     return osc;
 }
@@ -47,6 +47,8 @@ void Receiver::processPendingDatagrams()
         udpSocket->readDatagram(datagram.data(), datagram.size());
 
         QDataStream in(&datagram, QIODevice::ReadOnly);
+        osc.clear();
+        osc.resize(256);
 
         qint64 size = -1;
         if (in.device()->size() > sizeof(qint64)) {
@@ -57,6 +59,7 @@ void Receiver::processPendingDatagrams()
 
         for (int i = 0; i < 256; ++i) {
             in >> osc[i];
+            qDebug() << osc[i];
         }
         emit dataReceived();
     }

@@ -2008,6 +2008,24 @@
               </item>
              </layout>
             </widget>
+            <widget class="QLabel" name="fpsLabel">
+             <property name="geometry">
+              <rect>
+               <x>10</x>
+               <y>410</y>
+               <width>47</width>
+               <height>41</height>
+              </rect>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>14</pointsize>
+              </font>
+             </property>
+             <property name="text">
+              <string>FPS</string>
+             </property>
+            </widget>
            </widget>
           </item>
           <item>

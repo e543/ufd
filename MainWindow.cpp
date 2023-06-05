@@ -1,4 +1,4 @@
-#include "MainWindow.h"
+ï»¿#include "MainWindow.h"
 
 
 
@@ -244,18 +244,22 @@ void MainWindow::readASkanRazvTables(int i)
 
 void MainWindow::startStopButton()
 {
-    /*auto* timer = context->timer;
+    auto* timer = context->timer;
     if (!timer) {
         return;
-    }*/
+    }
 
     if (context->connectionActive) {
-        ui->StopButton->setText(QString::fromUtf16(u"Ñòàðò F3"));
+        timer->stop();
+        ui->StopButton->setText(QString::fromUtf16(u"Ð¡Ñ‚Ð°Ñ€Ñ‚ F3"));
         context->connectionActive = false;
         ui->label_7->setStyleSheet("QLabel { background-color : red; }");
     }
     else {
-        ui->StopButton->setText(QString::fromUtf16(u"Ñòîï F3"));
+        /*timer->setInterval(0);
+        timer->setSingleShot(true);*/
+        timer->start(1);
+        ui->StopButton->setText(QString::fromUtf16(u"Ð¡Ñ‚Ð¾Ð¿ F3"));
         context->connectionActive = true;
         ui->label_7->setStyleSheet("QLabel { background-color : green; }");
     }

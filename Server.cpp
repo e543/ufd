@@ -48,6 +48,7 @@ void Server::broadcastDatagram()
 
     QByteArray data;
     QDataStream out(&data, QIODevice::WriteOnly);
+    out << qint64(0);
     for (int i = 0; i < 256; ++i) {
         out << osc[i];
     }
@@ -57,7 +58,7 @@ void Server::broadcastDatagram()
     udpSocket->writeDatagram(data, QHostAddress::LocalHost, 8080);
     for (int i = 0; i < 256; ++i) {
         osc[i] += 1; 
-        statusLabel->setText(tr("Now broadcasting datagram %1").arg(osc[i]));
+        //statusLabel->setText(tr("Now broadcasting datagram %1").arg(osc[i]));
     }
 }
 

@@ -16,6 +16,7 @@ struct Context
     bool isAskanVisible;
     bool isRazvVisible;
     QTimer* timer;
+    QElapsedTimer* fpsTimer;
     bool connectionActive;
     bool channelSelected;
     bool channelChanged;
@@ -28,17 +29,20 @@ struct Context
 class ConnectionManager : public QObject
 {
     Q_OBJECT
-	quint8* osc;
+    QVector<quint8> osc;
     int i = 0;
     Receiver* receiver = nullptr;
     Context* context;
     qreal delta;
     qreal x;
     qreal width;
+    QXYSeries* series;
+    QVector<QPointF> points;
     void resetChart();
 private slots:
     void handleData();
     void toggleConnection();
+    void dataTimer();
 public:
     ConnectionManager(Context* context);
 };
