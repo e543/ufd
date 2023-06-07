@@ -201,23 +201,23 @@ void MainWindow::addChartView(QBoxLayout* layout, QString name)
         QColor(Qt::cyan) , 
         QColor(Qt::magenta) };
 
+
+    QValueAxis* axisX = new QValueAxis;
+    QValueAxis* axisY = new QValueAxis;
+    chart->addAxis(axisX, Qt::AlignBottom);
+    chart->addAxis(axisY, Qt::AlignLeft);
+    chart->legend()->hide();
+
+    axisX->setRange(0, 80.6);
+    axisY->setRange(0, 255);
+    axisX->hide();
+    axisY->hide();
     for (int i = 0; i < 5; ++i) {
         QScatterSeries* series = new QScatterSeries;
 
-        QValueAxis* axisX = new QValueAxis;
-        QValueAxis* axisY = new QValueAxis;
-
-        chart->addAxis(axisX, Qt::AlignBottom);
-        chart->addAxis(axisY, Qt::AlignLeft);
-        chart->legend()->hide();
-
-        axisX->setRange(0, 80.6);
-        axisY->setRange(0, 255);
         chart->addSeries(series);
         series->attachAxis(axisX);
         series->attachAxis(axisY);
-        axisX->hide();
-        axisY->hide();
 
         QPen pen;
         pen.setColor(colors[i]);
