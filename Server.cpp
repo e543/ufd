@@ -85,13 +85,13 @@ void Server::dataStrobe(QDataStream& out)
     auto& channel = input.limits[numChannel];
     int i = 0;
     for (auto& strobe : channel) {
-        qreal ymax = 0;
         int xmax = 0;
         auto y = strobe.first;
+        qreal ymax = y;
         auto& point = strobe.second;
         bool found = false;
         for (int i = 0; i < 256; ++i) {
-            if (y > ymax && i >= point.x() && i <= point.y()) {
+            if (osc[i] > ymax && i >= point.x() && i <= point.y()) {
                 ymax = osc[i];
                 xmax = i;
                 found = true;
@@ -100,8 +100,8 @@ void Server::dataStrobe(QDataStream& out)
         if (found) {
             auto& strb = data.ampl_tact[numChannel / 2].ampl_us[numChannel % 2].ampl[i];
             strb.ampl = ymax;
-            strb.time = xmax / input.time;
-            qDebug() << QPointF{ qreal(xmax), ymax };
+            strb.time = input.time / xmax;
+            qDebug() << i << QPointF{ qreal(xmax), ymax };
         }
         ++i;
     }
@@ -113,10 +113,8 @@ void Server::strobesReceived(QDataStream& in)
     in >> input.time;
 
     quint8 i = numChannel;
-    qDebug() << " --------- ";
-    for (auto strobe : input.limits[i]) {
+    for (auto& strobe : input.limits[i]) {
         in >> strobe;
-        qDebug() << strobe;
     }
 }
 

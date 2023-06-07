@@ -92,7 +92,6 @@ void ConnectionManager::toggleConnection()
 void ConnectionManager::dataTimer()
 {
 	if (context->channelSelected) {
-		strobeChanged();
 		client->sendCommand("o");
 		client->sendCommand("a");
 	}
@@ -100,16 +99,19 @@ void ConnectionManager::dataTimer()
 
 void ConnectionManager::strobeChanged()
 {
+	//qDebug() << "Strobe changed!";
+	QVector<QPair<qreal, QPointF>> pairs;
+	auto strobes = context->firstWidget->getStrobes();
+	for (auto* strobe : strobes) {
+		QPointF point = { strobe->getLPoint().x(), strobe->getRPoint().x() };
+		pairs << QPair<qreal, QPointF> { strobe->getLPoint().y(), point };
+	}
+
 	if (context->channelSelected)
 	{
-		//qDebug() << "Strobe changed!";
-		QVector<QPair<qreal, QPointF>> pairs;
-		auto strobes = context->firstWidget->getStrobes();
-		for (auto* strobe : strobes) {
-			QPointF point = { strobe->getLPoint().x(), strobe->getRPoint().x() };
-			pairs << QPair<qreal, QPointF> { strobe->getLPoint().y(), point };
-		}
-
 		client->sendStrobes(context->selectedChannel, width, pairs);
+	}
+	else {
+		client->sendStrobes(0, width, pairs);
 	}
 }
