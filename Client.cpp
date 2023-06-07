@@ -21,9 +21,31 @@ void Client::sendCommand(QString command)
 
     out << qint64(0);
     out << command;
+
+    if (command == "s") {
+        //out << 
+    }
+
     out.device()->seek(qint64(0));
     out << qint64(data.size() - sizeof(qint64));
+    udpSocket->writeDatagram(data, QHostAddress::LocalHost, 8080);
+}
 
+void Client::sendStrobes(quint8 channel, qreal time , const QVector<QPair<qreal, QPointF>>& pairs)
+{
+    QByteArray data;
+    QDataStream out(&data, QIODevice::WriteOnly);
+
+    out << qint64(0);
+    out << QString("s");
+    out << channel;
+    out << time;
+    for (auto& pair : pairs) {
+        out << pair;
+    }
+
+    out.device()->seek(qint64(0));
+    out << qint64(data.size() - sizeof(qint64));
     udpSocket->writeDatagram(data, QHostAddress::LocalHost, 8080);
 }
 

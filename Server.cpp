@@ -2,6 +2,7 @@
 #include <QtWidgets>
 #include <QtNetwork>
 #include <QtCore>
+#include <QDebug>
 
 Server::Server(QWidget* parent)
     : QWidget(parent)
@@ -19,7 +20,6 @@ Server::Server(QWidget* parent)
 
     connect(startButton, &QPushButton::clicked, this, &Server::startListening);
     connect(quitButton, &QPushButton::clicked, this, &Server::disconnect);
-    //connect(&timer, &QTimer::timeout, this, &Server::callBackDatagram);
 
     auto mainLayout = new QVBoxLayout;
     mainLayout->addWidget(statusLabel);
@@ -29,7 +29,6 @@ Server::Server(QWidget* parent)
     for (int i = 0; i < 256; ++i) {
         osc[i] = i;
     }
-
 
     setWindowTitle(tr("Server"));
 }
@@ -44,7 +43,6 @@ void Server::startListening()
         return;
     }
     connect(udpSocket, &QUdpSocket::readyRead, this, &Server::callBackDatagram);
-    //timer.start();
 }
 
 void Server::callBackDatagram()
@@ -66,7 +64,7 @@ void Server::callBackDatagram()
         if (in.device()->size() - sizeof(qint64) < size) return;
 
         in >> command;
-        sendCallBack();
+        sendCallBack(in);
     }
 
 }
@@ -84,21 +82,50 @@ void Server::dataOsc(QDataStream& out)
 
 void Server::dataStrobe(QDataStream& out)
 {
-
+    auto& channel = input.limits[numChannel];
+    int i = 0;
+    for (auto& strobe : channel) {
+        qreal ymax = 0;
+        int xmax = 0;
+        auto y = strobe.first;
+        auto& point = strobe.second;
+        bool found = false;
+        for (int i = 0; i < 256; ++i) {
+            if (y > ymax && i >= point.x() && i <= point.y()) {
+                ymax = osc[i];
+                xmax = i;
+                found = true;
+            }
+        }
+        if (found) {
+            auto& strb = data.ampl_tact[numChannel / 2].ampl_us[numChannel % 2].ampl[i];
+            strb.ampl = ymax;
+            strb.time = xmax / input.time;
+            qDebug() << QPointF{ qreal(xmax), ymax };
+        }
+        ++i;
+    }
 }
 
-void Server::strobesChanged(QDataStream& in)
+void Server::strobesReceived(QDataStream& in)
 {
+    in >> numChannel;
+    in >> input.time;
 
+    quint8 i = numChannel;
+    qDebug() << " --------- ";
+    for (auto strobe : input.limits[i]) {
+        in >> strobe;
+        qDebug() << strobe;
+    }
 }
 
-void Server::sendCallBack()
+void Server::sendCallBack(QDataStream& in)
 {
     QByteArray data;
     QDataStream out(&data, QIODevice::WriteOnly);
     out << qint64(0);
 
-    int test = 0;
     if (command == "o") {
         out << QString("o");
         dataOsc(out);
@@ -111,7 +138,7 @@ void Server::sendCallBack()
     else
     if (command == "s") {
         out << QString("s");
-        //strobesChanged(in)
+        strobesReceived(in);
     }
 
     out.device()->seek(qint64(0));

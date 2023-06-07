@@ -1,5 +1,8 @@
 #pragma once
 #include <QtCharts>
+
+
+
 class InteractiveStrobe : public QGraphicsItem
 {
 	QChart* chart;
@@ -12,10 +15,9 @@ class InteractiveStrobe : public QGraphicsItem
 	QPointF chartPos;
 	QPointF initPos;
 	qreal initWidth;
-	qreal limit;
 	qreal dragStartWidth;
 	QColor color = Qt::red;
-
+	bool* strobeIsChanged;
 
 	enum DragMode {
 		None,
@@ -34,6 +36,7 @@ public:
 	QPointF getLPoint();
 	QPointF getRPoint();
 	void setColor(QColor color);
+	void setStrobeChanged(bool* strobeIsChanged);
 protected:
 	QRectF boundingRect() const override;
 	void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget) override;

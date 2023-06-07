@@ -10,6 +10,9 @@ class ChartWidget : public QChartView
     InteractiveStrobe* selectedStrobe;
     QChart* chart;
     QLineSeries* series;
+    bool strobeIsChanged = false;
+signals:
+    void strobesChanged();
 public:
     ChartWidget(QWidget* parent = 0, QChart* chart = 0);
     ~ChartWidget();

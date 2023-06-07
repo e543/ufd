@@ -47,12 +47,12 @@ ChartWidget::ChartWidget(QWidget* parent, QChart* chart) : QChartView(chart, par
 
 ChartWidget::~ChartWidget()
 {
-
 }
 
 void ChartWidget::addStrobe(QPointF initPos)
 {
 	auto* strobe = new InteractiveStrobe(chart, initPos);
+	strobe->setStrobeChanged(&strobeIsChanged);
 	strobes.append(strobe);
 }
 
@@ -60,6 +60,7 @@ void ChartWidget::addStrobe(QColor color, QPointF initPos)
 {
 	auto* strobe = new InteractiveStrobe(chart, initPos);
 	strobe->setColor(color);
+	strobe->setStrobeChanged(&strobeIsChanged);
 	strobes.append(strobe);
 }
 
@@ -91,6 +92,8 @@ void ChartWidget::mousePressEvent(QMouseEvent* event)
 
 void ChartWidget::mouseMoveEvent(QMouseEvent* event)
 {
+	if (strobeIsChanged)
+		emit strobesChanged();
 	QChartView::mouseMoveEvent(event);
 }
 

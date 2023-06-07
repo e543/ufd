@@ -4,7 +4,6 @@ ConnectionManager::ConnectionManager(Context* context) : context(context), clien
 {
 	series = context->firstWidget->getSeries();
 
-
 	auto* chart = context->firstWidget->getChart();
 	if (chart)
 	{
@@ -54,7 +53,7 @@ void ConnectionManager::handleData()
 		}
 	}
 	else 
-	if (result.command == "o") {
+	if (result.command == "a") {
 		// --- code
 	}
 
@@ -76,18 +75,41 @@ void ConnectionManager::toggleConnection()
 		timer->start(1);
 		context->fpsTimer->start();
 		client->setConnection();
+		strobeChanged();
 		QObject::connect(client, SIGNAL(dataReceived()), this, SLOT(handleData()));
+		QObject::connect(context->firstWidget, &ChartWidget::strobesChanged, this, &ConnectionManager::strobeChanged);
 		resetChart();
 	}
 	else
 	{
 		timer->stop();
 		QObject::disconnect(client, SIGNAL(dataReceived()), this, SLOT(handleData()));
+		QObject::disconnect(context->firstWidget, &ChartWidget::strobesChanged, this, &ConnectionManager::strobeChanged);
 		client->disconnect();
 	}
 }
 
 void ConnectionManager::dataTimer()
 {
-	client->sendCommand("o");
+	if (context->channelSelected) {
+		strobeChanged();
+		client->sendCommand("o");
+		client->sendCommand("a");
+	}
+}
+
+void ConnectionManager::strobeChanged()
+{
+	if (context->channelSelected)
+	{
+		//qDebug() << "Strobe changed!";
+		QVector<QPair<qreal, QPointF>> pairs;
+		auto strobes = context->firstWidget->getStrobes();
+		for (auto* strobe : strobes) {
+			QPointF point = { strobe->getLPoint().x(), strobe->getRPoint().x() };
+			pairs << QPair<qreal, QPointF> { strobe->getLPoint().y(), point };
+		}
+
+		client->sendStrobes(context->selectedChannel, width, pairs);
+	}
 }

@@ -10,7 +10,6 @@ InteractiveStrobe::InteractiveStrobe(QChart* chart,const QPointF& pos) : QGraphi
     initWidth = 100;
     m_rect = QRectF(0, 0, initWidth, 5);
     chartPos = chart->mapToValue(initPos);
-    limit = chart->mapToValue(chart->plotArea().topRight()).x();
 
     color = Qt::red;
 
@@ -58,6 +57,7 @@ void InteractiveStrobe::mousePressEvent(QGraphicsSceneMouseEvent* event)
     if (event->buttons() & Qt::LeftButton) {
         setCursor(QCursor(Qt::ClosedHandCursor));
         dragStartWidth = m_rect.width();
+        *strobeIsChanged = true;
         event->setAccepted(true);
     }
     else {
@@ -71,7 +71,7 @@ void InteractiveStrobe::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
     if (event->buttons() & Qt::LeftButton) {
         drag(event->buttonDownPos(Qt::LeftButton),event->pos());
 
-        qDebug() << getLPoint() << getRPoint();
+        //qDebug() << getLPoint() << getRPoint();
         prepareGeometryChange();
         event->setAccepted(true);
     }
@@ -82,8 +82,9 @@ void InteractiveStrobe::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
 
 void InteractiveStrobe::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
 {
-    if (event->buttons() & Qt::LeftButton) {
+    if (Qt::LeftButton) {
         setCursor(QCursor(Qt::OpenHandCursor));
+        *strobeIsChanged = false;
         event->setAccepted(true);
     }
     else {
@@ -146,6 +147,11 @@ QPointF InteractiveStrobe::getRPoint()
 void InteractiveStrobe::setColor(QColor color)
 {
     this->color = color;
+}
+
+void InteractiveStrobe::setStrobeChanged(bool* strobeIsChanged)
+{
+    this->strobeIsChanged = strobeIsChanged;
 }
 
 void InteractiveStrobe::hoverEnterEvent(QGraphicsSceneHoverEvent* event)

@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Client.h"
-#include "Server.h"
 #include "ColorSchemeDialog.h"
 #include "UnitSettingsDialog.h"
 #include "ChartWidget.h"
@@ -43,6 +42,7 @@ private slots:
     void handleData();
     void toggleConnection();
     void dataTimer();
+    void strobeChanged();
 public:
     ConnectionManager(Context* context);
 };
