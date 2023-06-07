@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Receiver.h"
+#include "Client.h"
 #include "Server.h"
 #include "ColorSchemeDialog.h"
 #include "UnitSettingsDialog.h"
@@ -31,7 +31,7 @@ class ConnectionManager : public QObject
     Q_OBJECT
     QVector<quint8> osc;
     int i = 0;
-    Receiver* receiver = nullptr;
+    Client* client = nullptr;
     Context* context;
     qreal delta;
     qreal x;

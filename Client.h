@@ -29,17 +29,25 @@ struct amp_struct_t
     amp_tact_struct_t ampl_tact[NUM_TACTS];
 };
 
-class Receiver : public QObject
+struct Result
 {
-    Q_OBJECT
+    QString command;
     QVector<quint8> osc;
     amp_struct_t data;
+};
+
+class Client : public QObject
+{
+    Q_OBJECT
+    Result result;
+    quint16 port = 8080;
 public:
-    Receiver();
-    ~Receiver();
-    void setConnection(const QHostAddress& address, quint16 port);
+    Client();
+    ~Client();
+    void sendCommand(QString command);
+    void setConnection();
     void disconnect();
-    QVector<quint8> fetchData();
+    Result fetchData();
 signals:
     void dataReceived();
 private slots:

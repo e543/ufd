@@ -254,13 +254,11 @@ void MainWindow::startStopButton()
     }
 
     if (context->connectionActive) {
-        timer->stop();
         ui->StopButton->setText(QString::fromUtf16(u"Старт F3"));
         context->connectionActive = false;
         ui->label_7->setStyleSheet("QLabel { background-color : red; }");
     }
     else {
-        timer->start(1);
         ui->StopButton->setText(QString::fromUtf16(u"Стоп F3"));
         context->connectionActive = true;
         ui->label_7->setStyleSheet("QLabel { background-color : green; }");

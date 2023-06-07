@@ -16,17 +16,22 @@ public:
     explicit Server(QWidget* parent = nullptr);
 
 private slots:
-    void startBroadcasting();
-    void broadcastDatagram();
-
+    void startListening();
+    void callBackDatagram();
+    void dataOsc(QDataStream& out);
+    void dataStrobe(QDataStream& out);
+    void strobesChanged(QDataStream& in);
 private:
     QLabel* statusLabel = nullptr;
     QPushButton* startButton = nullptr;
     QUdpSocket* udpSocket = nullptr;
     QTimer timer;
     quint8 osc[256];
+    QString command;
+    quint16 port;
     int messageNo = 1;
 private:
+    void sendCallBack();
     void disconnect();
 };
 

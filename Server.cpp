@@ -17,9 +17,9 @@ Server::Server(QWidget* parent)
     buttonBox->addButton(quitButton, QDialogButtonBox::RejectRole);
 
 
-    connect(startButton, &QPushButton::clicked, this, &Server::startBroadcasting);
+    connect(startButton, &QPushButton::clicked, this, &Server::startListening);
     connect(quitButton, &QPushButton::clicked, this, &Server::disconnect);
-    connect(&timer, &QTimer::timeout, this, &Server::broadcastDatagram);
+    //connect(&timer, &QTimer::timeout, this, &Server::callBackDatagram);
 
     auto mainLayout = new QVBoxLayout;
     mainLayout->addWidget(statusLabel);
@@ -30,41 +30,99 @@ Server::Server(QWidget* parent)
         osc[i] = i;
     }
 
-    setWindowTitle(tr("Broadcast Sender"));
+
+    setWindowTitle(tr("Server"));
 }
 
-void Server::startBroadcasting()
+void Server::startListening()
 {
     udpSocket = new QUdpSocket(this);
     startButton->setEnabled(false);
-    timer.start();
+    if (!udpSocket->bind(QHostAddress::LocalHost, 8080))
+    {
+        qDebug() << udpSocket->errorString();
+        return;
+    }
+    connect(udpSocket, &QUdpSocket::readyRead, this, &Server::callBackDatagram);
+    //timer.start();
 }
 
-void Server::broadcastDatagram()
+void Server::callBackDatagram()
 {
-    
+    QByteArray datagram;
+    QHostAddress address;
 
-    //QByteArray datagram = "Broadcast message " + QByteArray::number(messageNo);
+    while (udpSocket->hasPendingDatagrams()) {
+        datagram.resize(int(udpSocket->pendingDatagramSize()));
+        udpSocket->readDatagram(datagram.data(), datagram.size(),&address, &port);
 
-    QByteArray data;
-    QDataStream out(&data, QIODevice::WriteOnly);
-    out << qint64(0);
+        QDataStream in(&datagram, QIODevice::ReadOnly);
+
+        qint64 size = -1;
+        if (in.device()->size() > sizeof(qint64)) {
+            in >> size;
+        }
+        else return;
+        if (in.device()->size() - sizeof(qint64) < size) return;
+
+        in >> command;
+        sendCallBack();
+    }
+
+}
+
+void Server::dataOsc(QDataStream& out)
+{
     for (int i = 0; i < 256; ++i) {
         out << osc[i];
     }
-    out.device()->seek(qint64(0));
-    out << qint64(data.size() - sizeof(qint64));
 
-    udpSocket->writeDatagram(data, QHostAddress::LocalHost, 8080);
     for (int i = 0; i < 256; ++i) {
-        osc[i] += 1; 
-        //statusLabel->setText(tr("Now broadcasting datagram %1").arg(osc[i]));
+        osc[i] += 1;
     }
 }
 
+void Server::dataStrobe(QDataStream& out)
+{
+
+}
+
+void Server::strobesChanged(QDataStream& in)
+{
+
+}
+
+void Server::sendCallBack()
+{
+    QByteArray data;
+    QDataStream out(&data, QIODevice::WriteOnly);
+    out << qint64(0);
+
+    int test = 0;
+    if (command == "o") {
+        out << QString("o");
+        dataOsc(out);
+    }
+    else 
+    if (command == "a") {
+        out << QString("a");
+        dataStrobe(out);
+    }
+    else
+    if (command == "s") {
+        out << QString("s");
+        //strobesChanged(in)
+    }
+
+    out.device()->seek(qint64(0));
+    out << qint64(data.size() - sizeof(qint64));
+    udpSocket->writeDatagram(data, QHostAddress::LocalHost, port);
+}
+
+
 void Server::disconnect()
 {
-    QObject::disconnect(&timer, &QTimer::timeout, this, &Server::broadcastDatagram);
+    QObject::disconnect(udpSocket, &QUdpSocket::readyRead, this, &Server::callBackDatagram);
     if (udpSocket) 
         delete udpSocket;
     Server::close();

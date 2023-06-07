@@ -1,6 +1,6 @@
 #include "ConnectionManager.h"
 
-ConnectionManager::ConnectionManager(Context* context) : context(context), receiver(new Receiver())
+ConnectionManager::ConnectionManager(Context* context) : context(context), client(new Client())
 {
 	series = context->firstWidget->getSeries();
 
@@ -18,7 +18,7 @@ ConnectionManager::ConnectionManager(Context* context) : context(context), recei
 		points.append(QPointF{ x , qreal(i) });
 		x += delta;
 	}
-	//QObject::connect(context->timer, &QTimer::timeout, this, &ConnectionManager::dataTimer);
+	QObject::connect(context->timer, &QTimer::timeout, this, &ConnectionManager::dataTimer);
 	QObject::connect(context->ui_MainWindow->StopButton, SIGNAL(clicked()), this, SLOT(toggleConnection()));
 }
 
@@ -32,21 +32,30 @@ void ConnectionManager::handleData()
 {
 	static int frameCount = 0;
 	static QString labelText = QStringLiteral("FPS: %1");
+
+
 	auto* fpsTimer = context->fpsTimer;
 	auto* fpsLabel = context->ui_MainWindow->fpsLabel;
+	Result result = client->fetchData();
 
-	osc = receiver->fetchData();
-	QVector<QPointF> points;
-	points.resize(256);
+	if (result.command == "o") {
+		osc = client->fetchData().osc;
+		QVector<QPointF> points;
+		points.resize(256);
 
-	for (int i = 0; i < 256 && x < width; ++i, x += delta) {
-		qreal y = osc[i];
-		points[i] = QPointF{ x, y };
+		for (int i = 0; i < 256 && x < width; ++i, x += delta) {
+			qreal y = osc[i];
+			points[i] = QPointF{ x, y };
+		}
+
+		resetChart();
+		if (context->channelSelected) {
+			series->replace(points);
+		}
 	}
-
-	resetChart();
-	if (context->channelSelected) {
-		series->replace(points);
+	else 
+	if (result.command == "o") {
+		// --- code
 	}
 
 	frameCount++;
@@ -62,44 +71,23 @@ void ConnectionManager::handleData()
 
 void ConnectionManager::toggleConnection()
 {
+	auto* timer = context->timer;
 	if (context->connectionActive) {
+		timer->start(1);
 		context->fpsTimer->start();
-		receiver->setConnection(QHostAddress("192.168.1.64"), 8080);
-		QObject::connect(receiver, SIGNAL(dataReceived()), this, SLOT(handleData()));
+		client->setConnection();
+		QObject::connect(client, SIGNAL(dataReceived()), this, SLOT(handleData()));
 		resetChart();
 	}
 	else
 	{
-		QObject::disconnect(receiver, SIGNAL(dataReceived()), this, SLOT(handleData()));
-		receiver->disconnect();
+		timer->stop();
+		QObject::disconnect(client, SIGNAL(dataReceived()), this, SLOT(handleData()));
+		client->disconnect();
 	}
 }
 
 void ConnectionManager::dataTimer()
 {
-	static int frameCount = 0;
-	static QString labelText = QStringLiteral("FPS: %1");
-	auto* fpsTimer = context->fpsTimer;
-	auto* fpsLabel = context->ui_MainWindow->fpsLabel;
-
-	for (int i = 0; i < 256; ++i) {
-		qreal y = points[i].y() + qreal(1);
-		if (y >= 256) y = 0;
-		points[i].setY(y);
-	}
-
-	//resetChart();
-	if (context->channelSelected) {
-		series->replace(points);
-	}
-
-	frameCount++;
-	int elapsed = fpsTimer->elapsed();
-	if (elapsed >= 1000) {
-		elapsed = fpsTimer->restart();
-		qreal fps = qreal(0.1 * int(10000.0 * (qreal(frameCount) / qreal(elapsed))));
-		fpsLabel->setText(labelText.arg(QString::number(fps, 'f', 1)));
-		fpsLabel->adjustSize();
-		frameCount = 0;
-	}
+	client->sendCommand("o");
 }
