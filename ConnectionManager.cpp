@@ -54,7 +54,11 @@ void ConnectionManager::handleData()
 	}
 	else 
 	if (result.command == "a") {
-		// --- code
+		auto num = context->selectedChannel;
+		auto& channel = result.data.ampl_tact[num / 2].ampl_us[num % 2].ampl;
+		for (int i = 0; i < 5; ++i) {
+			channel[i];
+		}
 	}
 
 	frameCount++;

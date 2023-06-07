@@ -194,6 +194,37 @@ void MainWindow::addChartView(QBoxLayout* layout, QString name)
     chartView->setMaximumSize(QSize(3000, 3000));
     chart->setMinimumHeight(0);
 
+    QVector<QColor> colors = { 
+        QColor(Qt::red) , 
+        QColor(Qt::yellow) , 
+        QColor(Qt::blue) , 
+        QColor(Qt::cyan) , 
+        QColor(Qt::magenta) };
+
+    for (int i = 0; i < 5; ++i) {
+        QScatterSeries* series = new QScatterSeries;
+
+        QValueAxis* axisX = new QValueAxis;
+        QValueAxis* axisY = new QValueAxis;
+
+        chart->addAxis(axisX, Qt::AlignBottom);
+        chart->addAxis(axisY, Qt::AlignLeft);
+        chart->legend()->hide();
+
+        axisX->setRange(0, 80.6);
+        axisY->setRange(0, 255);
+        chart->addSeries(series);
+        series->attachAxis(axisX);
+        series->attachAxis(axisY);
+        axisX->hide();
+        axisY->hide();
+
+        QPen pen;
+        pen.setColor(colors[i]);
+        pen.setWidth(3);
+        series->setPen(pen);
+    }
+
     chartView->setChart(chart);
     chart->layout()->setContentsMargins(0, 0, 0, 0);
     chart->setBackgroundRoundness(0);

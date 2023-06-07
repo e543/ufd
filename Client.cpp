@@ -22,10 +22,6 @@ void Client::sendCommand(QString command)
     out << qint64(0);
     out << command;
 
-    if (command == "s") {
-        //out << 
-    }
-
     out.device()->seek(qint64(0));
     out << qint64(data.size() - sizeof(qint64));
     udpSocket->writeDatagram(data, QHostAddress::LocalHost, 8080);
@@ -98,7 +94,6 @@ void Client::processPendingDatagrams()
         if (result.command == "o") {
             for (int i = 0; i < 256; ++i) {
                 in >> result.osc[i];
-                //qDebug() << osc[i];
             }
             emit dataReceived();
         }
