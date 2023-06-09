@@ -12,10 +12,17 @@ struct Result
     Result() {
         command = "";
         osc.resize(256);
-        auto& strbs = data.ampl_tact->ampl_us->ampl;
-        for (auto& strb : strbs) {
-            strb.ampl = 0;
-            strb.time = 0;
+
+        for (int i = 0; i < 4; ++i) {
+            auto& ampl_tact = data.ampl_tact[i];
+            for (int j = 0; j < 2; ++j) {
+                auto& ampl_us = ampl_tact.ampl_us[j];
+                for (int k = 0; k < 5; ++k) {
+                    auto& ampl = ampl_us.ampl[k];
+                    ampl.ampl = 0;
+                    ampl.time = 0;
+                }
+            }
         }
     }
 };

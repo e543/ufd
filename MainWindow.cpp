@@ -70,8 +70,8 @@ void MainWindow::initMainWindow()
     ui->splitter->setMinimumSize(QSize(300, 300));
 
     bindChannelLabels();
-    initMainChartViews();
     initChartViews();
+    initMainChartViews();
     indexLabels();
 
     context->connectionActive = false;
@@ -109,7 +109,9 @@ void MainWindow::bindContext()
     context->ui_UnitSettings = unitSettings->getUi();
     context->ui_ColorScheme = unitSettings->getColorSchemeDialog()->getUi();
     context->firstWidget = firstWidget;
-    context->channelViews = chartViews;
+    context->channels = channels;
+    context->chartViews = chartViews;
+    context->channelSeries = channelSeries;
     context->currentLabel = nullptr;
     context->channelSelected = false;
     context->channelChanged = false;
@@ -118,14 +120,17 @@ void MainWindow::bindContext()
 void MainWindow::initChartViews()
 {
     addChartView(ui->horizontalLayout_sum, "sum");
-    addChartView(ui->horizontalLayout_11, "11");
-    addChartView(ui->horizontalLayout_12, "12");
-    addChartView(ui->horizontalLayout_21, "21");
-    addChartView(ui->horizontalLayout_22, "22");
-    addChartView(ui->horizontalLayout_31, "31");
-    addChartView(ui->horizontalLayout_32, "32");
-    addChartView(ui->horizontalLayout_41, "41");
-    addChartView(ui->horizontalLayout_42, "42");
+
+    channelSeries.resize(9);
+    addChannel(ui->horizontalLayout_11, 0);
+    addChannel(ui->horizontalLayout_12, 1);
+    addChannel(ui->horizontalLayout_21, 2);
+    addChannel(ui->horizontalLayout_22, 3);
+    addChannel(ui->horizontalLayout_31, 4);
+    addChannel(ui->horizontalLayout_32, 5);
+    addChannel(ui->horizontalLayout_41, 6);
+    addChannel(ui->horizontalLayout_42, 7);
+    context->channels = channels;
 }
 
 void MainWindow::initSeries()
@@ -159,9 +164,14 @@ void MainWindow::initMainChartViews()
 
     splitter->addWidget(firstWidget);
 
-    addChartView(ui->verticalLayout_main, "second");
+    /*addChartView(ui->verticalLayout_main, "second");
     auto* secondView = chartViews["second"];
-    auto* secondChart = secondView->chart();
+    auto* secondChart = secondView->chart();*/
+
+    addChannel(ui->verticalLayout_main, 8);
+    auto* secondView = channels[8];
+    auto* secondChart = secondView->getChart();
+
     secondView->setMinimumWidth(300);
     secondView->setMinimumHeight(250);
 
@@ -195,12 +205,28 @@ void MainWindow::addChartView(QBoxLayout* layout, QString name)
     chartView->setMaximumSize(QSize(3000, 3000));
     chart->setMinimumHeight(0);
 
-    QVector<QColor> colors = { 
-        QColor(Qt::red) , 
-        QColor(Qt::yellow) , 
-        QColor(Qt::blue) , 
-        QColor(Qt::cyan) , 
-        QColor(Qt::magenta) };
+    chartView->setChart(chart);
+    chart->layout()->setContentsMargins(0, 0, 0, 0);
+    chart->setBackgroundRoundness(0);
+    chart->setMargins(QMargins{ 0 , 0 ,0 , 0 });
+}
+
+void MainWindow::addChannel(QBoxLayout* layout, int ind)
+{
+    auto name = QString(ind);
+    auto* chart = new QChart();
+    auto* channel = new Channel(ui->centralwidget, chart);
+    chartViews[name] = channel;
+    layout->addWidget(channel);
+
+    channel->setObjectName("channel_" + name);
+
+    QVector<QColor> colors = {
+    QColor(Qt::red) ,
+    QColor(Qt::yellow) ,
+    QColor(Qt::blue) ,
+    QColor(Qt::cyan) ,
+    QColor(Qt::magenta) };
 
 
     QValueAxis* axisX = new QValueAxis;
@@ -213,6 +239,7 @@ void MainWindow::addChartView(QBoxLayout* layout, QString name)
     axisY->setRange(0, 255);
     axisX->hide();
     axisY->hide();
+    channelSeries[ind].resize(5);
     for (int i = 0; i < 5; ++i) {
         QLineSeries* series = new QLineSeries;
 
@@ -220,17 +247,17 @@ void MainWindow::addChartView(QBoxLayout* layout, QString name)
         series->attachAxis(axisX);
         series->attachAxis(axisY);
 
+        channelSeries[ind][i] = series;
         QPen pen;
         pen.setColor(colors[i]);
         pen.setWidth(3);
         series->setPen(pen);
     }
 
-    chartView->setChart(chart);
-    chart->layout()->setContentsMargins(0, 0, 0, 0);
-    chart->setBackgroundRoundness(0);
-    chart->setMargins(QMargins{ 0 , 0 ,0 , 0 });
+
+    channels.append(channel);
 }
+
 
 void MainWindow::resizeEvent(QResizeEvent* event)
 {

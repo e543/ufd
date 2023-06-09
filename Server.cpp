@@ -28,7 +28,7 @@ Server::Server(QWidget* parent)
     setLayout(mainLayout);
 
     for (int i = 0; i < 256; ++i) {
-        osc[i] = i;
+        osc[i] = 2*i;
     }
 
     setWindowTitle(tr("Server"));
@@ -76,9 +76,9 @@ void Server::dataOsc(QDataStream& out)
         out << osc[i];
     }
 
-    for (int i = 0; i < 256; ++i) {
-        osc[i] += 1;
-    }
+    /*for (int i = 0; i < 256; ++i) {
+        osc[i] += 0;
+    }*/
 }
 
 void Server::dataStrobe(QDataStream& out)
@@ -88,21 +88,22 @@ void Server::dataStrobe(QDataStream& out)
     for (auto& strobe : channel) {
         int xmax = 0;
         auto y = strobe.first;
-        qreal ymax = y;
+        qreal ymax = y + 1;
         auto& point = strobe.second;
         bool found = false;
-        for (int i = 0; i < 256; ++i) {
-            if (osc[i] > ymax && i >= point.x() && i <= point.y()) {
-                ymax = osc[i];
+        qreal x = 0;
+        for (int i = 0; i < 256; ++i, x += delta) {
+            if (osc[i] > ymax && x >= point.x() && x <= point.y()) {
                 xmax = i;
+                ymax = osc[i];
                 found = true;
             }
         }
         if (found) {
             auto& strb = data.ampl_tact[numChannel / 2].ampl_us[numChannel % 2].ampl[i];
+            strb.time = xmax;
             strb.ampl = ymax;
-            strb.time = input.time / xmax;
-            out << quint8(i) << QPointF{ qreal(xmax), ymax };
+            out << numChannel << quint8(i) << QPointF{ qreal(xmax), ymax };
             //qDebug() << i << QPointF{ qreal(xmax), ymax };
         }
         ++i;
@@ -113,11 +114,11 @@ void Server::strobesReceived(QDataStream& in)
 {
     in >> numChannel;
     in >> input.time;
-
     quint8 i = numChannel;
     for (auto& strobe : input.limits[i]) {
         in >> strobe;
     }
+    qDebug() << input.limits[i][4];
 }
 
 void Server::sendCallBack(QDataStream& in)
@@ -132,8 +133,9 @@ void Server::sendCallBack(QDataStream& in)
     }
     else 
     if (command == "a") {
-        if (numChannel == 255)
+        if (numChannel == 255) {
             return;
+        }
         out << QString("a");
         dataStrobe(out);
     }

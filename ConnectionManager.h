@@ -4,6 +4,7 @@
 #include "ColorSchemeDialog.h"
 #include "UnitSettingsDialog.h"
 #include "ChartWidget.h"
+#include "Channel.h"
 #include <ui_MainWindow.h>
 
 struct Context
@@ -22,8 +23,9 @@ struct Context
     quint8* osc;
     ClickedLabel* currentLabel;
     quint8 selectedChannel;
-    QVector<QXYSeries*> channelSeries;
-    QHash<QString, QChartView*> channelViews;
+    QHash<QString, QChartView*> chartViews;
+    QVector<Channel*> channels;
+    QVector<QVector<QXYSeries*>> channelSeries;
 };
 
 class ConnectionManager : public QObject
@@ -38,6 +40,8 @@ class ConnectionManager : public QObject
     qreal width;
     QXYSeries* series;
     QVector<QPointF> points;
+    bool oscObtained = true;
+    bool amplObtained = true;
     void resetChart();
 private slots:
     void handleData();

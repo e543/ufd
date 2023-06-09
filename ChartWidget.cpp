@@ -79,7 +79,7 @@ QVector<InteractiveStrobe*> ChartWidget::getStrobes()
 	return strobes;
 }
 
-void ChartWidget::setSeries(QLineSeries* series)
+void ChartWidget::setSeries(QXYSeries* series)
 {
 	chart->series().clear();
 	this->series = series;
@@ -95,6 +95,11 @@ void ChartWidget::mouseMoveEvent(QMouseEvent* event)
 	if (strobeIsChanged)
 		emit strobesChanged();
 	QChartView::mouseMoveEvent(event);
+}
+
+void ChartWidget::emitStrobesChanged()
+{
+	emit strobesChanged();
 }
 
 void ChartWidget::resizeEvent(QResizeEvent* event)

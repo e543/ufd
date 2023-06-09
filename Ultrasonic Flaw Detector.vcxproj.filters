@@ -62,6 +62,9 @@
     <ClCompile Include="ClickedLabel.cpp">
       <Filter>utils</Filter>
     </ClCompile>
+    <ClCompile Include="Channel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="ColorSchemeDialog.h">
@@ -87,6 +90,9 @@
     </QtMoc>
     <QtMoc Include="ClickedLabel.h">
       <Filter>utils</Filter>
+    </QtMoc>
+    <QtMoc Include="Channel.h">
+      <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
   <ItemGroup>

@@ -15,6 +15,7 @@ Client::~Client()
 
 void Client::sendCommand(QString command)
 {
+    
     QByteArray data;
     QDataStream out(&data, QIODevice::WriteOnly);
 
@@ -82,10 +83,6 @@ void Client::processPendingDatagrams()
         Result newResult;
         result = newResult;
 
-        for (int i = 0; i < 5; ++i) {
-            result.data.ampl_tact->ampl_us->ampl->ampl = 0;
-            result.data.ampl_tact->ampl_us->ampl->time = 0;
-        }
 
         qint64 size = -1;
         if (in.device()->size() > sizeof(qint64)) {
@@ -106,12 +103,14 @@ void Client::processPendingDatagrams()
 
         if (result.command == "a") {
             while (!in.atEnd()) {
+                quint8 num;
                 quint8 i;
                 QPointF point;
+                in >> num;
                 in >> i;
                 in >> point;
-                result.data.ampl_tact->ampl_us->ampl[i].ampl = point.x();
-                result.data.ampl_tact->ampl_us->ampl[i].time = point.y();
+                result.data.ampl_tact[num / 2].ampl_us[num % 2].ampl[i].time = point.x();
+                result.data.ampl_tact[num / 2].ampl_us[num % 2].ampl[i].ampl = point.y();
             }
 
             emit dataReceived();

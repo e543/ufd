@@ -14,6 +14,8 @@ ConnectionManager::ConnectionManager(Context* context) : context(context), clien
 		delta = width / 256;
 	}
 
+	oscObtained = true;
+	amplObtained = true;
 	QObject::connect(context->timer, &QTimer::timeout, this, &ConnectionManager::dataTimer);
 	QObject::connect(context->ui_MainWindow->StopButton, SIGNAL(clicked()), this, SLOT(toggleConnection()));
 }
@@ -28,14 +30,19 @@ void ConnectionManager::handleData()
 {
 	Result result = client->fetchData();
 
+	if (result.command == "s") {
+		return;
+	}
+
 	if (result.command == "o") {
+		oscObtained = true;
 		static int frameCount = 0;
 		static QString labelText = QStringLiteral("FPS: %1");
 
 		auto* fpsTimer = context->fpsTimer;
 		auto* fpsLabel = context->ui_MainWindow->fpsLabel;
 
-		osc = client->fetchData().osc;
+		osc = result.osc;
 		QVector<QPointF> points;
 		points.resize(256);
 
@@ -58,75 +65,46 @@ void ConnectionManager::handleData()
 			fpsLabel->adjustSize();
 			frameCount = 0;
 		}
-		return;
 	}
 
 	if (result.command == "a") {
-
+		amplObtained = true;
 		auto num = context->selectedChannel;
-		auto& views = context->channelViews;
-		QChartView* channel;
-		switch (num) {
-		default:
-		case 0:
-			channel = views["11"];
-			break;
-		case 1:
-			channel = views["12"];
-			break;
-		case 2:
-			channel = views["21"];
-			break;
-		case 3:
-			channel = views["22"];
-			break;
-		case 4:
-			channel = views["31"];
-			break; 
-		case 5:
-			channel = views["32"];
-			break;
-		case 6:
-			channel = views["41"];
-			break;
-		case 7:
-			channel = views["42"];
-			break;
-		}
+		//Channel* channel = context->channels[num];
+		Channel* channel = context->channels[8];
 
-		auto* chart = channel->chart();
-		auto seriesList = chart->series();
+
+		auto* chart = channel->getChart();
+		//auto channelSeries = context->channelSeries[num];
+		auto channelSeries = context->channelSeries[8];
 		auto strb = result.data.ampl_tact[num / 2].ampl_us[num % 2].ampl;
 		if (cx > width) {
-			for (auto* series : seriesList) {
-				auto* xyseries = qobject_cast<QLineSeries*>(series);
-				xyseries->clear();
+			for (int i = 0; i < 5; ++i) {
+				channelSeries[i]->clear();
 			}
 			cx = 0;
 		}
 
-		int i = 0;
-		for (auto* series : seriesList) {
-			auto* xyseries =  qobject_cast<QLineSeries*>(series);
-			qDebug() << i;
-			++i;
-			*xyseries << QPointF{ cx,  qreal(strb[i].ampl) };
+		for (int i = 0; i < 5; ++i) {
+			//if (strb[i].ampl)
+			*channelSeries[i] << QPointF{ cx,  qreal(strb[i].ampl) };
 		}
-		cx += delta;
-		return;
 	}
+	cx += delta;
 }
 
 void ConnectionManager::toggleConnection()
 {
 	auto* timer = context->timer;
 	if (context->connectionActive) {
-		timer->start(1);
+		timer->start(5);
 		context->fpsTimer->start();
 		client->setConnection();
 		strobeChanged();
 		QObject::connect(client, SIGNAL(dataReceived()), this, SLOT(handleData()));
 		QObject::connect(context->firstWidget, &ChartWidget::strobesChanged, this, &ConnectionManager::strobeChanged);
+		oscObtained = true;
+		amplObtained = true;
 		resetChart();
 	}
 	else
@@ -141,8 +119,14 @@ void ConnectionManager::toggleConnection()
 void ConnectionManager::dataTimer()
 {
 	if (context->channelSelected) {
-		client->sendCommand("o");
-		client->sendCommand("a");
+		if (oscObtained) {
+			oscObtained = false;
+			client->sendCommand("o");
+		}
+		if (amplObtained) {
+			amplObtained = false;
+			client->sendCommand("a");
+		}
 	}
 }
 

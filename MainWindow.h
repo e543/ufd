@@ -20,8 +20,10 @@ class MainWindow : public QMainWindow
 
     Settings* settings;
     Context* context;
+    QVector<Channel*> channels;
     QHash<QString, QChartView*> chartViews;
     QHash<QString, ClickedLabel*> channelLabels;
+    QVector<QVector<QXYSeries*>> channelSeries;
     ChartWidget* firstWidget;
     Server* server = nullptr;
 
@@ -34,6 +36,7 @@ class MainWindow : public QMainWindow
     void initSeries();
     void indexLabels();
     void addChartView(QBoxLayout* layout, QString name);
+    void addChannel(QBoxLayout* layout, int ind);
     void bindChannelLabels();
     void updateSettings();
     void bindContext();

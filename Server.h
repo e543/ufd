@@ -72,6 +72,8 @@ private:
     settings input;
     quint8 numChannel;
     amp_struct_t data;
+    static constexpr qreal width = 80.6;
+    static constexpr qreal delta = width / 256;
 private:
     void sendCallBack(QDataStream& in);
     void disconnect();

@@ -9,7 +9,7 @@ class ChartWidget : public QChartView
     QVector<InteractiveStrobe*> strobes;
     InteractiveStrobe* selectedStrobe;
     QChart* chart;
-    QLineSeries* series;
+    QXYSeries* series;
     bool strobeIsChanged = false;
 signals:
     void strobesChanged();
@@ -19,11 +19,12 @@ public:
     QChart* getChart();
     QXYSeries* getSeries();
     QVector<InteractiveStrobe*> getStrobes();
-    void setSeries(QLineSeries* series);
+    void setSeries(QXYSeries* series);
     void addStrobe(QPointF initPos);
     void addStrobe(QColor color, QPointF initPos);
     void resizeEvent(QResizeEvent* event) override;
     void mousePressEvent(QMouseEvent* event) override;
     void mouseMoveEvent(QMouseEvent* event) override;
+    void emitStrobesChanged();
 };
 
