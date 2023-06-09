@@ -23,17 +23,18 @@ struct Context
     ClickedLabel* currentLabel;
     quint8 selectedChannel;
     QVector<QXYSeries*> channelSeries;
+    QHash<QString, QChartView*> channelViews;
 };
 
 class ConnectionManager : public QObject
 {
     Q_OBJECT
     QVector<quint8> osc;
-    int i = 0;
     Client* client = nullptr;
     Context* context;
     qreal delta;
     qreal x;
+    qreal cx;
     qreal width;
     QXYSeries* series;
     QVector<QPointF> points;

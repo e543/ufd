@@ -109,6 +109,7 @@ void MainWindow::bindContext()
     context->ui_UnitSettings = unitSettings->getUi();
     context->ui_ColorScheme = unitSettings->getColorSchemeDialog()->getUi();
     context->firstWidget = firstWidget;
+    context->channelViews = chartViews;
     context->currentLabel = nullptr;
     context->channelSelected = false;
     context->channelChanged = false;
@@ -213,7 +214,7 @@ void MainWindow::addChartView(QBoxLayout* layout, QString name)
     axisX->hide();
     axisY->hide();
     for (int i = 0; i < 5; ++i) {
-        QScatterSeries* series = new QScatterSeries;
+        QLineSeries* series = new QLineSeries;
 
         chart->addSeries(series);
         series->attachAxis(axisX);

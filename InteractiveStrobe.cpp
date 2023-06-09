@@ -221,4 +221,5 @@ void InteractiveStrobe::updateGeometry()
     prepareGeometryChange();
     m_rect.setWidth(initWidth);
     setPos(chart->mapToPosition(chartPos));
+
 }

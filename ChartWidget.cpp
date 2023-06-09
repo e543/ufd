@@ -104,6 +104,7 @@ void ChartWidget::resizeEvent(QResizeEvent* event)
 		chart->resize(event->size());
 		for (auto* strobe : strobes)
 			strobe->updateGeometry();
+		emit strobesChanged();
 	}
 	QChartView::resizeEvent(event);
 }

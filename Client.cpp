@@ -6,7 +6,6 @@
 
 Client::Client()
 {
-    result.osc.resize(256);
 }
 Client::~Client()
 {
@@ -80,8 +79,13 @@ void Client::processPendingDatagrams()
 
         QDataStream in(&datagram, QIODevice::ReadOnly);
 
-        result.osc.clear();
-        result.osc.resize(256);
+        Result newResult;
+        result = newResult;
+
+        for (int i = 0; i < 5; ++i) {
+            result.data.ampl_tact->ampl_us->ampl->ampl = 0;
+            result.data.ampl_tact->ampl_us->ampl->time = 0;
+        }
 
         qint64 size = -1;
         if (in.device()->size() > sizeof(qint64)) {
@@ -95,12 +99,23 @@ void Client::processPendingDatagrams()
             for (int i = 0; i < 256; ++i) {
                 in >> result.osc[i];
             }
+
             emit dataReceived();
+            return;
         }
-        else 
+
         if (result.command == "a") {
-            // --- code
+            while (!in.atEnd()) {
+                quint8 i;
+                QPointF point;
+                in >> i;
+                in >> point;
+                result.data.ampl_tact->ampl_us->ampl[i].ampl = point.x();
+                result.data.ampl_tact->ampl_us->ampl[i].time = point.y();
+            }
+
             emit dataReceived();
+            return;
         }
     }
 }

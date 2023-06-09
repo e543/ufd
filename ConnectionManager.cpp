@@ -1,9 +1,10 @@
 #include "ConnectionManager.h"
+#include <QDebug>
 
 ConnectionManager::ConnectionManager(Context* context) : context(context), client(new Client())
 {
 	series = context->firstWidget->getSeries();
-
+	cx = 0;
 	auto* chart = context->firstWidget->getChart();
 	if (chart)
 	{
@@ -12,11 +13,7 @@ ConnectionManager::ConnectionManager(Context* context) : context(context), clien
 		qreal toothCount = 5;
 		delta = width / 256;
 	}
-	qreal x = 0;
-	for (int i = 0; i < 256; ++i) {
-		points.append(QPointF{ x , qreal(i) });
-		x += delta;
-	}
+
 	QObject::connect(context->timer, &QTimer::timeout, this, &ConnectionManager::dataTimer);
 	QObject::connect(context->ui_MainWindow->StopButton, SIGNAL(clicked()), this, SLOT(toggleConnection()));
 }
@@ -29,15 +26,15 @@ void ConnectionManager::resetChart()
 
 void ConnectionManager::handleData()
 {
-	static int frameCount = 0;
-	static QString labelText = QStringLiteral("FPS: %1");
-
-
-	auto* fpsTimer = context->fpsTimer;
-	auto* fpsLabel = context->ui_MainWindow->fpsLabel;
 	Result result = client->fetchData();
 
 	if (result.command == "o") {
+		static int frameCount = 0;
+		static QString labelText = QStringLiteral("FPS: %1");
+
+		auto* fpsTimer = context->fpsTimer;
+		auto* fpsLabel = context->ui_MainWindow->fpsLabel;
+
 		osc = client->fetchData().osc;
 		QVector<QPointF> points;
 		points.resize(256);
@@ -51,24 +48,71 @@ void ConnectionManager::handleData()
 		if (context->channelSelected) {
 			series->replace(points);
 		}
-	}
-	else 
-	if (result.command == "a") {
-		auto num = context->selectedChannel;
-		auto& channel = result.data.ampl_tact[num / 2].ampl_us[num % 2].ampl;
-		for (int i = 0; i < 5; ++i) {
-			channel[i];
+
+		frameCount++;
+		int elapsed = fpsTimer->elapsed();
+		if (elapsed >= 1000) {
+			elapsed = fpsTimer->restart();
+			qreal fps = qreal(0.1 * int(10000.0 * (qreal(frameCount) / qreal(elapsed))));
+			fpsLabel->setText(labelText.arg(QString::number(fps, 'f', 1)));
+			fpsLabel->adjustSize();
+			frameCount = 0;
 		}
+		return;
 	}
 
-	frameCount++;
-	int elapsed = fpsTimer->elapsed();
-	if (elapsed >= 1000) {
-		elapsed = fpsTimer->restart();
-		qreal fps = qreal(0.1 * int(10000.0 * (qreal(frameCount) / qreal(elapsed))));
-		fpsLabel->setText(labelText.arg(QString::number(fps, 'f', 1)));
-		fpsLabel->adjustSize();
-		frameCount = 0;
+	if (result.command == "a") {
+
+		auto num = context->selectedChannel;
+		auto& views = context->channelViews;
+		QChartView* channel;
+		switch (num) {
+		default:
+		case 0:
+			channel = views["11"];
+			break;
+		case 1:
+			channel = views["12"];
+			break;
+		case 2:
+			channel = views["21"];
+			break;
+		case 3:
+			channel = views["22"];
+			break;
+		case 4:
+			channel = views["31"];
+			break; 
+		case 5:
+			channel = views["32"];
+			break;
+		case 6:
+			channel = views["41"];
+			break;
+		case 7:
+			channel = views["42"];
+			break;
+		}
+
+		auto* chart = channel->chart();
+		auto seriesList = chart->series();
+		auto strb = result.data.ampl_tact[num / 2].ampl_us[num % 2].ampl;
+		if (cx > width) {
+			for (auto* series : seriesList) {
+				auto* xyseries = qobject_cast<QXYSeries*>(series);
+				xyseries->clear();
+			}
+			cx = 0;
+		}
+
+
+		for (auto* series : seriesList) {
+			auto* xyseries =  qobject_cast<QXYSeries*>(series);
+			
+			*xyseries << QPointF{ cx,  qreal(strb[num].ampl) };
+		}
+		cx += delta;
+		return;
 	}
 }
 

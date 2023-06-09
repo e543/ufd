@@ -21,6 +21,7 @@ Server::Server(QWidget* parent)
     connect(startButton, &QPushButton::clicked, this, &Server::startListening);
     connect(quitButton, &QPushButton::clicked, this, &Server::disconnect);
 
+    numChannel = -1;
     auto mainLayout = new QVBoxLayout;
     mainLayout->addWidget(statusLabel);
     mainLayout->addWidget(buttonBox);
@@ -101,7 +102,8 @@ void Server::dataStrobe(QDataStream& out)
             auto& strb = data.ampl_tact[numChannel / 2].ampl_us[numChannel % 2].ampl[i];
             strb.ampl = ymax;
             strb.time = input.time / xmax;
-            qDebug() << i << QPointF{ qreal(xmax), ymax };
+            out << quint8(i) << QPointF{ qreal(xmax), ymax };
+            //qDebug() << i << QPointF{ qreal(xmax), ymax };
         }
         ++i;
     }
@@ -130,6 +132,8 @@ void Server::sendCallBack(QDataStream& in)
     }
     else 
     if (command == "a") {
+        if (numChannel == 255)
+            return;
         out << QString("a");
         dataStrobe(out);
     }

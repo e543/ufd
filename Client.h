@@ -9,6 +9,15 @@ struct Result
     QString command;
     QVector<quint8> osc;
     amp_struct_t data;
+    Result() {
+        command = "";
+        osc.resize(256);
+        auto& strbs = data.ampl_tact->ampl_us->ampl;
+        for (auto& strb : strbs) {
+            strb.ampl = 0;
+            strb.time = 0;
+        }
+    }
 };
 
 class Client : public QObject
