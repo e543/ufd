@@ -99,17 +99,18 @@ void ConnectionManager::handleData()
 		auto strb = result.data.ampl_tact[num / 2].ampl_us[num % 2].ampl;
 		if (cx > width) {
 			for (auto* series : seriesList) {
-				auto* xyseries = qobject_cast<QXYSeries*>(series);
+				auto* xyseries = qobject_cast<QLineSeries*>(series);
 				xyseries->clear();
 			}
 			cx = 0;
 		}
 
-
+		int i = 0;
 		for (auto* series : seriesList) {
-			auto* xyseries =  qobject_cast<QXYSeries*>(series);
-			
-			*xyseries << QPointF{ cx,  qreal(strb[num].ampl) };
+			auto* xyseries =  qobject_cast<QLineSeries*>(series);
+			qDebug() << i;
+			++i;
+			*xyseries << QPointF{ cx,  qreal(strb[i].ampl) };
 		}
 		cx += delta;
 		return;
