@@ -1,8 +1,6 @@
 #pragma once
 #include <QtCharts>
 
-
-
 class InteractiveStrobe : public QGraphicsItem
 {
 	QChart* chart;

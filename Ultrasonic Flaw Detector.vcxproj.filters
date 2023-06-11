@@ -47,9 +47,6 @@
     <ClCompile Include="UnitSettingsDialog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ChartWidget.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="InteractiveStrobe.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -65,15 +62,21 @@
     <ClCompile Include="Channel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ChannelWidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ChartWidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SecondaryWidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="ColorSchemeDialog.h">
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="UnitSettingsDialog.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
-    <QtMoc Include="ChartWidget.h">
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="MainWindow.h">
@@ -88,10 +91,19 @@
     <QtMoc Include="ConnectionManager.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="Channel.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="ChartWidget.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="ChannelWidget.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
     <QtMoc Include="ClickedLabel.h">
       <Filter>utils</Filter>
     </QtMoc>
-    <QtMoc Include="Channel.h">
+    <QtMoc Include="SecondaryWidget.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>

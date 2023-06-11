@@ -30,7 +30,7 @@ ChartWidget::ChartWidget(QWidget* parent, QChart* chart) : QChartView(chart, par
 	chart->addAxis(axisY, Qt::AlignLeft);
 	chart->legend()->hide();
 
-	axisX->setRange(0, 80.6);
+	axisX->setRange(0, 255);
 	axisY->setRange(0, 255);
 
 	series = new QLineSeries;
@@ -38,7 +38,9 @@ ChartWidget::ChartWidget(QWidget* parent, QChart* chart) : QChartView(chart, par
 	series->attachAxis(axisX);
 	series->attachAxis(axisY);
 	QPen pen;
-	pen.setColor("green");
+	QColor color = QColor("green");
+	color.setAlphaF(1.);
+	pen.setColor(color);
 	pen.setWidth(3);
 	series->setPen(pen);
 	//series->setUseOpenGL(true);

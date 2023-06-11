@@ -71,7 +71,7 @@ void ConnectionManager::handleData()
 		amplObtained = true;
 		auto num = context->selectedChannel;
 		//Channel* channel = context->channels[num];
-		Channel* channel = context->channels[8];
+		ChannelWidget* channel = context->channels[8];
 
 
 		auto* chart = channel->getChart();
@@ -79,9 +79,7 @@ void ConnectionManager::handleData()
 		auto channelSeries = context->channelSeries[8];
 		auto strb = result.data.ampl_tact[num / 2].ampl_us[num % 2].ampl;
 		if (cx > width) {
-			for (int i = 0; i < 5; ++i) {
-				channelSeries[i]->clear();
-			}
+			context->channels[8]->resetChart();
 			cx = 0;
 		}
 

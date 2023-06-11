@@ -4,7 +4,7 @@
 #include "ColorSchemeDialog.h"
 #include "UnitSettingsDialog.h"
 #include "ChartWidget.h"
-#include "Channel.h"
+#include "SecondaryWidget.h"
 #include <ui_MainWindow.h>
 
 struct Context
@@ -24,7 +24,7 @@ struct Context
     ClickedLabel* currentLabel;
     quint8 selectedChannel;
     QHash<QString, QChartView*> chartViews;
-    QVector<Channel*> channels;
+    QVector<ChannelWidget*> channels;
     QVector<QVector<QXYSeries*>> channelSeries;
 };
 

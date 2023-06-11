@@ -20,7 +20,7 @@ class MainWindow : public QMainWindow
 
     Settings* settings;
     Context* context;
-    QVector<Channel*> channels;
+    QVector<ChannelWidget*> channels;
     QHash<QString, QChartView*> chartViews;
     QHash<QString, ClickedLabel*> channelLabels;
     QVector<QVector<QXYSeries*>> channelSeries;

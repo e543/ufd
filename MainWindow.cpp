@@ -168,8 +168,20 @@ void MainWindow::initMainChartViews()
     auto* secondView = chartViews["second"];
     auto* secondChart = secondView->chart();*/
 
-    addChannel(ui->verticalLayout_main, 8);
-    auto* secondView = channels[8];
+    auto layout = ui->verticalLayout_main;
+    auto name = QString(8);
+    auto* chart = new QChart();
+    auto* secondView = new SecondaryWidget(ui->centralwidget, chart);
+    chartViews[name] = secondView;
+    layout->addWidget(secondView);
+
+    secondView->setObjectName("channel_8" + name);
+    auto seriesVector = secondView->getSeriesVector();
+    for (int i = 0; i < 5; ++i) {
+        channelSeries[8] = seriesVector;
+    }
+
+    channels.append(secondView);
     auto* secondChart = secondView->getChart();
 
     secondView->setMinimumWidth(300);
@@ -179,16 +191,6 @@ void MainWindow::initMainChartViews()
     splitter->setStretchFactor(0, 1);
     splitter->setStretchFactor(1, 1);
     splitter->setChildrenCollapsible(false);
-
-    QValueAxis* secondAxisX = new QValueAxis;
-    secondAxisX->setRange(0, 255);
-    secondAxisX->setTickCount(7);
-    QValueAxis* secondAxisY = new QValueAxis;
-    secondAxisY->setRange(0, 255);
-    secondAxisY->setTickCount(7);
-    secondChart->addAxis(secondAxisX, Qt::AlignLeft);
-    secondChart->addAxis(secondAxisY, Qt::AlignRight);
-
 }
 
 void MainWindow::addChartView(QBoxLayout* layout, QString name)
@@ -215,45 +217,15 @@ void MainWindow::addChannel(QBoxLayout* layout, int ind)
 {
     auto name = QString(ind);
     auto* chart = new QChart();
-    auto* channel = new Channel(ui->centralwidget, chart);
+    auto* channel = new ChannelWidget(ui->centralwidget, chart);
     chartViews[name] = channel;
     layout->addWidget(channel);
 
     channel->setObjectName("channel_" + name);
-
-    QVector<QColor> colors = {
-    QColor(Qt::red) ,
-    QColor(Qt::yellow) ,
-    QColor(Qt::blue) ,
-    QColor(Qt::cyan) ,
-    QColor(Qt::magenta) };
-
-
-    QValueAxis* axisX = new QValueAxis;
-    QValueAxis* axisY = new QValueAxis;
-    chart->addAxis(axisX, Qt::AlignBottom);
-    chart->addAxis(axisY, Qt::AlignLeft);
-    chart->legend()->hide();
-
-    axisX->setRange(0, 80.6);
-    axisY->setRange(0, 255);
-    axisX->hide();
-    axisY->hide();
-    channelSeries[ind].resize(5);
+    auto seriesVector = channel->getSeriesVector();
     for (int i = 0; i < 5; ++i) {
-        QLineSeries* series = new QLineSeries;
-
-        chart->addSeries(series);
-        series->attachAxis(axisX);
-        series->attachAxis(axisY);
-
-        channelSeries[ind][i] = series;
-        QPen pen;
-        pen.setColor(colors[i]);
-        pen.setWidth(3);
-        series->setPen(pen);
+        channelSeries[ind] = seriesVector;
     }
-
 
     channels.append(channel);
 }

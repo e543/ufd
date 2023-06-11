@@ -1,12 +1,10 @@
 #pragma once
-#include <QtCharts>
+#include "ChannelWidget.h"
 
-class Channel : public QChartView
+class Channel : public ChannelWidget
 {
     Q_OBJECT
-    QChart* chart;
 public:
     Channel(QWidget* parent = 0, QChart* chart = 0);
     ~Channel();
-    QChart* getChart();
 };
