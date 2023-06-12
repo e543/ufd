@@ -134,6 +134,11 @@ void InteractiveStrobe::drag(QPointF start, QPointF current)
     }
 }
 
+QPair<QPointF, qreal> InteractiveStrobe::getPosWidth()
+{
+    return QPair<QPointF, qreal>{ chart->mapToValue(pos()), m_rect.width() };
+}
+
 QPointF InteractiveStrobe::getLPoint()
 {
     return chart->mapToValue(pos());
@@ -152,6 +157,13 @@ void InteractiveStrobe::setColor(QColor color)
 void InteractiveStrobe::setStrobeChanged(bool* strobeIsChanged)
 {
     this->strobeIsChanged = strobeIsChanged;
+}
+
+void InteractiveStrobe::setPosWidth(QPointF pos, qreal width)
+{
+    chartPos = pos;
+    setPos(chart->mapToPosition(pos));
+    m_rect.setWidth(width);
 }
 
 void InteractiveStrobe::hoverEnterEvent(QGraphicsSceneHoverEvent* event)
@@ -221,5 +233,4 @@ void InteractiveStrobe::updateGeometry()
     prepareGeometryChange();
     m_rect.setWidth(initWidth);
     setPos(chart->mapToPosition(chartPos));
-
 }

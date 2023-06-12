@@ -31,10 +31,12 @@ public:
 	void updateGeometry();
 	QRectF itemRect();
 	void drag(QPointF start, QPointF current);
+	QPair<QPointF, qreal> getPosWidth();
 	QPointF getLPoint();
 	QPointF getRPoint();
 	void setColor(QColor color);
 	void setStrobeChanged(bool* strobeIsChanged);
+	void setPosWidth(QPointF pos, qreal width);
 protected:
 	QRectF boundingRect() const override;
 	void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget) override;

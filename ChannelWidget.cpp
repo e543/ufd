@@ -86,18 +86,24 @@ QChart* ChannelWidget::getChart()
 
 QVector<QXYSeries*> ChannelWidget::getSeriesVector()
 {
-    return  seriesVector;
+    return seriesVector;
 }
 
-void ChannelWidget::updateLines(QVector<qreal> strobes)
+void ChannelWidget::setPosWidth(QVector<QPair<QPointF, qreal>> posWidthes)
 {
-    this->strobes = strobes;
-    for (int i = 0; i < strobeLines.size(); ++i) {
-        QPointF left = chart->mapToPosition(QPointF{ 0,  strobes[i] });
-        QPointF right = chart->mapToPosition(QPointF{ 255,  strobes[i] });
+    this->posWidthes = posWidthes;
+    for (int i = 0; i < strobeLines.size() && i < posWidthes.size(); ++i) {
+        qreal y = posWidthes[i].first.y();
+        QPointF left = chart->mapToPosition(QPointF{ 0,  y });
+        QPointF right = chart->mapToPosition(QPointF{ 255,  y });
         chart->mapToPosition(left);
-        strobeLines[i]->setLine(left.x(),left.y(), right.x(),right.y());
+        strobeLines[i]->setLine(left.x(), left.y(), right.x(), right.y());
     }
+}
+
+QVector<QPair<QPointF, qreal>> ChannelWidget::getPosWidthes()
+{
+    return posWidthes;
 }
 
 void ChannelWidget::resetChart()
@@ -114,4 +120,10 @@ void ChannelWidget::appendPoint(quint8 x, amp_strob_struct_t* strob)
         QPointF point{ qreal(x),  qreal(strob[i].ampl) };
         seriesVector[i]->append(point);
     }
+}
+
+void ChannelWidget::resizeEvent(QResizeEvent* event)
+{
+    QChartView::resizeEvent(event);
+    setPosWidth(posWidthes);
 }

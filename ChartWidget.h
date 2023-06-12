@@ -19,6 +19,7 @@ public:
     QChart* getChart();
     QXYSeries* getSeries();
     QVector<InteractiveStrobe*> getStrobes();
+    void setPosWidth(QVector<QPair<QPointF, qreal>> posWidthes);
     void setSeries(QXYSeries* series);
     void addStrobe(QPointF initPos);
     void addStrobe(QColor color, QPointF initPos);

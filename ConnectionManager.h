@@ -26,6 +26,7 @@ struct Context
     QHash<QString, QChartView*> chartViews;
     QVector<ChannelWidget*> channels;
     QVector<QVector<QXYSeries*>> channelSeries;
+    QVector<QPair<QPointF, qreal>> posWidthes;
 };
 
 class ConnectionManager : public QObject
@@ -40,6 +41,7 @@ class ConnectionManager : public QObject
     qreal width;
     QXYSeries* series;
     QVector<QPointF> points;
+    QVector<QPair<qreal, QPointF>> limits;
     bool oscObtained = true;
     bool amplObtained = true;
     void resetChart();
@@ -48,6 +50,7 @@ private slots:
     void toggleConnection();
     void dataTimer();
     void strobeChanged();
+    void sendStrobe();
 public:
     ConnectionManager(Context* context);
 };

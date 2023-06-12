@@ -81,6 +81,13 @@ QVector<InteractiveStrobe*> ChartWidget::getStrobes()
 	return strobes;
 }
 
+void ChartWidget::setPosWidth(QVector<QPair<QPointF, qreal>> posWidthes)
+{
+	for (int i = 0; i < strobes.size() && i < posWidthes.size(); ++i) {
+		strobes[i]->setPosWidth(posWidthes[i].first, posWidthes[i].second);
+	}
+}
+
 void ChartWidget::setSeries(QXYSeries* series)
 {
 	chart->series().clear();

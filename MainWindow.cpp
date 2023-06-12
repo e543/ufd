@@ -21,6 +21,12 @@ void MainWindow::start()
     firstWidget->addStrobe(QColor(Qt::blue), { 150,150 });
     firstWidget->addStrobe(QColor(Qt::cyan), { 170,170 });
     firstWidget->addStrobe(QColor(Qt::magenta), { 190,190 });
+
+    firstWidget->emitStrobesChanged();
+
+    for (int i = 0; i < 8; ++i)
+        context->channels[i]->setPosWidth(context->posWidthes);
+
 }
 
 void MainWindow::closeEvent(QCloseEvent* event)
@@ -115,6 +121,7 @@ void MainWindow::bindContext()
     context->currentLabel = nullptr;
     context->channelSelected = false;
     context->channelChanged = false;
+    context->selectedChannel = 0;
 }
 
 void MainWindow::initChartViews()
@@ -261,20 +268,20 @@ void MainWindow::readASkanRazvTables(int i)
     default:
     case 0:
         firstWidget->setVisible(true);
-        chartViews["second"]->setVisible(true);
+        channels[8]->setVisible(true);
         break;
     case 1:
         firstWidget->setVisible(true);
-        chartViews["second"]->setVisible(false);
+        channels[8]->setVisible(false);
         break;
     case 2:
         firstWidget->setVisible(false);
-        chartViews["second"]->setVisible(true);
+        channels[8]->setVisible(true);
         break;
     }
 
     context->isAskanVisible = firstWidget->isVisible();
-    context->isRazvVisible = chartViews["second"]->isVisible();
+    context->isRazvVisible = channels[8]->isVisible();
 }
 
 void MainWindow::startStopButton()
@@ -332,8 +339,8 @@ void MainWindow::channelClicked()
     }
     else {
         label->setClicked();
-        label->setStyleSheet("border:  3px dashed blue;");
-        firstWidget->setStyleSheet("border:  3px dashed blue;");
+        label->setStyleSheet("border:  2px dashed blue;");
+        firstWidget->setStyleSheet("border:  2px dashed blue;");
         context->selectedChannel = label->getIndex();
         context->channelSelected = true;
 
