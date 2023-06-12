@@ -95,11 +95,13 @@
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="SecondaryWidget.cpp" />
     <ClCompile Include="Server.cpp" />
+    <ClCompile Include="StrobeLine.cpp" />
     <ClCompile Include="UnitSettingsDialog.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />
     <ClInclude Include="ApplicationController.h" />
+    <ClInclude Include="StrobeLine.h" />
     <QtMoc Include="SecondaryWidget.h" />
     <QtMoc Include="Channel.h" />
     <QtMoc Include="ChannelWidget.h" />

@@ -2,6 +2,7 @@
 #include <QWidget>
 
 
+QT_BEGIN_NAMESPACE
 #define NUM_RESULT_STRBS    5
 #define NUM_USS             2
 #define NUM_TACTS            4
@@ -43,7 +44,6 @@ struct amp_struct_t
 };
 
 
-QT_BEGIN_NAMESPACE
 class QLabel;
 class QPushButton;
 class QUdpSocket;

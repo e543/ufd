@@ -44,28 +44,34 @@ ChannelWidget::ChannelWidget(QWidget* parent, QChart* chart) : QChartView(chart,
 
         QPen pen;
         pen.setColor(colors[i]);
-        pen.setWidth(3);
+        pen.setWidth(2);
         series->setPen(pen);
         seriesVector.append(series);
+
+        QLineSeries* upperSeries = new QLineSeries;
+
+        chart->addSeries(upperSeries);
+        upperSeries->attachAxis(axisX);
+        upperSeries->attachAxis(axisY);
+
+        QColor color = colors[i];
+        color.setAlphaF(0.5);
+        pen.setColor(colors[i]);
+        pen.setWidth(2);
+        upperSeries->setPen(pen);
+        upperVector.append(upperSeries);
+
+        QGraphicsLineItem* line = new QGraphicsLineItem;
+        pen.setStyle(Qt::DashLine);
+        color.setAlphaF(1.0);
+        pen.setColor(color);
+        line->setPen(pen);
+        chart->scene()->addItem(line);
+        strobeLines.append(line);
     }
 
-    upperSeries = new QLineSeries;
-    lowerSeries = new QLineSeries;
-
-    QPen pen;
-    QColor color = QColor("blue");
-    color.setAlphaF(1.);
-    pen.setColor(color);
-    pen.setWidth(1);
-
-    upperSeries->setPen(pen);
-    lowerSeries->setPen(pen);
-    chart->addSeries(upperSeries);
-    chart->addSeries(lowerSeries);
-    upperSeries->attachAxis(axisX);
-    lowerSeries->attachAxis(axisY);
-    upperSeries->attachAxis(axisX);
-    lowerSeries->attachAxis(axisY);
+    width = qAbs(axisX->max() - axisX->min());
+    delta = width / 256;
 };
 
 
@@ -83,24 +89,29 @@ QVector<QXYSeries*> ChannelWidget::getSeriesVector()
     return  seriesVector;
 }
 
-void ChannelWidget::strobesChanged()
+void ChannelWidget::updateLines(QVector<qreal> strobes)
 {
-}
-
-QVector<InteractiveStrobe*> ChannelWidget::getStrobes()
-{
-    return QVector<InteractiveStrobe*>();
-}
-
-void ChannelWidget::setStrobes(QVector<InteractiveStrobe*>)
-{
+    this->strobes = strobes;
+    for (int i = 0; i < strobeLines.size(); ++i) {
+        QPointF left = chart->mapToPosition(QPointF{ 0,  strobes[i] });
+        QPointF right = chart->mapToPosition(QPointF{ 255,  strobes[i] });
+        chart->mapToPosition(left);
+        strobeLines[i]->setLine(left.x(),left.y(), right.x(),right.y());
+    }
 }
 
 void ChannelWidget::resetChart()
 {
-    for (auto* series : seriesVector) {
-        series->clear();
+    for (int i = 0; i < 5; ++i) {
+        seriesVector[i]->clear();
+        upperVector[i]->clear();
     }
-    upperSeries->clear();
-    lowerSeries->clear();
+}
+
+void ChannelWidget::appendPoint(quint8 x, amp_strob_struct_t* strob)
+{
+    for (int i = 0; i < 5; ++i) {
+        QPointF point{ qreal(x),  qreal(strob[i].ampl) };
+        seriesVector[i]->append(point);
+    }
 }

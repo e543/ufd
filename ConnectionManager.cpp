@@ -10,7 +10,6 @@ ConnectionManager::ConnectionManager(Context* context) : context(context), clien
 	{
 		auto* axisX = qobject_cast<QValueAxis*>(chart->axisX());
 		width = qAbs(axisX->max() - axisX->min());
-		qreal toothCount = 5;
 		delta = width / 256;
 	}
 
@@ -83,10 +82,7 @@ void ConnectionManager::handleData()
 			cx = 0;
 		}
 
-		for (int i = 0; i < 5; ++i) {
-			//if (strb[i].ampl)
-			*channelSeries[i] << QPointF{ cx,  qreal(strb[i].ampl) };
-		}
+		context->channels[8]->appendPoint(cx,strb);
 	}
 	cx += delta;
 }
@@ -133,16 +129,24 @@ void ConnectionManager::strobeChanged()
 	//qDebug() << "Strobe changed!";
 	QVector<QPair<qreal, QPointF>> pairs;
 	auto strobes = context->firstWidget->getStrobes();
+	QVector<qreal> ys;
 	for (auto* strobe : strobes) {
+		qreal y = strobe->getLPoint().y();
 		QPointF point = { strobe->getLPoint().x(), strobe->getRPoint().x() };
-		pairs << QPair<qreal, QPointF> { strobe->getLPoint().y(), point };
+		pairs << QPair<qreal, QPointF> { y, point };
+		ys.append(y);
 	}
+
+
+	context->channels[8]->updateLines(ys);
 
 	if (context->channelSelected)
 	{
 		client->sendStrobes(context->selectedChannel, width, pairs);
+		context->channels[context->selectedChannel]->updateLines(ys);
 	}
 	else {
 		client->sendStrobes(0, width, pairs);
+		context->channels[0]->updateLines(ys);
 	}
 }

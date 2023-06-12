@@ -118,7 +118,6 @@ void Server::strobesReceived(QDataStream& in)
     for (auto& strobe : input.limits[i]) {
         in >> strobe;
     }
-    qDebug() << input.limits[i][4];
 }
 
 void Server::sendCallBack(QDataStream& in)
