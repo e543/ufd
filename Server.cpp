@@ -88,7 +88,7 @@ void Server::dataStrobe(QDataStream& out)
     for (auto& strobe : channel) {
         int xmax = 0;
         auto y = strobe.first;
-        qreal ymax = y + 1;
+        qreal ymax = 0;
         auto& point = strobe.second;
         bool found = false;
         qreal x = 0;
