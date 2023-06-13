@@ -21,7 +21,7 @@ protected:
     QVector<QGraphicsLineItem*> strobeLines;
     QVector<QColor> colors = {
             QColor(Qt::red) ,
-            QColor(Qt::darkMagenta) ,
+            QColor(Qt::green) ,
             QColor(Qt::blue) ,
             QColor(Qt::cyan) ,
             QColor(Qt::magenta) };

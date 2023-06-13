@@ -17,14 +17,14 @@ void MainWindow::showEvent(QShowEvent* e)
 void MainWindow::start()
 {
     firstWidget->addStrobe(QColor(Qt::red), { 110,110 });
-    firstWidget->addStrobe(QColor(Qt::yellow), { 130,130 });
+    firstWidget->addStrobe(QColor(Qt::green), { 130,130 });
     firstWidget->addStrobe(QColor(Qt::blue), { 150,150 });
     firstWidget->addStrobe(QColor(Qt::cyan), { 170,170 });
     firstWidget->addStrobe(QColor(Qt::magenta), { 190,190 });
 
     firstWidget->emitStrobesChanged();
 
-    for (int i = 0; i < 8; ++i)
+    for (int i = 1; i < 8; ++i)
         context->channels[i]->setPosWidth(context->posWidthes);
 
 }
@@ -350,5 +350,6 @@ void MainWindow::channelClicked()
         }
         context->currentLabel = label;
         context->channelChanged = true;
+        context->firstWidget->emitStrobesChanged();
     }
 }
