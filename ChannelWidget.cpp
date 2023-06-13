@@ -35,6 +35,9 @@ ChannelWidget::ChannelWidget(QWidget* parent, QChart* chart) : QChartView(chart,
     axisX->hide();
     axisY->hide();
 
+    areaVector.resize(5);
+    helpSeries = new QLineSeries;
+
     for (int i = 0; i < 5; ++i) {
         QLineSeries* series = new QLineSeries;
 
@@ -68,6 +71,13 @@ ChannelWidget::ChannelWidget(QWidget* parent, QChart* chart) : QChartView(chart,
         line->setPen(pen);
         chart->scene()->addItem(line);
         strobeLines.append(line);
+
+        areaVector[i] = new QAreaSeries(upperSeries, helpSeries);
+        pen.setWidth(3);
+        color = QColor("green");
+        color.setAlphaF(1.0);
+        pen.setColor(color);
+        series->setPen(pen);
     }
 
     width = qAbs(axisX->max() - axisX->min());

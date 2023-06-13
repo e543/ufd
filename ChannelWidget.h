@@ -25,7 +25,9 @@ protected:
             QColor(Qt::blue) ,
             QColor(Qt::cyan) ,
             QColor(Qt::magenta) };
+    QLineSeries* helpSeries;
     QVector<QLineSeries*> upperVector;
+    QVector<QAreaSeries*> areaVector;
     qreal width, delta, left, right;
     void resizeEvent(QResizeEvent* event) override;
 public:
