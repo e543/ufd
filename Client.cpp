@@ -15,7 +15,6 @@ Client::~Client()
 
 void Client::sendCommand(QString command)
 {
-    
     QByteArray data;
     QDataStream out(&data, QIODevice::WriteOnly);
 

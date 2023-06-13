@@ -15,6 +15,9 @@ SecondaryWidget::SecondaryWidget(QWidget* parent, QChart* chart) : ChannelWidget
     axisYright->setRange(0, 255);
     axisYright->setTickCount(7);
     chart->addAxis(axisYright, Qt::AlignRight);
+
+    axisYleft->setLabelFormat("%d");
+    axisYright->setLabelFormat("%d");
 }
 SecondaryWidget::~SecondaryWidget()
 {

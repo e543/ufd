@@ -32,6 +32,8 @@ ChartWidget::ChartWidget(QWidget* parent, QChart* chart) : QChartView(chart, par
 
 	axisX->setRange(0, 255);
 	axisY->setRange(0, 255);
+	axisX->setLabelFormat("%d");
+	axisY->setLabelFormat("%d");
 
 	series = new QLineSeries;
 	chart->addSeries(series);
