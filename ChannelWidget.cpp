@@ -152,7 +152,7 @@ void ChannelWidget::appendPoint(quint8 x, amp_strob_struct_t* strob)
 
         series->append(point);
         helpVector[i]->clear();
-        *helpVector[i] << left << ri
+        *helpVector[i] << left << right;
     }
 }
 
