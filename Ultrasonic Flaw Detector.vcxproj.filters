@@ -59,19 +59,16 @@
     <ClCompile Include="ClickedLabel.cpp">
       <Filter>utils</Filter>
     </ClCompile>
-    <ClCompile Include="Channel.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="ChannelWidget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ChartWidget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="SecondaryWidget.cpp">
+    <ClCompile Include="StrobeLine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="StrobeLine.cpp">
+    <ClCompile Include="SecondaryWidget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -92,9 +89,6 @@
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="ConnectionManager.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
-    <QtMoc Include="Channel.h">
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="ChartWidget.h">

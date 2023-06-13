@@ -14,7 +14,6 @@ class ChannelWidget : public QChartView
     Q_OBJECT
 protected:
     QChart* chart;
-    QVector<qreal> ylines;
     InteractiveStrobe* selectedStrobe;
     QVector<QPair<QPointF,qreal>> posWidthes;
     QVector<QXYSeries*> seriesVector;
@@ -25,8 +24,8 @@ protected:
             QColor(Qt::blue) ,
             QColor(Qt::cyan) ,
             QColor(Qt::magenta) };
-    QLineSeries* helpSeries;
     QVector<QLineSeries*> upperVector;
+    QVector<QLineSeries*> helpVector;
     QVector<QAreaSeries*> areaVector;
     qreal width, delta, left, right;
     void resizeEvent(QResizeEvent* event) override;

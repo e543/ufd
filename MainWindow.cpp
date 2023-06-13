@@ -350,6 +350,7 @@ void MainWindow::channelClicked()
         }
         context->currentLabel = label;
         context->channelChanged = true;
+        context->channels[8]->resetChart();
         context->firstWidget->emitStrobesChanged();
     }
 }

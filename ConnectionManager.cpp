@@ -70,7 +70,6 @@ void ConnectionManager::handleData()
 	if (result.command == "a") {
 		amplObtained = true;
 		auto num = context->selectedChannel;
-		//Channel* channel = context->channels[num];
 		ChannelWidget* channel = context->channels[8];
 
 
@@ -79,11 +78,20 @@ void ConnectionManager::handleData()
 		auto channelSeries = context->channelSeries[8];
 		auto strb = result.data.ampl_tact[num / 2].ampl_us[num % 2].ampl;
 		if (cx > width) {
-			context->channels[8]->resetChart();
+			/*context->channels[num]->resetChart();
+			context->channels[8]->resetChart();*/
+			for (auto* channel : context->channels) {
+				channel->resetChart();
+			}
 			cx = 0;
 		}
 
-		context->channels[8]->appendPoint(cx,strb);
+		/*context->channels[num]->appendPoint(cx, strb);
+		context->channels[8]->appendPoint(cx,strb);*/
+
+		for (auto* channel : context->channels) {
+			channel->appendPoint(cx, strb);
+		}
 	}
 	cx += delta;
 }
@@ -115,6 +123,7 @@ void ConnectionManager::dataTimer()
 {
 	if (context->channelSelected) {
 		if (context->channelChanged) {
+
 			strobeChanged();
 		}
 

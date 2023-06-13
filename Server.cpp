@@ -99,13 +99,27 @@ void Server::dataStrobe(QDataStream& out)
                 found = true;
             }
         }
+
+        //if (found) {
+        //    auto& strb = data.ampl_tact[numChannel / 2].ampl_us[numChannel % 2].ampl[i];
+        //    strb.time = xmax;
+        //    strb.ampl = ymax;
+        //    out << numChannel << quint8(i) << QPointF{ qreal(xmax), ymax };
+        //    //qDebug() << i << QPointF{ qreal(xmax), ymax };
+        //}
+
+        auto& strb = data.ampl_tact[numChannel / 2].ampl_us[numChannel % 2].ampl[i];
         if (found) {
-            auto& strb = data.ampl_tact[numChannel / 2].ampl_us[numChannel % 2].ampl[i];
             strb.time = xmax;
             strb.ampl = ymax;
-            out << numChannel << quint8(i) << QPointF{ qreal(xmax), ymax };
             //qDebug() << i << QPointF{ qreal(xmax), ymax };
         }
+        else {
+            strb.time = 0;
+            strb.ampl = y;
+        }
+
+        out << numChannel << quint8(i) << QPointF{ qreal(strb.time), qreal(strb.ampl) };
         ++i;
     }
 }
