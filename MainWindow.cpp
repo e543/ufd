@@ -122,6 +122,7 @@ void MainWindow::bindContext()
     context->channelSelected = false;
     context->channelChanged = false;
     context->selectedChannel = 0;
+    context->threadPool = new QThreadPool;
 }
 
 void MainWindow::initChartViews()
@@ -156,8 +157,6 @@ void MainWindow::bindChannelLabels()
     channelLabels["41"] = ui->label_41;
     channelLabels["42"] = ui->label_42;
 }
-
-
 
 void MainWindow::initMainChartViews()
 {

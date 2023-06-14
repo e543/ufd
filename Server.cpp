@@ -161,6 +161,7 @@ void Server::sendCallBack(QDataStream& in)
     out.device()->seek(qint64(0));
     out << qint64(data.size() - sizeof(qint64));
     udpSocket->writeDatagram(data, QHostAddress::LocalHost, port);
+    udpSocket->waitForBytesWritten();
 }
 
 

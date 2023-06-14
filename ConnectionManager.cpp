@@ -13,6 +13,7 @@ ConnectionManager::ConnectionManager(Context* context) : context(context), clien
 		delta = width / 256;
 	}
 
+	threadPool = context->threadPool;
 	oscObtained = true;
 	amplObtained = true;
 	QObject::connect(context->timer, &QTimer::timeout, this, &ConnectionManager::dataTimer);
@@ -89,8 +90,11 @@ void ConnectionManager::handleData()
 		/*context->channels[num]->appendPoint(cx, strb);
 		context->channels[8]->appendPoint(cx,strb);*/
 
+		auto* threadPool = context->threadPool;
 		for (auto* channel : context->channels) {
 			channel->appendPoint(cx, strb);
+			//threadPool->start(channel);
+			//qDebug() << QThreadPool::globalInstance()->stackSize();
 		}
 	}
 	cx += delta;

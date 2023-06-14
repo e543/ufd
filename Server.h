@@ -1,5 +1,6 @@
 #pragma once
 #include <QWidget>
+#include <QThread>
 
 
 QT_BEGIN_NAMESPACE

@@ -43,6 +43,7 @@ void Client::sendStrobes(quint8 channel, qreal time , const QVector<QPair<qreal,
     out.device()->seek(qint64(0));
     out << qint64(data.size() - sizeof(qint64));
     udpSocket->writeDatagram(data, QHostAddress::LocalHost, 8080);
+    udpSocket->waitForBytesWritten();
 }
 
 void Client::setConnection()

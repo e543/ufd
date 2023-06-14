@@ -3,7 +3,7 @@
 #include <QtCharts>
 #include "InteractiveStrobe.h"
 
-class ChartWidget : public QChartView
+class ChartWidget : public QChartView, public QRunnable
 {
     Q_OBJECT
     QVector<InteractiveStrobe*> strobes;
@@ -11,6 +11,7 @@ class ChartWidget : public QChartView
     QChart* chart;
     QXYSeries* series;
     bool strobeIsChanged = false;
+    void run() override;
 signals:
     void strobesChanged();
 public:

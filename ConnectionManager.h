@@ -27,6 +27,7 @@ struct Context
     QVector<ChannelWidget*> channels;
     QVector<QVector<QXYSeries*>> channelSeries;
     QVector<QPair<QPointF, qreal>> posWidthes;
+    QThreadPool* threadPool;
 };
 
 class ConnectionManager : public QObject
@@ -42,6 +43,7 @@ class ConnectionManager : public QObject
     QXYSeries* series;
     QVector<QPointF> points;
     QVector<QPair<qreal, QPointF>> limits;
+    QThreadPool* threadPool;
     bool oscObtained = true;
     bool amplObtained = true;
     void resetChart();

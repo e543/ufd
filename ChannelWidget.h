@@ -9,7 +9,7 @@ struct amp_tact_struct_t;
 struct amp_struct_t;
 QT_END_NAMESPACE
 
-class ChannelWidget : public QChartView
+class ChannelWidget : public QChartView, public QRunnable
 {
     Q_OBJECT
 protected:
@@ -27,8 +27,11 @@ protected:
     QVector<QLineSeries*> upperVector;
     QVector<QLineSeries*> helpVector;
     QVector<QAreaSeries*> areaVector;
+    quint8 x;
+    amp_strob_struct_t* strob;
     qreal width, delta, left, right;
     void resizeEvent(QResizeEvent* event) override;
+    void run() override;
 public:
     ChannelWidget(QWidget* parent = 0, QChart* chart = 0);
     ~ChannelWidget();
