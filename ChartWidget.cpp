@@ -53,6 +53,10 @@ ChartWidget::~ChartWidget()
 {
 }
 
+void ChartWidget::run()
+{
+}
+
 void ChartWidget::addStrobe(QPointF initPos)
 {
 	auto* strobe = new InteractiveStrobe(chart, initPos);

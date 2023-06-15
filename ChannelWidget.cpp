@@ -45,7 +45,7 @@ ChannelWidget::ChannelWidget(QWidget* parent, QChart* chart) : QChartView(chart,
         series->attachAxis(axisY);
 
         QPen pen;
-        color.setAlphaF(0.0);
+        color.setAlphaF(1.0);
         pen.setColor(color);
         pen.setWidth(1);
         series->setPen(pen);
@@ -87,6 +87,8 @@ ChannelWidget::ChannelWidget(QWidget* parent, QChart* chart) : QChartView(chart,
         areaVector.append(areaSeries);
         color.setAlphaF(0.5);
         areaSeries->setBrush(color);
+        pen.setWidth(2);
+        areaSeries->setPen(pen);
         chart->addSeries(areaSeries);
         areaSeries->attachAxis(axisX);
         areaSeries->attachAxis(axisY);
@@ -98,6 +100,8 @@ ChannelWidget::ChannelWidget(QWidget* parent, QChart* chart) : QChartView(chart,
     delta = width / 256;
 
     resetChart();
+    strob = new amp_strob_struct_t[5];
+    QRunnable::setAutoDelete(false);
 };
 
 
@@ -142,17 +146,26 @@ void ChannelWidget::resetChart()
 
 void ChannelWidget::appendPoint(quint8 x, amp_strob_struct_t* strob)
 {
+    /*this->x = x;
+    this->strob = new amp_strob_struct_t[5];
     for (int i = 0; i < 5; ++i) {
-        auto* series = seriesVector[i];
-        QPointF point{ qreal(x),  qreal(strob[i].ampl) };
-        qreal y = strobeLines[i]->line().p1().y();
-        QPointF left = chart->mapToValue(QPointF{ 0,  y });
+        this->strob[i] = strob[i];
+    }*/
+
+    for (int i = 0; i < 5; ++i) {
+        QPointF point = { qreal(x),  qreal(strob[i].ampl) };
+        QPointF left = chart->mapToValue(strobeLines[i]->line().p1());
         QPointF right = left;
         right.setX(x);
 
-        series->append(point);
-        helpVector[i]->clear();
-        *helpVector[i] << left << right;
+        seriesVector[i]->append(point);
+        if (point.y() >= left.y()) {
+            *helpVector[i] << right;
+        }
+        else {
+            *helpVector[i] << point;
+        }
+
     }
 }
 
@@ -160,4 +173,20 @@ void ChannelWidget::resizeEvent(QResizeEvent* event)
 {
     QChartView::resizeEvent(event);
     setPosWidth(posWidthes);
+}
+
+void ChannelWidget::run()
+{
+    for (int i = 0; i < 5; ++i) {
+        QPointF point = { qreal(x),  qreal(strob[i].ampl) };
+        qreal y = strobeLines[i]->line().p1().y();
+        QPointF leftPoint = chart->mapToValue(QPointF{ 0,  y });
+        QPointF rightPoint = leftPoint;
+        rightPoint.setX(x);
+
+        auto* series = seriesVector[i];
+        series->append(point);
+        helpVector[i]->clear();
+        *helpVector[i] << rightPoint;
+    }
 }
