@@ -12,6 +12,9 @@ struct settings {
     qreal time = 0;
     QVector<QVector<QPair<qreal, QPointF>>> limits;
     settings() {
+        reset();
+    }
+    void reset() {
         limits.resize(8);
         for (auto& channel : limits) {
             channel.resize(5);
@@ -60,23 +63,26 @@ public:
 private slots:
     void startListening();
     void callBackDatagram();
-    void dataOsc(QDataStream& out);
     void dataStrobe(QDataStream& out);
     void strobesReceived(QDataStream& in);
+    void updateOsc();
+    void initOsc();
 private:
     QLabel* statusLabel = nullptr;
     QPushButton* startButton = nullptr;
     QUdpSocket* udpSocket = nullptr;
-    quint8 osc[256];
+    quint8 osc[8][256];
     QString command;
     quint16 port;
     settings input;
     quint8 numChannel;
     amp_struct_t data;
+    QTimer* timer;
     static constexpr qreal width = 256;
     static constexpr qreal delta = width / 256;
 private:
     void sendCallBack(QDataStream& in);
+    void sendOsc(QDataStream& out);
     void disconnect();
 };
 

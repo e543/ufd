@@ -13,6 +13,20 @@ Client::~Client()
     delete udpSocket;
 }
 
+void Client::sendNumChannel(quint8 numChannel)
+{
+    QByteArray data;
+    QDataStream out(&data, QIODevice::WriteOnly);
+
+    out << qint64(0);
+    out << QString("n");
+    out << numChannel;
+
+    out.device()->seek(qint64(0));
+    out << qint64(data.size() - sizeof(qint64));
+    udpSocket->writeDatagram(data, QHostAddress("192.168.1.164"), 8080);
+}
+
 void Client::sendCommand(QString command)
 {
     QByteArray data;
@@ -23,25 +37,31 @@ void Client::sendCommand(QString command)
 
     out.device()->seek(qint64(0));
     out << qint64(data.size() - sizeof(qint64));
-    udpSocket->writeDatagram(data, QHostAddress::LocalHost, 8080);
+    udpSocket->writeDatagram(data, QHostAddress("192.168.1.164"), 8080);
 }
 
-void Client::sendStrobes(quint8 channel, qreal time , const QVector<QPair<qreal, QPointF>>& pairs)
+void Client::sendStrobes(qreal time , const QVector<QVector<QPair<qreal, QPointF>>>& limits)
 {
     QByteArray data;
     QDataStream out(&data, QIODevice::WriteOnly);
 
     out << qint64(0);
     out << QString("s");
-    out << channel;
     out << time;
-    for (auto& pair : pairs) {
-        out << pair;
+    quint8 num = 0;
+    for (auto& limit : limits) {
+        out << num;
+        if (num < 0)
+            qDebug() << num;
+        for (auto& pair : limit) {
+            out << pair;
+        }
+        num += quint8(1);
     }
 
     out.device()->seek(qint64(0));
     out << qint64(data.size() - sizeof(qint64));
-    udpSocket->writeDatagram(data, QHostAddress::LocalHost, 8080);
+    udpSocket->writeDatagram(data, QHostAddress("192.168.1.164"), 8080);
     udpSocket->waitForBytesWritten();
 }
 
@@ -50,7 +70,7 @@ void Client::setConnection()
     udpSocket = new QUdpSocket(this);
     this->port = port;
 
-    if (!udpSocket->bind(QHostAddress::LocalHost, 8081))
+    if (!udpSocket->bind(QHostAddress("192.168.1.164"), 8081))
     {
         qDebug() << udpSocket->errorString();
         return;

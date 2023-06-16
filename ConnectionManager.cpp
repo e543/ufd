@@ -16,6 +16,9 @@ ConnectionManager::ConnectionManager(Context* context) : context(context), clien
 	threadPool = context->threadPool;
 	oscObtained = true;
 	amplObtained = true;
+	strobesInitialized = false;
+	//limits.resize(8);
+
 	QObject::connect(context->timer, &QTimer::timeout, this, &ConnectionManager::dataTimer);
 	QObject::connect(context->ui_MainWindow->StopButton, SIGNAL(clicked()), this, SLOT(toggleConnection()));
 	QObject::connect(context->firstWidget, &ChartWidget::strobesChanged, this, &ConnectionManager::strobeChanged);
@@ -73,14 +76,11 @@ void ConnectionManager::handleData()
 		auto num = context->selectedChannel;
 		ChannelWidget* channel = context->channels[8];
 
-
 		auto* chart = channel->getChart();
 		//auto channelSeries = context->channelSeries[num];
 		auto channelSeries = context->channelSeries[8];
 		auto strb = result.data.ampl_tact[num / 2].ampl_us[num % 2].ampl;
 		if (cx > width) {
-			/*context->channels[num]->resetChart();
-			context->channels[8]->resetChart();*/
 			for (auto* channel : context->channels) {
 				channel->resetChart();
 			}
@@ -90,11 +90,11 @@ void ConnectionManager::handleData()
 		/*context->channels[num]->appendPoint(cx, strb);
 		context->channels[8]->appendPoint(cx,strb);*/
 
-		auto* threadPool = context->threadPool;
-		for (auto* channel : context->channels) {
-			channel->appendPoint(cx, strb);
-			//threadPool->start(channel);
-			//qDebug() << QThreadPool::globalInstance()->stackSize();
+		auto& channels = context->channels;
+		channels[8]->appendPoint(cx, strb);
+		for (int i = 0; i < 8; ++i) {
+			auto strb = result.data.ampl_tact[i / 2].ampl_us[i % 2].ampl;
+			channels[i]->appendPoint(cx, strb);
 		}
 	}
 	cx += delta;
@@ -106,6 +106,7 @@ void ConnectionManager::toggleConnection()
 	if (context->connectionActive) {
 		timer->start(5);
 		context->fpsTimer->start();
+		context->ruler->start();
 		client->setConnection();
 		strobeChanged();
 		QObject::connect(client, SIGNAL(dataReceived()), this, SLOT(handleData()));
@@ -117,6 +118,7 @@ void ConnectionManager::toggleConnection()
 	else
 	{
 		timer->stop();
+		context->ruler->stop();
 		QObject::disconnect(client, SIGNAL(dataReceived()), this, SLOT(handleData()));
 		QObject::disconnect(context->firstWidget, &ChartWidget::strobesChanged, this, &ConnectionManager::sendStrobe);
 		client->disconnect();
@@ -125,9 +127,14 @@ void ConnectionManager::toggleConnection()
 
 void ConnectionManager::dataTimer()
 {
+	if (context->strobesAdded) {
+		strobeInit();
+		context->strobesAdded = false; 
+		strobesInitialized = true;
+	}
+
 	if (context->channelSelected) {
 		if (context->channelChanged) {
-
 			strobeChanged();
 		}
 
@@ -148,12 +155,18 @@ void ConnectionManager::strobeChanged()
 
 	auto strobes = context->firstWidget->getStrobes();
 	QVector<QPair<QPointF, qreal>> posWidthes;
+	int numChannel = context->selectedChannel;
 
 	if (context->channelChanged) {
-		context->channels[context->selectedChannel]->resetChart();
-		posWidthes = context->channels[context->selectedChannel]->getPosWidthes();
+		context->channels[numChannel]->resetChart();
+		posWidthes = context->channels[numChannel]->getPosWidthes();
 		context->firstWidget->setPosWidth(posWidthes);
 		context->channelChanged = false;
+		for (auto* channel : context->channels) {
+			channel->resetChart();
+		}
+		cx = 0;
+		client->sendNumChannel(numChannel);
 	}
 	else {
 		for (auto* strobe : strobes)
@@ -169,16 +182,35 @@ void ConnectionManager::strobeChanged()
 		context->channels[8]->setPosWidth(posWidthes);
 	}
 
+	if (strobesInitialized)
+	{
+		limits[numChannel].clear();
+		for (auto* strobe : strobes) {
+			qreal y = strobe->getLPoint().y();
+			QPointF point = { strobe->getLPoint().x(), strobe->getRPoint().x() };
+			limits[numChannel] << QPair<qreal, QPointF> { y, point };
+		}
+	}
+}
+
+void ConnectionManager::strobeInit() {
 	limits.clear();
-	for (auto* strobe : strobes) {
-		qreal y = strobe->getLPoint().y();
-		QPointF point = { strobe->getLPoint().x(), strobe->getRPoint().x() };
-		limits << QPair<qreal, QPointF> { y, point };
+	limits.resize(8);
+
+	auto strobes = context->firstWidget->getStrobes();
+
+	for (int j = 0; j < 8; ++j){
+		for (int i = 0; i < 5; ++i) {
+			auto& strobe = strobes[i];
+			qreal y = strobe->getLPoint().y();
+			QPointF point = { strobe->getLPoint().x(), strobe->getRPoint().x() };
+			limits[j] << QPair<qreal, QPointF> { y, point };
+		}
 	}
 }
 
 void ConnectionManager::sendStrobe()
 {
 	if (limits.size())
-		client->sendStrobes(context->selectedChannel, width, limits);
+		client->sendStrobes(width, limits);
 }

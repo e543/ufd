@@ -1,8 +1,6 @@
 ﻿#include "MainWindow.h"
 
 
-
-
 void MainWindow::showEvent(QShowEvent* e)
 {
     QMainWindow::showEvent(e);
@@ -27,6 +25,7 @@ void MainWindow::start()
     for (int i = 1; i < 8; ++i)
         context->channels[i]->setPosWidth(context->posWidthes);
 
+    context->strobesAdded = true;
 }
 
 void MainWindow::closeEvent(QCloseEvent* event)
@@ -75,10 +74,16 @@ void MainWindow::initMainWindow()
     ui->splitter->setStretchFactor(1, 2);
     ui->splitter->setMinimumSize(QSize(300, 300));
 
+
     bindChannelLabels();
     initChartViews();
     initMainChartViews();
     indexLabels();
+
+    ruler = new Ruler(ui->centralwidget);
+    ui->horizontalLayout_24->addWidget(ruler);
+
+    context->strobesAdded = false;
 
     context->connectionActive = false;
     connect(ui->ASkanRazvComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(readASkanRazvTables(int)));
@@ -122,6 +127,7 @@ void MainWindow::bindContext()
     context->channelSelected = false;
     context->channelChanged = false;
     context->selectedChannel = 0;
+    context->ruler = ruler;
     context->threadPool = new QThreadPool;
 }
 
@@ -161,7 +167,7 @@ void MainWindow::bindChannelLabels()
 void MainWindow::initMainChartViews()
 {
     QSplitter* splitter = new QSplitter(Qt::Vertical, ui->frame_3);
-
+    mainSplitter = splitter;
     ui->verticalLayout_main->addWidget(splitter);
 
     firstWidget = new ChartWidget(ui->centralwidget);

@@ -13,7 +13,7 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{E84BE0F0-94A4-4D36-9E47-42B172E1D75F}</ProjectGuid>
     <Keyword>QtVS_v304</Keyword>
-    <WindowsTargetPlatformVersion Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">10.0.22621.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">10.0.19041.0</WindowsTargetPlatformVersion>
     <WindowsTargetPlatformVersion Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">10.0.22621.0</WindowsTargetPlatformVersion>
     <QtMsBuild Condition="'$(QtMsBuild)'=='' OR !Exists('$(QtMsBuild)\qt.targets')">$(MSBuildProjectDirectory)\QtMsBuild</QtMsBuild>
   </PropertyGroup>
@@ -31,7 +31,7 @@
     <Import Project="$(QtMsBuild)\qt_defaults.props" />
   </ImportGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="QtSettings">
-    <QtInstall>C:_Qt_5.15.2_msvc2019</QtInstall>
+    <QtInstall>qt5.15.2_msvc2019_64</QtInstall>
     <QtModules>core;network;gui;widgets;charts;</QtModules>
     <QtBuildConfig>debug</QtBuildConfig>
   </PropertyGroup>
@@ -92,6 +92,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainWindow.cpp" />
     <ClCompile Include="Client.cpp" />
+    <ClCompile Include="Ruler.cpp" />
     <ClCompile Include="SecondaryWidget.cpp" />
     <ClCompile Include="Server.cpp" />
     <ClCompile Include="StrobeLine.cpp" />
@@ -101,6 +102,7 @@
     <ClInclude Include="Application.h" />
     <ClInclude Include="ApplicationController.h" />
     <QtMoc Include="SecondaryWidget.h" />
+    <ClInclude Include="Ruler.h" />
     <ClInclude Include="StrobeLine.h" />
     <QtMoc Include="ChannelWidget.h" />
     <ClInclude Include="InteractiveStrobe.h" />

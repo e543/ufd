@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Client.h"
+#include "Ruler.h"
 #include "ColorSchemeDialog.h"
 #include "UnitSettingsDialog.h"
 #include "ChartWidget.h"
@@ -20,6 +21,7 @@ struct Context
     bool connectionActive;
     bool channelSelected;
     bool channelChanged;
+    bool strobesAdded;
     quint8* osc;
     ClickedLabel* currentLabel;
     quint8 selectedChannel;
@@ -27,6 +29,7 @@ struct Context
     QVector<ChannelWidget*> channels;
     QVector<QVector<QXYSeries*>> channelSeries;
     QVector<QPair<QPointF, qreal>> posWidthes;
+    Ruler* ruler;
     QThreadPool* threadPool;
 };
 
@@ -42,10 +45,11 @@ class ConnectionManager : public QObject
     qreal width;
     QXYSeries* series;
     QVector<QPointF> points;
-    QVector<QPair<qreal, QPointF>> limits;
+    QVector<QVector<QPair<qreal, QPointF>>> limits;
     QThreadPool* threadPool;
     bool oscObtained = true;
     bool amplObtained = true;
+    bool strobesInitialized = false;
     void resetChart();
 private slots:
     void handleData();
@@ -55,5 +59,6 @@ private slots:
     void sendStrobe();
 public:
     ConnectionManager(Context* context);
+    void strobeInit();
 };
 

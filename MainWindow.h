@@ -24,8 +24,10 @@ class MainWindow : public QMainWindow
     QHash<QString, QChartView*> chartViews;
     QHash<QString, ClickedLabel*> channelLabels;
     QVector<QVector<QXYSeries*>> channelSeries;
+    QSplitter* mainSplitter;
     ChartWidget* firstWidget;
     Server* server = nullptr;
+    Ruler* ruler;
 
     UnitSettingsDialog* unitSettings = nullptr;
 

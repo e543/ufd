@@ -36,7 +36,8 @@ public:
     Client();
     ~Client();
     void sendCommand(QString command);
-    void sendStrobes(quint8 channel, qreal time, const QVector<QPair<qreal, QPointF>>& points);
+    void sendNumChannel(quint8 numChannel);
+    void sendStrobes(qreal time, const QVector<QVector<QPair<qreal, QPointF>>>& limits);
     void setConnection();
     void disconnect();
     Result fetchData();

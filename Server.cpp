@@ -27,9 +27,9 @@ Server::Server(QWidget* parent)
     mainLayout->addWidget(buttonBox);
     setLayout(mainLayout);
 
-    for (int i = 0; i < 256; ++i) {
-        osc[i] = 2*i;
-    }
+    initOsc();
+    timer = new QTimer;
+    connect(timer, &QTimer::timeout, this, &Server::updateOsc);
 
     setWindowTitle(tr("Server"));
 }
@@ -38,7 +38,7 @@ void Server::startListening()
 {
     udpSocket = new QUdpSocket(this);
     startButton->setEnabled(false);
-    if (!udpSocket->bind(QHostAddress::LocalHost, 8080))
+    if (!udpSocket->bind(QHostAddress("192.168.1.164"), 8080))
     {
         qDebug() << udpSocket->errorString();
         return;
@@ -65,15 +65,46 @@ void Server::callBackDatagram()
         if (in.device()->size() - sizeof(qint64) < size) return;
 
         in >> command;
-        sendCallBack(in);
+
+        if (command == QString("n")) {
+            in >> numChannel;
+        } 
+        else {
+            sendCallBack(in);
+        }
     }
 
 }
 
-void Server::dataOsc(QDataStream& out)
+void Server::initOsc()
 {
     for (int i = 0; i < 256; ++i) {
-        out << osc[i];
+        osc[0][i] = 2 * i;
+        osc[1][i] = -2 * i;
+        osc[2][i] = 4 * i;
+        osc[3][i] = -4 * i;
+        osc[5][i] = -6 * i;
+        osc[4][i] = 6 * i;
+        osc[6][i] = 8 * i;
+        osc[7][i] = -8 * i;
+    }
+}
+
+void Server::updateOsc()
+{
+    //for (int i = 0; i < 256; ++i) {
+    //    //out << osc[1][i];
+    //}
+
+    /*for (int i = 0; i < 256; ++i) {
+        osc[i] += 0;
+    }*/
+}
+
+void Server::sendOsc(QDataStream& out)
+{
+    for (int i = 0; i < 256; ++i) {
+        out << osc[numChannel][i];
     }
 
     /*for (int i = 0; i < 256; ++i) {
@@ -83,54 +114,44 @@ void Server::dataOsc(QDataStream& out)
 
 void Server::dataStrobe(QDataStream& out)
 {
-    auto& channel = input.limits[numChannel];
-    int i = 0;
-    for (auto& strobe : channel) {
-        int xmax = 0;
-        auto y = strobe.first;
-        qreal ymax = 0;
-        auto& point = strobe.second;
-        bool found = false;
-        qreal x = 0;
-        for (int i = 0; i < 256; ++i, x += delta) {
-            if (osc[i] > ymax && x >= point.x() && x <= point.y()) {
-                xmax = i;
-                ymax = osc[i];
-                found = true;
+    for (int k = 0; k < 8; ++k) {
+        auto& channel = input.limits[k];
+        for (int j = 0; j < 5; ++j) {
+            auto& strobe = channel[j];
+            int xmax = 0;
+            auto y = strobe.first;
+            qreal ymax = 0;
+            auto& point = strobe.second;
+            qreal x = 0;
+            for (int i = 0; i < 256; ++i, x += delta) {
+                if (osc[k][i] > ymax && x >= point.x() && x <= point.y()) {
+                    xmax = i;
+                    ymax = osc[k][i];
+                }
             }
-        }
 
-        //if (found) {
-        //    auto& strb = data.ampl_tact[numChannel / 2].ampl_us[numChannel % 2].ampl[i];
-        //    strb.time = xmax;
-        //    strb.ampl = ymax;
-        //    out << numChannel << quint8(i) << QPointF{ qreal(xmax), ymax };
-        //    //qDebug() << i << QPointF{ qreal(xmax), ymax };
-        //}
+            auto& strb = data.ampl_tact[k / 2].ampl_us[k % 2].ampl[j];
 
-        auto& strb = data.ampl_tact[numChannel / 2].ampl_us[numChannel % 2].ampl[i];
-        if (found) {
             strb.time = xmax;
             strb.ampl = ymax;
-            //qDebug() << i << QPointF{ qreal(xmax), ymax };
-        }
-        else {
-            strb.time = 0;
-            strb.ampl = y;
-        }
 
-        out << numChannel << quint8(i) << QPointF{ qreal(strb.time), qreal(strb.ampl) };
-        ++i;
+            out << quint8(k) << quint8(j) << QPointF{ qreal(strb.time), qreal(strb.ampl) };
+        }
     }
 }
 
 void Server::strobesReceived(QDataStream& in)
 {
-    in >> numChannel;
     in >> input.time;
-    quint8 i = numChannel;
-    for (auto& strobe : input.limits[i]) {
-        in >> strobe;
+    while (!in.atEnd()) {
+        quint8 i;
+        in >> i;
+        if (i > 8)
+            qDebug() << i;
+        for (auto& strobe : input.limits[i]) {
+            in >> strobe;
+            auto& test = strobe;
+        }
     }
 }
 
@@ -140,9 +161,13 @@ void Server::sendCallBack(QDataStream& in)
     QDataStream out(&data, QIODevice::WriteOnly);
     out << qint64(0);
 
+    
     if (command == "o") {
+        if (numChannel == 255) {
+            return;
+        }
         out << QString("o");
-        dataOsc(out);
+        sendOsc(out);
     }
     else 
     if (command == "a") {
@@ -160,7 +185,7 @@ void Server::sendCallBack(QDataStream& in)
 
     out.device()->seek(qint64(0));
     out << qint64(data.size() - sizeof(qint64));
-    udpSocket->writeDatagram(data, QHostAddress::LocalHost, port);
+    udpSocket->writeDatagram(data, QHostAddress("192.168.1.164"), port);
     udpSocket->waitForBytesWritten();
 }
 
