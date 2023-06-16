@@ -30,6 +30,7 @@ Server::Server(QWidget* parent)
     initOsc();
     timer = new QTimer;
     connect(timer, &QTimer::timeout, this, &Server::updateOsc);
+    timer->start();
 
     setWindowTitle(tr("Server"));
 }
@@ -79,22 +80,26 @@ void Server::callBackDatagram()
 void Server::initOsc()
 {
     for (int i = 0; i < 256; ++i) {
-        osc[0][i] = 2 * i;
-        osc[1][i] = -2 * i;
-        osc[2][i] = 4 * i;
-        osc[3][i] = -4 * i;
-        osc[5][i] = -6 * i;
-        osc[4][i] = 6 * i;
-        osc[6][i] = 8 * i;
-        osc[7][i] = -8 * i;
+        oscInit[0][i] = osc[0][i] = 2 * i;
+        oscInit[1][i] = osc[1][i] = -2 * i;
+        oscInit[2][i] = osc[2][i] = 4 * i;
+        oscInit[3][i] = osc[3][i] = -4 * i;
+        oscInit[5][i] = osc[5][i] = -6 * i;
+        oscInit[4][i] = osc[4][i] = 6 * i;
+        oscInit[6][i] = osc[6][i] = 8 * i;
+        oscInit[7][i] = osc[7][i] = -8 * i;
     }
 }
 
 void Server::updateOsc()
 {
-    //for (int i = 0; i < 256; ++i) {
-    //    //out << osc[1][i];
-    //}
+    int gap = 2;
+    for (int j = 0; j < 8; ++j) {
+        for (int i = 0; i < 256; ++i) {
+            if (osc[j][i] <= 255 - gap  || osc[j][i] >= gap)
+                osc[j][i] = oscInit[j][i] + (- gap + QRandomGenerator::global()->generate64() % gap);
+        }
+    }
 
     /*for (int i = 0; i < 256; ++i) {
         osc[i] += 0;

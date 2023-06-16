@@ -11,7 +11,7 @@ Ruler::Ruler(QWidget* parent) : QWidget(parent)
 	setMaximumSize(QSize(3000, 60));
 	setStyleSheet("border:  1px dashed blue;");
 	timer = new QTimer(this);
-	connect(timer, &QTimer::timeout, this, &Ruler::run);
+	//connect(timer, &QTimer::timeout, this, &Ruler::run);
 	reset();
 }
 

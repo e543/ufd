@@ -98,6 +98,7 @@ void ConnectionManager::handleData()
 		}
 	}
 	cx += delta;
+	context->ruler->run();
 }
 
 void ConnectionManager::toggleConnection()
@@ -158,14 +159,15 @@ void ConnectionManager::strobeChanged()
 	int numChannel = context->selectedChannel;
 
 	if (context->channelChanged) {
-		context->channels[numChannel]->resetChart();
 		posWidthes = context->channels[numChannel]->getPosWidthes();
 		context->firstWidget->setPosWidth(posWidthes);
 		context->channelChanged = false;
-		for (auto* channel : context->channels) {
+
+		//context->channels[numChannel]->resetChart();
+		/*for (auto* channel : context->channels) {
 			channel->resetChart();
 		}
-		cx = 0;
+		cx = 0;*/
 		client->sendNumChannel(numChannel);
 	}
 	else {
@@ -207,6 +209,7 @@ void ConnectionManager::strobeInit() {
 			limits[j] << QPair<qreal, QPointF> { y, point };
 		}
 	}
+	sendStrobe();
 }
 
 void ConnectionManager::sendStrobe()

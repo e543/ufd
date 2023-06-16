@@ -72,6 +72,7 @@ private:
     QPushButton* startButton = nullptr;
     QUdpSocket* udpSocket = nullptr;
     quint8 osc[8][256];
+    quint8 oscInit[8][256];
     QString command;
     quint16 port;
     settings input;

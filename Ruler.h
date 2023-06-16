@@ -21,11 +21,11 @@ public:
 	void reset();
 	void start();
 	void stop();
+	void run();
 private:
 	void paintEvent(QPaintEvent* event) override;
 	void resizeEvent(QResizeEvent* event) override;
-private slots:
-	void run();
+//private slots:
 };
 
 
